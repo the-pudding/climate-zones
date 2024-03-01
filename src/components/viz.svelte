@@ -13,6 +13,7 @@
 		{
 			id: 0,
 			name: "Amsterdam",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 10.41,
@@ -22,6 +23,7 @@
 		{
 			id: 1,
 			name: "Athens",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 17.13,
@@ -31,6 +33,7 @@
 		{
 			id: 2,
 			name: "Atlanta",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 16.36,
@@ -40,6 +43,7 @@
 		{
 			id: 3,
 			name: "Auckland",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 14.64,
@@ -49,6 +53,7 @@
 		{
 			id: 4,
 			name: "Bangkok",
+			color_2023: "rgb(70,170,250)",
 			type_2023: "Tropical, savannah",
 			type_2070: "Tropical, savannah",
 			temp_2023: 28.36,
@@ -58,6 +63,7 @@
 		{
 			id: 5,
 			name: "Barcelona",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 16.93,
@@ -67,6 +73,7 @@
 		{
 			id: 6,
 			name: "Beijing",
+			color_2023: "rgb(170,175,255)",
 			type_2023: "Cold, dry winter, hot summer",
 			type_2070: "Temperate, dry winter, hot summer",
 			temp_2023: 10.12,
@@ -76,6 +83,7 @@
 		{
 			id: 7,
 			name: "Berlin",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 9.7,
@@ -85,6 +93,7 @@
 		{
 			id: 8,
 			name: "Bogota",
+			color_2023: "rgb(200,200,0)",
 			type_2023: "Temperate, dry summer, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 15.0,
@@ -94,6 +103,7 @@
 		{
 			id: 9,
 			name: "Boston",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 10.72,
@@ -103,6 +113,7 @@
 		{
 			id: 10,
 			name: "Brussels",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 10.96,
@@ -112,6 +123,7 @@
 		{
 			id: 11,
 			name: "Bucharest",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Arid, steppe, cold",
 			temp_2023: 12.07,
@@ -121,6 +133,7 @@
 		{
 			id: 12,
 			name: "Budapest",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Arid, steppe, cold",
 			temp_2023: 9.71,
@@ -130,6 +143,7 @@
 		{
 			id: 13,
 			name: "Buenos Aires",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 16.71,
@@ -139,6 +153,7 @@
 		{
 			id: 14,
 			name: "Cairo",
+			color_2023: "rgb(255,0,0)",
 			type_2023: "Arid, desert, hot",
 			type_2070: "Arid, desert, hot",
 			temp_2023: 21.86,
@@ -148,6 +163,7 @@
 		{
 			id: 15,
 			name: "Cape Town",
+			color_2023: "rgb(200,200,0)",
 			type_2023: "Temperate, dry summer, warm summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 16.67,
@@ -157,6 +173,7 @@
 		{
 			id: 16,
 			name: "Caracas",
+			color_2023: "rgb(70,170,250)",
 			type_2023: "Tropical, savannah",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 24.78,
@@ -166,6 +183,7 @@
 		{
 			id: 17,
 			name: "Casablanca",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 18.79,
@@ -175,6 +193,7 @@
 		{
 			id: 18,
 			name: "Chicago",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 9.75,
@@ -184,6 +203,7 @@
 		{
 			id: 19,
 			name: "Dubai",
+			color_2023: "rgb(255,0,0)",
 			type_2023: "Arid, desert, hot",
 			type_2070: "Arid, desert, hot",
 			temp_2023: 27.79,
@@ -193,6 +213,7 @@
 		{
 			id: 20,
 			name: "Dublin",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 10.37,
@@ -202,6 +223,7 @@
 		{
 			id: 21,
 			name: "Frankfurt",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 9.94,
@@ -211,6 +233,7 @@
 		{
 			id: 22,
 			name: "Geneva",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 9.54,
@@ -220,6 +243,7 @@
 		{
 			id: 23,
 			name: "Hamburg",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 9.47,
@@ -229,6 +253,7 @@
 		{
 			id: 24,
 			name: "Helsinki",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 5.65,
@@ -238,6 +263,7 @@
 		{
 			id: 25,
 			name: "Hong Kong",
+			color_2023: "rgb(150,255,150)",
 			type_2023: "Temperate, dry winter, hot summer",
 			type_2070: "Tropical, monsoon",
 			temp_2023: 23.46,
@@ -247,6 +273,7 @@
 		{
 			id: 26,
 			name: "Instanbul",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 19.0,
@@ -256,6 +283,7 @@
 		{
 			id: 27,
 			name: "Jakarta",
+			color_2023: "rgb(0,120,255)",
 			type_2023: "Tropical, monsoon",
 			type_2070: "Tropical, monsoon",
 			temp_2023: 27.35,
@@ -265,6 +293,7 @@
 		{
 			id: 28,
 			name: "Johannesburg",
+			color_2023: "rgb(100,200,100)",
 			type_2023: "Temperate, dry winter, warm summer",
 			type_2070: "Temperate, dry winter, hot summer",
 			temp_2023: 17.66,
@@ -274,6 +303,7 @@
 		{
 			id: 29,
 			name: "Kuala Lumpur",
+			color_2023: "rgb(0,0,255)",
 			type_2023: "Tropical, rainforest",
 			type_2070: "Tropical, rainforest",
 			temp_2023: 26.39,
@@ -283,6 +313,7 @@
 		{
 			id: 30,
 			name: "Copenhagen",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 8.38,
@@ -292,6 +323,7 @@
 		{
 			id: 31,
 			name: "Lagos",
+			color_2023: "rgb(70,170,250)",
 			type_2023: "Tropical, savannah",
 			type_2070: "Tropical, savannah",
 			temp_2023: 27.25,
@@ -301,6 +333,7 @@
 		{
 			id: 32,
 			name: "Lisbon",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 17.1,
@@ -310,6 +343,7 @@
 		{
 			id: 33,
 			name: "London",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 10.41,
@@ -319,6 +353,7 @@
 		{
 			id: 34,
 			name: "Los Angeles",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 15.44,
@@ -328,6 +363,7 @@
 		{
 			id: 35,
 			name: "Madrid",
+			color_2023: "rgb(255,220,100)",
 			type_2023: "Arid, steppe, cold",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 15.12,
@@ -337,6 +373,7 @@
 		{
 			id: 36,
 			name: "Manila",
+			color_2023: "rgb(70,170,250)",
 			type_2023: "Tropical, savannah",
 			type_2070: "Tropical, savannah",
 			temp_2023: 26.54,
@@ -346,6 +383,7 @@
 		{
 			id: 37,
 			name: "Melbourne",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 14.61,
@@ -355,6 +393,7 @@
 		{
 			id: 38,
 			name: "Mexico City",
+			color_2023: "rgb(100,200,100)",
 			type_2023: "Temperate, dry winter, warm summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 18.33,
@@ -364,6 +403,7 @@
 		{
 			id: 39,
 			name: "Miami",
+			color_2023: "rgb(0,120,255)",
 			type_2023: "Tropical, monsoon",
 			type_2070: "Tropical, monsoon",
 			temp_2023: 24.8,
@@ -373,6 +413,7 @@
 		{
 			id: 40,
 			name: "Milan",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 12.32,
@@ -382,6 +423,7 @@
 		{
 			id: 41,
 			name: "Moscow",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Cold, no dry season, hot summer",
 			temp_2023: 5.68,
@@ -391,6 +433,7 @@
 		{
 			id: 42,
 			name: "Mumbai",
+			color_2023: "rgb(0,120,255)",
 			type_2023: "Tropical, monsoon",
 			type_2070: "Tropical, monsoon",
 			temp_2023: 27.39,
@@ -400,6 +443,7 @@
 		{
 			id: 43,
 			name: "Munich",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 8.44,
@@ -409,6 +453,7 @@
 		{
 			id: 44,
 			name: "Nairobi",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Tropical, savannah",
 			temp_2023: 18.92,
@@ -418,6 +463,7 @@
 		{
 			id: 45,
 			name: "New Delhi",
+			color_2023: "rgb(245,165,0)",
 			type_2023: "Arid, steppe, hot",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 25.14,
@@ -427,6 +473,7 @@
 		{
 			id: 46,
 			name: "New York",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 11.57,
@@ -436,6 +483,7 @@
 		{
 			id: 47,
 			name: "Oslo",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 5.28,
@@ -445,6 +493,7 @@
 		{
 			id: 48,
 			name: "Paris",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 11.96,
@@ -454,6 +503,7 @@
 		{
 			id: 49,
 			name: "Prague",
+			color_2023: "rgb(255,220,100)",
 			type_2023: "Arid, steppe, cold",
 			type_2070: "Arid, steppe, cold",
 			temp_2023: 8.82,
@@ -463,6 +513,7 @@
 		{
 			id: 50,
 			name: "Rio de Janeiro",
+			color_2023: "rgb(70,170,250)",
 			type_2023: "Tropical, savannah",
 			type_2070: "Tropical, savannah",
 			temp_2023: 23.52,
@@ -472,6 +523,7 @@
 		{
 			id: 51,
 			name: "Riyadh",
+			color_2023: "rgb(255,0,0)",
 			type_2023: "Arid, desert, hot",
 			type_2070: "Arid, desert, hot",
 			temp_2023: 26.3,
@@ -481,6 +533,7 @@
 		{
 			id: 52,
 			name: "Rome",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 16.36,
@@ -490,6 +543,7 @@
 		{
 			id: 53,
 			name: "San Francisco",
+			color_2023: "rgb(200,200,0)",
 			type_2023: "Temperate, dry summer, warm summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 14.98,
@@ -499,6 +553,7 @@
 		{
 			id: 54,
 			name: "Santiago",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Arid, steppe, hot",
 			temp_2023: 12.9,
@@ -508,6 +563,7 @@
 		{
 			id: 55,
 			name: "Seoul",
+			color_2023: "rgb(170,175,255)",
 			type_2023: "Cold, dry winter, hot summer",
 			type_2070: "Temperate, dry winter, hot summer",
 			temp_2023: 10.48,
@@ -517,6 +573,7 @@
 		{
 			id: 56,
 			name: "Shanghai",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 16.62,
@@ -526,6 +583,7 @@
 		{
 			id: 57,
 			name: "Singapore",
+			color_2023: "rgb(0,0,255)",
 			type_2023: "Tropical, rainforest",
 			type_2070: "Tropical, rainforest",
 			temp_2023: 27.77,
@@ -535,6 +593,7 @@
 		{
 			id: 58,
 			name: "Stockholm",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, warm summer",
 			temp_2023: 6.98,
@@ -544,6 +603,7 @@
 		{
 			id: 59,
 			name: "Sydney",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 17.22,
@@ -553,6 +613,7 @@
 		{
 			id: 60,
 			name: "Sao Paulo",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Tropical, savannah",
 			temp_2023: 20.98,
@@ -562,6 +623,7 @@
 		{
 			id: 61,
 			name: "Taipei",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Tropical, rainforest",
 			temp_2023: 22.21,
@@ -571,6 +633,7 @@
 		{
 			id: 62,
 			name: "Tokyo",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 14.62,
@@ -580,6 +643,7 @@
 		{
 			id: 63,
 			name: "Toronto",
+			color_2023: "rgb(0,255,255)",
 			type_2023: "Cold, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 7.56,
@@ -589,6 +653,7 @@
 		{
 			id: 64,
 			name: "Vatican City",
+			color_2023: "rgb(255,255,0)",
 			type_2023: "Temperate, dry summer, hot summer",
 			type_2070: "Temperate, dry summer, hot summer",
 			temp_2023: 16.36,
@@ -598,6 +663,7 @@
 		{
 			id: 65,
 			name: "Vienna",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 9.26,
@@ -607,6 +673,7 @@
 		{
 			id: 66,
 			name: "Warsaw",
+			color_2023: "rgb(55,200,255)",
 			type_2023: "Cold, no dry season, warm summer",
 			type_2070: "Arid, steppe, cold",
 			temp_2023: 8.72,
@@ -616,6 +683,7 @@
 		{
 			id: 67,
 			name: "Washington,  D.C.",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 13.67,
@@ -625,6 +693,7 @@
 		{
 			id: 68,
 			name: "Zurich",
+			color_2023: "rgb(100,255,80)",
 			type_2023: "Temperate, no dry season, warm summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 5.48,
@@ -634,6 +703,7 @@
 		{
 			id: 69,
 			name: "Osaka",
+			color_2023: "rgb(200,255,80)",
 			type_2023: "Temperate, no dry season, hot summer",
 			type_2070: "Temperate, no dry season, hot summer",
 			temp_2023: 14.31,
@@ -643,12 +713,7 @@
 	];
 
 	let todos = [];
-	let flipParams = {
-		transform: (node, { from, to }) => {
-			// Specify properties that should not be animated during the flip transition
-			node.style.border = "2px dashed black";
-		}
-	};
+
 	function orderByTempAndGroupByClim(data, city) {
 		let newData = data.map((item) => {
 			if ((item.name == city) & (item.clicked == true))
@@ -708,7 +773,21 @@
 					var labels = document.getElementsByTagName("label");
 					for (var i = 0; i < labels.length; i++) {
 						if (labels[i].innerText.trim() === item.name) {
-							labels[i].style.border = "3px solid black";
+							labels[i].style.border = "2px solid black";
+						}
+					}
+				}
+			}
+		});
+	}
+	function highlightNodes1(data) {
+		data.forEach((item) => {
+			if (item.clicked === true) {
+				if (browser) {
+					var labels = document.getElementsByTagName("label");
+					for (var i = 0; i < labels.length; i++) {
+						if (labels[i].innerText.trim() === item.name) {
+							labels[i].style.border = `5px solid ${item.color_2023}`;
 						}
 					}
 				}
@@ -726,14 +805,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -747,14 +826,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -769,14 +848,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -794,14 +873,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 10);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -816,14 +895,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -839,14 +918,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -861,14 +940,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -882,14 +961,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -903,14 +982,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -927,14 +1006,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -949,14 +1028,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -971,14 +1050,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -995,14 +1074,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -1016,14 +1095,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
@@ -1037,14 +1116,14 @@
 				<label
 					in:receive={{ key: todo.id }}
 					out:send={{ key: todo.id }}
-					animate:flip={{ flipParams }}
+					animate:flip
 				>
 					<button
 						on:click={() => {
 							orderByTempAndGroupByClim(data, todo.name);
 
 							highlightNodes(data);
-							setTimeout(() => highlightNodes(data), 1000);
+							setTimeout(() => highlightNodes1(data), 100);
 						}}
 					>
 						{todo.name}
