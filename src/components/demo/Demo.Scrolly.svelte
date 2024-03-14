@@ -10,7 +10,7 @@
 		{#each [0, 1, 2, 3, 4] as text, i}
 			{@const active = value === i}
 			<div class="step" class:active>
-				<p>{text}</p>
+				<p>hello</p>
 			</div>
 		{/each}
 	</Scrolly>
