@@ -1,15 +1,24 @@
 <script>
 	import { json } from "d3";
 	import Marks from "$components/Marks.svelte";
+	import OverlayMap from "$components/OverlayMap.svelte";
 
 	export let value;
 
 	let dataset = [];
 
+	let dataset1 = [];
+
+	json(
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector.geojson"
+	).then((data) => {
+		dataset1 = data.features;
+	});
 	json(
 		"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
 	).then((data) => {
 		dataset = data.features;
+		console.log(dataset);
 	});
 
 	$: value, console.log(value);
