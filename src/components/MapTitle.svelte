@@ -2,13 +2,15 @@
 	import { json } from "d3";
 	import Marks from "$components/Marks.svelte";
 
+	export let value;
+
 	let dataset = [];
+
 	json(
 		"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
 	).then((data) => {
 		dataset = data.features;
 	});
-	export let value;
 
 	$: value, console.log(value);
 </script>
