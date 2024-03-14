@@ -10,9 +10,10 @@
 	let dataset1 = [];
 
 	json(
-		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector.geojson"
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v3.geojson"
 	).then((data) => {
 		dataset1 = data.features;
+		console.log(dataset1);
 	});
 	json(
 		"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
@@ -36,6 +37,7 @@
 			preserveAspectRatio="xMidYMid meet"
 		>
 			<Marks {dataset} />
+			<OverlayMap {dataset1} />
 		</svg>
 	</div>
 </div>
