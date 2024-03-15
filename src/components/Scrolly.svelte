@@ -3,6 +3,7 @@
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
 	let value;
+	$: value, console.log(value);
 </script>
 
 <section id="scrolly">

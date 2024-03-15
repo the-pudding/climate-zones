@@ -37,7 +37,7 @@
 			preserveAspectRatio="xMidYMid meet"
 		>
 			<Marks {dataset} />
-			<OverlayMap {dataset1} />
+			<OverlayMap {value} {dataset1} />
 		</svg>
 	</div>
 </div>

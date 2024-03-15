@@ -12,6 +12,7 @@
 	// const data = getContext("data");
 </script>
 
+<Wind />
 <VizScrolly />
 <VizStatic />
 
