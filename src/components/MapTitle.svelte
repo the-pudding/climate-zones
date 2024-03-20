@@ -10,7 +10,7 @@
 	let dataset1 = [];
 
 	json(
-		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v10.geojson"
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v11.geojson"
 	).then((data) => {
 		dataset1 = data.features;
 		console.log(dataset1);

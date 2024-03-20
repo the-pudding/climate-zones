@@ -53,38 +53,44 @@ export function getColor(DN) {
 			return "#ff00ff";
 		}
 		if (DN == 18) {
-			return "#ff00ff";
+			return "#c800c8";
 		}
 		if (DN == 19) {
-			return "#ff00ff";
+			return "#963296";
+		}
+		if (DN == 20) {
+			return "#963296";
 		}
 		if (DN == 21) {
-			return "#ff00ff";
+			return "#aaafff";
 		}
 		if (DN == 22) {
-			return "#ff00ff";
+			return "#5a78dc";
 		}
-		if (DN == 2) {
-			return "#ff00ff";
+		if (DN == 23) {
+			return "#4b50b4";
 		}
 		if (DN == 24) {
-			return "#ff00ff";
+			return "#320087";
 		}
 		if (DN == 25) {
-			return "#ff00ff";
+			return "#00ffff";
+		}
+		if (DN == 26) {
+			return "#37c8ff";
 		}
 
 		if (DN == 27) {
-			return "#ff00ff";
+			return "#007d7d";
 		}
 		if (DN == 28) {
-			return "#ff00ff";
+			return "#00465f";
 		}
 		if (DN == 29) {
-			return "#ff00ff";
+			return "#b2b2b2";
 		}
 		if (DN == 30) {
-			return "#ff00ff";
+			return "#666666";
 		}
 
 		return "transparent";
