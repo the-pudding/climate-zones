@@ -23,7 +23,7 @@
 
 <style>
 	svg {
-		opacity: 0;
+		opacity: 1;
 		transition: opacity 1s ease;
 	}
 </style>

@@ -23,30 +23,39 @@
 			requestAnimationFrame(frame);
 		}
 		frame();
-
-		const windFiles = {
-			0: "2016112000",
-			6: "2016112006",
-			12: "2016112012",
-			18: "2016112018",
-			24: "2016112100",
-			30: "2016112106",
-			36: "2016112112",
-			42: "2016112118",
-			48: "2016112200"
+		const gui = new dat.GUI();
+		gui.add(wind, "numParticles", 1024, 589824);
+		gui.add(wind, "fadeOpacity", 0.96, 0.999).step(0.001).updateDisplay();
+		gui.add(wind, "speedFactor", 0.05, 1.0);
+		gui.add(wind, "dropRate", 0, 0.1);
+		gui.add(wind, "dropRateBump", 0, 0.2);
+		const meta = {
+			"2016-11-20+h": 0,
+			"retina resolution": true,
+			"github.com/mapbox/webgl-wind": function () {
+				window.location = "https://github.com/mapbox/webgl-wind";
+			}
 		};
-
+		gui.add(meta, "2016-11-20+h", 0, 48, 6).onFinishChange(updateWind);
+		if (pxRatio !== 1) {
+			gui.add(meta, "retina resolution").onFinishChange(updateRetina);
+		}
+		gui.add(meta, "github.com/mapbox/webgl-wind");
 		updateWind();
 
 		function updateWind() {
-			json("$data/2016112000.json", function (windData) {
-				const windImage = new Image();
-				windData.image = windImage;
-				windImage.src = "$data/2016112000.png";
-				windImage.onload = function () {
-					wind.setWind(windData);
-				};
-			});
+			json(
+				"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/windata.json",
+				function (windData) {
+					const windImage = new Image();
+					windData.image = windImage;
+					windImage.src =
+						"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/windata.png";
+					windImage.onload = function () {
+						wind.setWind(windData);
+					};
+				}
+			);
 		}
 	});
 </script>
