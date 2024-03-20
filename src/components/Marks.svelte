@@ -9,7 +9,7 @@
 
 {#each dataset as data}
 	<path
-		transition:draw={{ duration: 1000, delay: 0, easing: quadInOut }}
+		transition:draw={{ duration: 0, delay: 0, easing: quadInOut }}
 		d={path(data)}
 	/>
 {/each}
@@ -17,7 +17,7 @@
 <style>
 	path {
 		fill: grey;
-		stroke: white;
+		stroke: none;
 		stroke-width: 0.5;
 	}
 </style>
