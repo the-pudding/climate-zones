@@ -27,15 +27,15 @@
 	}
 
 	.spacer {
-		height: 75vh;
+		height: 100vh;
 	}
 
 	.step {
 		height: 40vh;
 		position: relative;
 		z-index: 1000;
-		left: 35vw;
-		width: 40vw;
+		left: 1vw;
+		width: 25vw;
 		background: white;
 		opacity: 50%;
 		text-align: center;

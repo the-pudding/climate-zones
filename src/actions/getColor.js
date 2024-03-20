@@ -38,7 +38,6 @@ export function getColor(DN) {
 		return "#64c864";
 	}
 	if (DN == 13) {
-		return "#329632";
 	}
 	if (DN == 14) {
 		return "#c8ff50";

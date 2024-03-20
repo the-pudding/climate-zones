@@ -7,19 +7,23 @@
 
 	let dataset = [];
 
-	let dataset1 = [];
+	let present = [];
+	let future = [];
 
 	json(
 		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v11.geojson"
 	).then((data) => {
-		dataset1 = data.features;
-		console.log(dataset1);
+		present = data.features;
+	});
+	json(
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/future_vector_v1.geojson"
+	).then((data) => {
+		future = data.features;
 	});
 	json(
 		"https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
 	).then((data) => {
 		dataset = data.features;
-		console.log(dataset);
 	});
 
 	$: value, console.log(value);
@@ -33,11 +37,11 @@
 	<div class="map-viz">
 		<svg
 			id="my_dataviz"
-			viewBox="0 0 1000 550"
+			viewBox="-100 0 1000 550"
 			preserveAspectRatio="xMidYMid meet"
 		>
 			<Marks {dataset} />
-			<OverlayMap {value} {dataset1} />
+			<OverlayMap {value} {future} {present} />
 		</svg>
 	</div>
 </div>
@@ -55,10 +59,12 @@
 		z-index: 100;
 		text-align: center;
 		position: absolute;
-		top: 50%;
-		left: 50%;
+
 		font-weight: 700;
 		color: black;
+		line-height: 9em;
+		top: 50%;
+		left: 50%;
 		transform: translate(-50%, -50%);
 		font-size: 1vw;
 		width: 80%;
