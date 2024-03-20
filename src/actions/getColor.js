@@ -1,5 +1,8 @@
 export function getColor(DN) {
 	// Example color mapping based on 'DN' value
+	if (DN == 0) {
+		return "transparent";
+	}
 	if (DN == 1) {
 		return "#0000ff";
 	} else if (DN == 2) {
