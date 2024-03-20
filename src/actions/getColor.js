@@ -61,12 +61,16 @@ export function getColor(DN) {
 		if (DN == 22) {
 			return "#ff00ff";
 		}
+		if (DN == 2) {
+			return "#ff00ff";
+		}
 		if (DN == 24) {
 			return "#ff00ff";
 		}
 		if (DN == 25) {
 			return "#ff00ff";
 		}
+
 		if (DN == 27) {
 			return "#ff00ff";
 		}
