@@ -3,16 +3,19 @@
 	export let present = [];
 	export let future = [];
 	export let value;
+	import { onMount } from "svelte";
+
 	import { fade } from "svelte/transition";
 	const projection = geoNaturalEarth1();
 	const path = geoPath(projection);
 	import { getColor } from "$actions/getColor.js";
 </script>
 
-<svg>
+<svg style={value == undefined ? "opacity:1" : ""}>
 	{#each present as data}
 		<path
-			class={`${
+			class={"path"}
+			id={`${
 				data.properties.DN <= 3
 					? "path-1"
 					: data.properties.DN >= 4 && data.properties.DN <= 7
@@ -34,52 +37,125 @@
 	{/each}
 </svg>
 
+{#if value == 1}
+	<svg style="opacity:1">
+		{#each present as data}
+			<path
+				class="newPath"
+				d={path(data)}
+				style={`
+				fill: ${getColor(data.properties.DN)};
+				stroke-width: 0.5;
+				
+			`}
+			/>
+		{/each}
+	</svg>
+{/if}
+{#if value == 2}
+	<svg style="opacity:1">
+		{#each present as data}
+			<path
+				class="present"
+				d={path(data)}
+				style={`
+			fill: ${getColor(data.properties.DN)};
+			stroke-width: 0.5;
+		`}
+			/>
+		{/each}
+	</svg>
+	<svg style="opacity:1">
+		{#each future as data}
+			<path
+				class="future"
+				d={path(data)}
+				style={`
+				fill: ${getColor(data.properties.DN)};
+				stroke-width: 0.5;
+			`}
+			/>
+		{/each}
+	</svg>
+{/if}
+
 <style>
 	svg {
-		opacity: 0.75;
+		opacity: 0;
 		transition: opacity 1s ease;
 	}
-	.path-1 {
+	#path-1 {
 		opacity: 0.2;
 		animation: fadeIn infinite alternate ease 4s;
 		animation-delay: 0;
 	}
-	.path-2 {
-		opacity: 0.2;
-		animation: fadeIn infinite alternate ease 4s;
-		animation-delay: 2s;
-	}
-	.path-3 {
-		opacity: 0.2;
-		animation: fadeIn infinite alternate ease 4s;
-		animation-delay: 0s;
-	}
-	.path-4 {
-		opacity: 0.2;
-		animation: fadeIn infinite alternate ease 4s;
-		animation-delay: 2s;
-	}
-	.path-5 {
-		opacity: 0.2;
-		animation: fadeIn infinite alternate ease 4s;
-		animation-delay: 0s;
-	}
-	.path-6 {
+	#path-2 {
 		opacity: 0.2;
 		animation: fadeIn infinite alternate ease 4s;
 		animation-delay: 2s;
 	}
 
+	#path-3 {
+		opacity: 0.2;
+		animation: fadeIn infinite alternate ease 4s;
+		animation-delay: 0s;
+	}
+	#path-4 {
+		opacity: 0.2;
+		animation: fadeIn infinite alternate ease 4s;
+		animation-delay: 2s;
+	}
+	#path-5 {
+		opacity: 0.2;
+		animation: fadeIn infinite alternate ease 4s;
+		animation-delay: 0s;
+	}
+	#path-6 {
+		opacity: 0.2;
+		animation: fadeIn infinite alternate ease 4s;
+		animation-delay: 2s;
+	}
+	.present {
+		opacity: 0;
+		animation: fadeIn1 infinite ease 6s;
+	}
+	.future {
+		opacity: 0;
+		animation: fadeIn infinite ease 6s;
+	}
+	.newPath {
+		opacity: 1;
+		animation: fadeIn2 1 ease 2s;
+	}
 	@keyframes fadeIn {
 		0% {
-			opacity: 0.2;
+			opacity: 0;
 		}
-
 		50% {
 			opacity: 1;
 		}
 		100% {
-			opacity: 0.2;
+			opacity: 0;
+		}
+	}
+	@keyframes fadeIn1 {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes fadeIn2 {
+		0% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
 		}
 	}
 </style>

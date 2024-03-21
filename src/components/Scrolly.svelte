@@ -17,7 +17,6 @@
 			</div>
 		{/each}
 	</Scrolly>
-	<div class="spacer" />
 </section>
 
 <style>
