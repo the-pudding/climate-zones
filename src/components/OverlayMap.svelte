@@ -9,6 +9,8 @@
 	const projection = geoNaturalEarth1();
 	const path = geoPath(projection);
 	import { getColor } from "$actions/getColor.js";
+	import { getColorSimp } from "$actions/getColorSimp.js";
+	import { get } from "svelte/store";
 </script>
 
 <svg style={value == undefined ? "opacity:1" : ""}>
@@ -37,22 +39,23 @@
 	{/each}
 </svg>
 
-{#if value == 1}
+{#if (value == 1) | (value == 2) | (value == 3)}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
-				class="newPath"
-				d={path(data)}
 				style={`
-				fill: ${getColor(data.properties.DN)};
-				stroke-width: 0.5;
-				
+				fill: ${value == 1 ? getColorSimp(data.properties.DN) : ""}
+					  ${value == 2 ? getColor(data.properties.DN) : ""}
+					  ${value == 3 ? getColor(data.properties.DN) : ""};
+				transition: fill 1s ease-in-out;
 			`}
+				class={value == 1 ? `val1` : value == 2 ? `val2` : ""}
+				d={path(data)}
 			/>
 		{/each}
 	</svg>
 {/if}
-{#if value == 2}
+{#if value == 4}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
@@ -123,7 +126,11 @@
 		opacity: 0;
 		animation: fadeIn infinite ease 6s;
 	}
-	.newPath {
+	.val1 {
+		opacity: 1;
+		animation: fadeIn2 1 ease 2s;
+	}
+	.val2 {
 		opacity: 1;
 		animation: fadeIn2 1 ease 2s;
 	}

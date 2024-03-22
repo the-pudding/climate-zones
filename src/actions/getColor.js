@@ -86,10 +86,10 @@ export function getColor(DN) {
 			return "#00465f";
 		}
 		if (DN == 29) {
-			return "#b2b2b2";
+			return "#ececec";
 		}
 		if (DN == 30) {
-			return "#666666";
+			return "#f6f6f6";
 		}
 
 		return "transparent";

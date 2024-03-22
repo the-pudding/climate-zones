@@ -87,7 +87,7 @@
 	orderByTempAndGroupByClim(data);
 </script>
 
-<div class="board" style={value > 5 ? "opacity: 1" : ""}>
+<div class="board">
 	<div>
 		<h3
 			style="

@@ -2,18 +2,24 @@
 	import Board from "$components/Board.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
+	import { text } from "./Text.svelte";
+	import { onMount } from "svelte";
 	let value;
 	$: value, console.log(value);
+	onMount(() => {
+		document.getElementsByClassName("text")[0].style =
+			"transform:translateY(-500px)";
+	});
 </script>
 
 <section id="scrolly">
 	<MapTitle {value} />
 	<Board {value} />
 	<Scrolly bind:value>
-		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as text, i}
+		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as val, i}
 			{@const active = value === i}
 			<div class="step" class:active>
-				<p>{text}</p>
+				<p class="text">{@html text[val]}</p>
 			</div>
 		{/each}
 	</Scrolly>
@@ -30,13 +36,13 @@
 	}
 
 	.step {
-		height: 40vh;
+		height: 70vh;
 		position: relative;
 		z-index: 1000;
 		left: 1vw;
 		width: 25vw;
-		background: white;
-		opacity: 50%;
+		background: rgba(255, 255, 255, 0.5);
+		opacity: 100%;
 		text-align: center;
 	}
 
