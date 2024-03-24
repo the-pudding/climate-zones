@@ -40,7 +40,7 @@
 			viewBox="-100 0 1000 550"
 			preserveAspectRatio="xMidYMid meet"
 		>
-			<Marks {dataset} />
+			<Marks {dataset} {value} />
 			<OverlayMap {value} {future} {present} />
 		</svg>
 	</div>

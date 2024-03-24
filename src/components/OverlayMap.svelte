@@ -33,21 +33,25 @@
 			d={path(data)}
 			style={`
 				fill: ${getColor(data.properties.DN)};
+				
 				stroke-width: 0.5;
 			`}
 		/>
 	{/each}
 </svg>
 
-{#if (value == 1) | (value == 2) | (value == 3)}
+{#if (value == 1) | (value == 2)}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
 				style={`
 				fill: ${value == 1 ? getColorSimp(data.properties.DN) : ""}
-					  ${value == 2 ? getColor(data.properties.DN) : ""}
-					  ${value == 3 ? getColor(data.properties.DN) : ""};
-				transition: fill 1s ease-in-out;
+					  ${value == 2 ? getColor(data.properties.DN) : ""};
+					  
+			
+				
+				transition: fill 1s ease-in-out, scale 1s ease-in .4s,transform .3s ease-in 
+				
 			`}
 				class={value == 1 ? `val1` : value == 2 ? `val2` : ""}
 				d={path(data)}
@@ -55,8 +59,46 @@
 		{/each}
 	</svg>
 {/if}
+{#if value == 3}
+	<svg style="opacity:1">
+		{#each present as data}
+			<path
+				style={`
+				fill: ${getColor(data.properties.DN)};
+					  
+				scale: 5   ;
+				transform: translate(-380px, -57px);	
+				
+				
+				
+			`}
+				class={"zoom"}
+				d={path(data)}
+			/>
+		{/each}
+	</svg>
+{/if}
 {#if value == 4}
 	<svg style="opacity:1">
+		{#each present as data}
+			<path
+				style={`
+				fill: ${getColor(data.properties.DN)};
+					  
+				
+				
+				
+				
+			`}
+				class={"zoom"}
+				d={path(data)}
+			/>
+		{/each}
+	</svg>
+{/if}
+{#if value == 5}
+	<svg style="opacity:1">
+		<text class="year-present">2023</text>
 		{#each present as data}
 			<path
 				class="present"
@@ -69,6 +111,7 @@
 		{/each}
 	</svg>
 	<svg style="opacity:1">
+		<text class="year-future">2070</text>
 		{#each future as data}
 			<path
 				class="future"
@@ -126,6 +169,24 @@
 		opacity: 0;
 		animation: fadeIn infinite ease 6s;
 	}
+	.year-present {
+		opacity: 0;
+		position: absolute;
+		z-index: 100;
+		transform: translate(659px, 320px);
+		font-size: 2.5em;
+		animation: fadeIn1 infinite 6s;
+		animation-delay: 0.2s;
+	}
+	.year-future {
+		opacity: 0;
+		position: absolute;
+		z-index: 100;
+		transform: translate(659px, 320px);
+		font-size: 2.5em;
+		animation: fadeIn infinite 6s;
+		animation-delay: 0.2s;
+	}
 	.val1 {
 		opacity: 1;
 		animation: fadeIn2 1 ease 2s;
@@ -134,6 +195,11 @@
 		opacity: 1;
 		animation: fadeIn2 1 ease 2s;
 	}
+	.zoom {
+		opacity: 1;
+		animation: fadeIn2 1 ease 3s;
+	}
+
 	@keyframes fadeIn {
 		0% {
 			opacity: 0;
