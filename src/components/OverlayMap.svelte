@@ -142,24 +142,41 @@
 	</svg>
 	<svg style="opacity:1">
 		{#each cities as data}
-			<circle
-				style={`
+			{#if ["Taipei", "Sydney", "Buenos Aires", "Shanghai", "Atlanta", "Osaka", "Tokyo", "Washington,  D.C.", , "Milan", "Ōsaka", "São Paulo"].includes(data.properties.name)}
+				<circle
+					style="opacity: 1"
+					cx={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[0]}
+					cy={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[1]}
+					fill="none"
+					stroke="black"
+					stroke-width="1px"
+					r={2}
+					class="zoom"
+				/>
 
-			`}
-				cx={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[0]}
-				cy={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[1]}
-				fill={"none"}
-				stroke={"black"}
-				stroke-width={"1px"}
-				r={2}
-				class={"zoom"}
-			/>
+				<text
+					style={`
+							
+							`}
+					x={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[0]}
+					y={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[1]}
+					r={2}
+					font-size={".8em"}
+					class={"zoom"}>{data.properties.name}</text
+				>
+			{/if}
 		{/each}
 	</svg>
 {/if}
