@@ -455,6 +455,7 @@
 
 <style>
 	.board {
+		z-index: -100;
 		position: sticky;
 		width: 100%;
 		height: 100%;

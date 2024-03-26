@@ -2,9 +2,9 @@
 	import { geoPath, geoNaturalEarth1 } from "d3";
 	export let present = [];
 	export let future = [];
+	export let cities = [];
 	export let value;
 	import { onMount } from "svelte";
-
 	import { fade } from "svelte/transition";
 	const projection = geoNaturalEarth1();
 	const path = geoPath(projection);
@@ -59,6 +59,7 @@
 		{/each}
 	</svg>
 {/if}
+
 {#if value == 3}
 	<svg style="opacity:1">
 		{#each present as data}
@@ -67,7 +68,7 @@
 				fill: ${getColor(data.properties.DN)};
 					  
 				scale: 5   ;
-				transform: translate(-380px, -57px);	
+				transform: translate(-400px, -57px);	
 				
 				
 				
@@ -77,25 +78,92 @@
 			/>
 		{/each}
 	</svg>
+	<svg style="opacity:1">
+		{#each cities as data}
+			<circle
+				style={`
+				
+					  
+				scale: 5;
+				transform: translate(-400px, -57px);	
+				
+				
+				
+			`}
+				cx={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[0]}
+				cy={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[1]}
+				fill={"none"}
+				stroke={"black"}
+				stroke-width={".4px"}
+				r={0.5}
+				class={"zoom"}
+			/>
+		{/each}
+	</svg>
+	<svg style="opacity:1">
+		{#each cities as data}
+			<text
+				style={`scale: 5;
+				transform: translate(-399px, -56px);;	
+				`}
+				x={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[0]}
+				y={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[1]}
+				r={2}
+				font-size={".12em"}
+				class={"zoom"}>{data.properties.name}</text
+			>
+		{/each}
+	</svg>
 {/if}
+
 {#if value == 4}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
 				style={`
 				fill: ${getColor(data.properties.DN)};
-					  
-				
-				
-				
-				
 			`}
 				class={"zoom"}
 				d={path(data)}
 			/>
 		{/each}
 	</svg>
+	<svg style="opacity:1">
+		{#each cities as data}
+			<circle
+				style={`
+
+			`}
+				cx={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[0]}
+				cy={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[1]}
+				fill={"none"}
+				stroke={"black"}
+				stroke-width={"1px"}
+				r={2}
+				class={"zoom"}
+			/>
+		{/each}
+	</svg>
 {/if}
+
 {#if value == 5}
 	<svg style="opacity:1">
 		<text class="year-present">2023</text>
@@ -120,6 +188,27 @@
 				fill: ${getColor(data.properties.DN)};
 				stroke-width: 0.5;
 			`}
+			/>
+		{/each}
+	</svg>
+	<svg style="opacity:1">
+		{#each cities as data}
+			<circle
+				style={`
+
+			`}
+				cx={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[0]}
+				cy={projection([
+					data.geometry.coordinates[0],
+					data.geometry.coordinates[1]
+				])[1]}
+				fill={"none"}
+				stroke={"black"}
+				stroke-width={".5px"}
+				r={2}
 			/>
 		{/each}
 	</svg>

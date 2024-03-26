@@ -6,12 +6,12 @@
 	export let value;
 
 	let dataset = [];
-
+	let cities = [];
 	let present = [];
 	let future = [];
 
 	json(
-		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v11.geojson"
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/present_vector_v12.geojson"
 	).then((data) => {
 		present = data.features;
 	});
@@ -25,8 +25,13 @@
 	).then((data) => {
 		dataset = data.features;
 	});
+	json(
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/final_cities.geojson"
+	).then((data) => {
+		cities = data.features;
+	});
 
-	$: value, console.log(value);
+	$: value, console.log(cities);
 </script>
 
 <div class="title" style={value >= 0 ? "opacity: 0" : "1"}>
@@ -41,7 +46,7 @@
 			preserveAspectRatio="xMidYMid meet"
 		>
 			<Marks {dataset} {value} />
-			<OverlayMap {value} {future} {present} />
+			<OverlayMap {value} {future} {present} {cities} />
 		</svg>
 	</div>
 </div>
