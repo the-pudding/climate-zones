@@ -70,7 +70,7 @@
 				scale: 5   ;
 				transform: translate(-400px, -57px);	
 				
-				
+				opacity: ${(data.properties.DN > 7) & (data.properties.DN <= 16) ? 1 : 0.2}
 				
 			`}
 				class={"zoom"}
@@ -80,8 +80,9 @@
 	</svg>
 	<svg style="opacity:1">
 		{#each cities as data}
-			<circle
-				style={`
+			{#if ["Milan", "Dublin", "London", "Rome", "Casablanca", "Lisbon", "Paris", "Brussels", "Amsterdam", "Barcelona", "Istanbul", "Frankfurt", "Geneva", "Hamburg", "Zürich", "Athens"].includes(data.properties.name)}
+				<circle
+					style={`
 				
 					  
 				scale: 5;
@@ -90,40 +91,44 @@
 				
 				
 			`}
-				cx={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[0]}
-				cy={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[1]}
-				fill={"none"}
-				stroke={"black"}
-				stroke-width={".4px"}
-				r={0.5}
-				class={"zoom"}
-			/>
+					cx={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[0]}
+					cy={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[1]}
+					fill={"none"}
+					stroke={"black"}
+					stroke-width={".4px"}
+					r={0.5}
+					class={"zoom"}
+				/>
+			{/if}
 		{/each}
 	</svg>
 	<svg style="opacity:1">
 		{#each cities as data}
-			<text
-				style={`scale: 5;
-				transform: translate(-399px, -56px);;	
+			{#if ["Milan", "Dublin", "London", "Rome", "Casablanca", "Lisbon", "Paris", "Brussels", "Amsterdam", "Barcelona", "Istanbul", "Frankfurt", "Geneva", "Hamburg", "Zürich", "Athens"].includes(data.properties.name)}
+				<text
+					style={`scale: 5;
+				transform: translate(-399px, -56px)
+				
 				`}
-				x={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[0]}
-				y={projection([
-					data.geometry.coordinates[0],
-					data.geometry.coordinates[1]
-				])[1]}
-				r={2}
-				font-size={".12em"}
-				class={"zoom"}>{data.properties.name}</text
-			>
+					x={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[0]}
+					y={projection([
+						data.geometry.coordinates[0],
+						data.geometry.coordinates[1]
+					])[1]}
+					r={2}
+					font-size={".12em"}
+					class={"zoom"}>{data.properties.name}</text
+				>
+			{/if}
 		{/each}
 	</svg>
 {/if}
