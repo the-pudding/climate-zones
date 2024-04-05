@@ -60,12 +60,13 @@
 	</svg>
 {/if}
 
-{#if value == 2}
+{#if (value == 2) | (value == 3)}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
 				style={`
-				fill: ${getColorSimp(data.properties.DN)};
+				fill:${value == 2 ? getColorSimp(data.properties.DN) : ""}
+					  ${value == 3 ? getColor(data.properties.DN) : ""};
 					  
 				scale: 5   ;
 				transform: translate(-400px, -57px);	
@@ -73,7 +74,7 @@
 				opacity: ${(data.properties.DN > 7) & (data.properties.DN <= 16) ? 1 : 0.2}
 				
 			`}
-				class={"zoom"}
+				class={value == 2 ? `val1` : value == 3 ? `val2` : ""}
 				d={path(data)}
 			/>
 		{/each}
@@ -186,7 +187,7 @@
 	</svg>
 {/if}
 
-{#if value == 5}
+{#if (value == 5) | (value == 6)}
 	<svg style="opacity:1">
 		<text class="year-present">2023</text>
 		{#each present as data}
@@ -217,6 +218,8 @@
 		{#each cities as data}
 			<circle
 				style={`
+				opacity:${value == 5 ? "0" : ""}
+				${value == 6 ? "1" : ""};
 
 			`}
 				cx={projection([

@@ -6,10 +6,7 @@
 	import { onMount } from "svelte";
 	let value;
 	$: value, console.log(value);
-	onMount(() => {
-		document.getElementsByClassName("text")[0].style =
-			"transform:translateY(-500px)";
-	});
+	onMount(() => {});
 </script>
 
 <section id="scrolly">
@@ -41,7 +38,7 @@
 		z-index: 1000;
 		left: 1vw;
 		width: 25vw;
-		background: rgba(255, 255, 255, 0.5);
+		background: rgba(128, 128, 128, 0.6);
 		opacity: 100%;
 		text-align: center;
 	}

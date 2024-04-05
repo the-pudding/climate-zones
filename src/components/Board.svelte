@@ -6,24 +6,27 @@
 	import { data } from "./data.svelte";
 	export let value;
 
+	let duration = 8000;
 	const [send, receive] = crossfade({
-		duration: 3000,
+		duration: duration,
 		easing: quintOut
 	});
 
 	let todos = [];
+	let todosMain = [];
 
 	function orderByTempAndGroupByClim(data, city) {
+		let freshData = data.map((item) => {
+			return {
+				id: item.id,
+				clim: item.type_2023,
+				temp: item.temp_2023,
+				name: item.name,
+				clicked: false
+			};
+		});
 		let newData = data.map((item) => {
-			if ((item.name == city) & (item.clicked == true))
-				return {
-					id: item.id,
-					clim: item.type_2023,
-					temp: item.temp_2023,
-					name: item.name,
-					clicked: false
-				};
-			if ((item.name == city) | (item.clicked == true))
+			if (item.name == city)
 				return {
 					id: item.id,
 					clim: item.type_2070,
@@ -44,11 +47,48 @@
 		data.forEach((item) => {
 			if (item.name === city) {
 				item.clicked = !item.clicked;
-				console.log(item);
 			}
 		});
 
-		// Order newData by clim and then by temp
+		newData = newData.sort((a, b) => {
+			// First, compare by clim
+			const climComparison = a.clim.localeCompare(b.clim);
+
+			// If clim is the same, then compare by temp
+			if (climComparison === 0) {
+				return b.temp - a.temp;
+			}
+
+			return climComparison;
+		});
+		freshData = freshData.sort((a, b) => {
+			// First, compare by clim
+			const climComparison = a.clim.localeCompare(b.clim);
+
+			// If clim is the same, then compare by temp
+			if (climComparison === 0) {
+				return b.temp - a.temp;
+			}
+
+			return climComparison;
+		});
+		todos = newData;
+		todosMain = freshData;
+		// Loop through the labels to find the one with innerText equal to "Paris"
+	}
+
+	function resetData(data, city) {
+		duration = 0;
+		let newData = data.map((item) => {
+			return {
+				id: item.id,
+				clim: item.type_2023,
+				temp: item.temp_2023,
+				name: item.name,
+				clicked: false
+			};
+		});
+
 		newData = newData.sort((a, b) => {
 			// First, compare by clim
 			const climComparison = a.clim.localeCompare(b.clim);
@@ -72,9 +112,7 @@
 				if (browser) {
 					var labels = document.getElementsByTagName("label");
 					for (var i = 0; i < labels.length; i++) {
-						console.log(labels[i].innerText);
 						if (labels[i].innerText == item.name) {
-							console.log(item.name);
 							labels[i].style.border = `6px solid ${item.color}`;
 							labels[i].style.fontSize = `1em`;
 							labels[i].style.fontWeight = "900";
@@ -85,217 +123,93 @@
 		});
 	}
 	orderByTempAndGroupByClim(data);
+
+	function LA() {
+		resetData(data);
+		setTimeout(() => {
+			orderByTempAndGroupByClim(data, "Los Angeles");
+			setTimeout(() => highlightNodes1(data), 500);
+		}, 5000);
+	}
+
+	function Scan() {
+		resetData(data);
+		setTimeout(() => {
+			orderByTempAndGroupByClim(data, "Copenhagen");
+			orderByTempAndGroupByClim(data, "Stockholm");
+			orderByTempAndGroupByClim(data, "Helsinki");
+			orderByTempAndGroupByClim(data, "Oslo");
+			setTimeout(() => highlightNodes1(data), 1000);
+		}, 10000);
+	}
+
+	$: if (value === 7) {
+		setTimeout(() => {
+			document.getElementsByClassName("board")[0].style.opacity = 1;
+		}, 100);
+	}
+	$: if (value === 8) {
+		setTimeout(() => {
+			LA();
+		}, 100);
+	}
+	$: if (value === 9) {
+		setTimeout(() => {
+			Scan();
+		}, 100);
+	}
 </script>
 
-<div class="board">
-	<div>
-		<h3
-			style="
-			position: relative;
-			left: 7.5%;
-		"
-		>
-			Cold
-		</h3>
-		<div class="Cold">
-			<div class="Cold-dry-winter-hot-summer">
-				<h2 class="classification">Dry winter, hot summer</h2>
-				{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
-						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Cold-no-dry-season-hot-summer">
-				<h2 class="classification">No dry season, hot summer</h2>
-				{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
-						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<p class="break"></p>
-			<div class="Cold-no-dry-season-warm-summer">
-				<h2 class="classification">No dry season, warm summer</h2>
-				{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
-						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-		</div>
-	</div>
-
-	<div>
-		<div
-			style="    transform: translateY(-55px);
-		"
-		>
+{#if value == 7}
+	<div class="board" style={`z-index:${value == 7 ? 100 : ""} `}>
+		<div>
 			<h3
 				style="
 			position: relative;
-			left: 15%;
+			left: 7.5%;
 		"
 			>
-				Temperate
+				Cold
 			</h3>
-			<div class="Temperate">
-				<div class="Temperate-dry-summer-hot-summer">
-					<h2 class="classification">Dry summer, hot summer</h2>
-
-					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo (todo.id)}
-						<label
-							in:receive={{ key: todo.id }}
-							out:send={{ key: todo.id }}
-							animate:flip
-						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
-								{todo.name}
-							</button>
-						</label>
-					{/each}
-				</div>
-				<p class="break"></p>
-				<div class="Temperate-no-dry-season-warm-summer">
-					<h2 class="classification">No dry season, warm summer</h2>
-					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo (todo.id)}
-						<label
-							in:receive={{ key: todo.id }}
-							out:send={{ key: todo.id }}
-							animate:flip
-						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
-								{todo.name}
-							</button>
-						</label>
-					{/each}
-				</div>
-
-				<p class="break"></p>
-				<div class="Temperate-no-dry-season-hot-summer">
-					<h2 class="classification">No dry season, hot summer</h2>
-					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo (todo.id)}
-						<label
-							in:receive={{ key: todo.id }}
-							out:send={{ key: todo.id }}
-							animate:flip
-						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
-								{todo.name}
-							</button>
-						</label>
-					{/each}
-				</div>
-				<p class="break"></p>
-				<div class="Temperate-dry-summer-warm-summer">
-					<h2 class="classification">Dry summer, warm summer</h2>
-					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo (todo.id)}
-						<label
-							in:receive={{ key: todo.id }}
-							out:send={{ key: todo.id }}
-							animate:flip
-						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
-								{todo.name}
-							</button>
-						</label>
-					{/each}
-				</div>
-				<div class="Temperate-dry-winter-hot-summer">
+			<div class="Cold">
+				<div class="Cold-dry-winter-hot-summer">
 					<h2 class="classification">Dry winter, hot summer</h2>
-					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo (todo.id)}
+					{#each todosMain.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo (todo.id)}
 						<label
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
 							animate:flip
 						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
+							<button>
 								{todo.name}
 							</button>
 						</label>
 					{/each}
 				</div>
-				<div class="Temperate-dry-winter-warm-summer">
-					<h2 class="classification">Dry winter, warm summer</h2>
-					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo (todo.id)}
+				<div class="Cold-no-dry-season-hot-summer">
+					<h2 class="classification">No dry season, hot summer</h2>
+					{#each todosMain.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
 						<label
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
 							animate:flip
 						>
-							<button
-								on:click={() => {
-									orderByTempAndGroupByClim(data, todo.name);
-
-									setTimeout(() => highlightNodes1(data), 500);
-								}}
-							>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<p class="break"></p>
+				<div class="Cold-no-dry-season-warm-summer">
+					<h2 class="classification">No dry season, warm summer</h2>
+					{#each todosMain.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
 								{todo.name}
 							</button>
 						</label>
@@ -303,175 +217,926 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div style="transform: translateY(-110px);">
-		<h3
-			style="
+
+		<div>
+			<div
+				style="    transform: translateY(-55px);
+		"
+			>
+				<h3
+					style="
+			position: relative;
+			left: 15%;
+		"
+				>
+					Temperate
+				</h3>
+				<div class="Temperate">
+					<div class="Temperate-dry-summer-hot-summer">
+						<h2 class="classification">Dry summer, hot summer</h2>
+
+						{#each todosMain.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-warm-summer">
+						<h2 class="classification">No dry season, warm summer</h2>
+						{#each todosMain.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-hot-summer">
+						<h2 class="classification">No dry season, hot summer</h2>
+						{#each todosMain.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-dry-summer-warm-summer">
+						<h2 class="classification">Dry summer, warm summer</h2>
+						{#each todosMain.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-hot-summer">
+						<h2 class="classification">Dry winter, hot summer</h2>
+						{#each todosMain.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-warm-summer">
+						<h2 class="classification">Dry winter, warm summer</h2>
+						{#each todosMain.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="transform: translateY(-110px);">
+			<h3
+				style="
 			position: relative;
 			left: 1.5%;
 		"
-		>
-			Tropical
-		</h3>
-		<div class="Tropical">
-			<div class="Tropical-monsoon">
-				<h2 class="classification">Monsoon</h2>
+			>
+				Tropical
+			</h3>
+			<div class="Tropical">
+				<div class="Tropical-monsoon">
+					<h2 class="classification">Monsoon</h2>
 
-				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+					{#each todosMain.filter((t) => t.clim == "Tropical, monsoon") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Tropical-rainforest">
-				<h2 class="classification">Rainforest</h2>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-rainforest">
+					<h2 class="classification">Rainforest</h2>
 
-				{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+					{#each todosMain.filter((t) => t.clim == "Tropical, rainforest") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Tropical-savannah">
-				<h2 class="classification">Savannah</h2>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-savannah">
+					<h2 class="classification">Savannah</h2>
 
-				{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+					{#each todosMain.filter((t) => t.clim == "Tropical, savannah") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
 			</div>
 		</div>
-	</div>
-	<div style="transform: translateY(-165px);">
-		<h3
-			style="
+		<div style="transform: translateY(-165px);">
+			<h3
+				style="
 			position: relative;
 			left: 3%;
 		"
-		>
-			Arid
-		</h3>
-		<div class="Arid">
-			<div class="Arid-desert-hot">
-				<h2 class="classification">Desert, hot</h2>
-				{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+			>
+				Arid
+			</h3>
+			<div class="Arid">
+				<div class="Arid-desert-hot">
+					<h2 class="classification">Desert, hot</h2>
+					{#each todosMain.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Arid-desert-cold">
-				<h2 class="classification">Steppe, hot</h2>
-				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-desert-cold">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todosMain.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Arid-steppe-hot">
-				<h2 class="classification">Steppe, hot</h2>
-				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-hot">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todosMain.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div class="Arid-steppe-cold">
-				<h2 class="classification">Steppe, cold</h2>
-				{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
-					<label
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip
-					>
-						<button
-							on:click={() => {
-								orderByTempAndGroupByClim(data, todo.name);
-
-								setTimeout(() => highlightNodes1(data), 500);
-							}}
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-cold">
+					<h2 class="classification">Steppe, cold</h2>
+					{#each todosMain.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+{/if}
+
+{#if value == 8}
+	<div class="board" style={`opacity:1;z-index:${value == 8 ? 100 : ""} `}>
+		<div>
+			<h3
+				style="
+			position: relative;
+			left: 7.5%;
+		"
+			>
+				Cold
+			</h3>
+			<div class="Cold">
+				<div class="Cold-dry-winter-hot-summer">
+					<h2 class="classification">Dry winter, hot summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Cold-no-dry-season-hot-summer">
+					<h2 class="classification">No dry season, hot summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<p class="break"></p>
+				<div class="Cold-no-dry-season-warm-summer">
+					<h2 class="classification">No dry season, warm summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div
+				style="    transform: translateY(-55px);
+		"
+			>
+				<h3
+					style="
+			position: relative;
+			left: 15%;
+		"
+				>
+					Temperate
+				</h3>
+				<div class="Temperate">
+					<div class="Temperate-dry-summer-hot-summer">
+						<h2 class="classification">Dry summer, hot summer</h2>
+
+						{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-warm-summer">
+						<h2 class="classification">No dry season, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-hot-summer">
+						<h2 class="classification">No dry season, hot summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-dry-summer-warm-summer">
+						<h2 class="classification">Dry summer, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-hot-summer">
+						<h2 class="classification">Dry winter, hot summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-warm-summer">
+						<h2 class="classification">Dry winter, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="transform: translateY(-110px);">
+			<h3
+				style="
+			position: relative;
+			left: 1.5%;
+		"
+			>
+				Tropical
+			</h3>
+			<div class="Tropical">
+				<div class="Tropical-monsoon">
+					<h2 class="classification">Monsoon</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-rainforest">
+					<h2 class="classification">Rainforest</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-savannah">
+					<h2 class="classification">Savannah</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+		<div style="transform: translateY(-165px);">
+			<h3
+				style="
+			position: relative;
+			left: 3%;
+		"
+			>
+				Arid
+			</h3>
+			<div class="Arid">
+				<div class="Arid-desert-hot">
+					<h2 class="classification">Desert, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-desert-cold">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-hot">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-cold">
+					<h2 class="classification">Steppe, cold</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if value == 9}
+	<div class="board" style={`opacity:1;z-index:${value == 9 ? 100 : ""} `}>
+		<div>
+			<h3
+				style="
+			position: relative;
+			left: 7.5%;
+		"
+			>
+				Cold
+			</h3>
+			<div class="Cold">
+				<div class="Cold-dry-winter-hot-summer">
+					<h2 class="classification">Dry winter, hot summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Cold-no-dry-season-hot-summer">
+					<h2 class="classification">No dry season, hot summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<p class="break"></p>
+				<div class="Cold-no-dry-season-warm-summer">
+					<h2 class="classification">No dry season, warm summer</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div
+				style="    transform: translateY(-55px);
+		"
+			>
+				<h3
+					style="
+			position: relative;
+			left: 15%;
+		"
+				>
+					Temperate
+				</h3>
+				<div class="Temperate">
+					<div class="Temperate-dry-summer-hot-summer">
+						<h2 class="classification">Dry summer, hot summer</h2>
+
+						{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-warm-summer">
+						<h2 class="classification">No dry season, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+
+					<p class="break"></p>
+					<div class="Temperate-no-dry-season-hot-summer">
+						<h2 class="classification">No dry season, hot summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<p class="break"></p>
+					<div class="Temperate-dry-summer-warm-summer">
+						<h2 class="classification">Dry summer, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-hot-summer">
+						<h2 class="classification">Dry winter, hot summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+					<div class="Temperate-dry-winter-warm-summer">
+						<h2 class="classification">Dry winter, warm summer</h2>
+						{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo (todo.id)}
+							<label
+								in:receive={{ key: todo.id }}
+								out:send={{ key: todo.id }}
+								animate:flip
+							>
+								<button
+									on:click={() => {
+										orderByTempAndGroupByClim(data, todo.name);
+
+										setTimeout(() => highlightNodes1(data), 500);
+									}}
+								>
+									{todo.name}
+								</button>
+							</label>
+						{/each}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="transform: translateY(-110px);">
+			<h3
+				style="
+			position: relative;
+			left: 1.5%;
+		"
+			>
+				Tropical
+			</h3>
+			<div class="Tropical">
+				<div class="Tropical-monsoon">
+					<h2 class="classification">Monsoon</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-rainforest">
+					<h2 class="classification">Rainforest</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Tropical-savannah">
+					<h2 class="classification">Savannah</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+		<div style="transform: translateY(-165px);">
+			<h3
+				style="
+			position: relative;
+			left: 3%;
+		"
+			>
+				Arid
+			</h3>
+			<div class="Arid">
+				<div class="Arid-desert-hot">
+					<h2 class="classification">Desert, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-desert-cold">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-hot">
+					<h2 class="classification">Steppe, hot</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div class="Arid-steppe-cold">
+					<h2 class="classification">Steppe, cold</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
+						<label
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip
+						>
+							<button>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.board {
