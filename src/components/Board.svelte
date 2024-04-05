@@ -6,16 +6,16 @@
 	import { data } from "./data.svelte";
 	export let value;
 
-	let duration = 8000;
+	// Default duration
+
 	const [send, receive] = crossfade({
-		duration: duration,
+		duration: 8000,
 		easing: quintOut
 	});
 
 	let todos = [];
 	let todosMain = [];
-
-	function orderByTempAndGroupByClim(data, city) {
+	function resetData(data, city) {
 		let freshData = data.map((item) => {
 			return {
 				id: item.id,
@@ -24,42 +24,6 @@
 				name: item.name,
 				clicked: false
 			};
-		});
-		let newData = data.map((item) => {
-			if (item.name == city)
-				return {
-					id: item.id,
-					clim: item.type_2070,
-					temp: item.temp_2070,
-					name: item.name,
-					clicked: true
-				};
-			else {
-				return {
-					id: item.id,
-					clim: item.type_2023,
-					temp: item.temp_2023,
-					name: item.name,
-					clicked: false
-				};
-			}
-		});
-		data.forEach((item) => {
-			if (item.name === city) {
-				item.clicked = !item.clicked;
-			}
-		});
-
-		newData = newData.sort((a, b) => {
-			// First, compare by clim
-			const climComparison = a.clim.localeCompare(b.clim);
-
-			// If clim is the same, then compare by temp
-			if (climComparison === 0) {
-				return b.temp - a.temp;
-			}
-
-			return climComparison;
 		});
 		freshData = freshData.sort((a, b) => {
 			// First, compare by clim
@@ -72,21 +36,29 @@
 
 			return climComparison;
 		});
-		todos = newData;
+
 		todosMain = freshData;
-		// Loop through the labels to find the one with innerText equal to "Paris"
+		todos = todosMain;
 	}
 
-	function resetData(data, city) {
-		duration = 0;
+	function orderByTempAndGroupByClim(data, city) {
+		todos = [];
 		let newData = data.map((item) => {
-			return {
-				id: item.id,
-				clim: item.type_2023,
-				temp: item.temp_2023,
-				name: item.name,
-				clicked: false
-			};
+			if (city.includes(item.name))
+				return {
+					id: item.id,
+					clim: item.type_2070,
+					temp: item.temp_2070,
+					name: item.name
+				};
+			else {
+				return {
+					id: item.id,
+					clim: item.type_2023,
+					temp: item.temp_2023,
+					name: item.name
+				};
+			}
 		});
 
 		newData = newData.sort((a, b) => {
@@ -102,8 +74,24 @@
 		});
 
 		todos = newData;
-
-		// Loop through the labels to find the one with innerText equal to "Paris"
+		setTimeout(
+			() =>
+				data.forEach((item) => {
+					if (city.includes(item.name)) {
+						if (browser) {
+							var labels = document.getElementsByTagName("label");
+							for (var i = 0; i < labels.length; i++) {
+								if (labels[i].innerText == item.name) {
+									labels[i].style.border = `6px solid ${item.color}`;
+									labels[i].style.fontSize = `1em`;
+									labels[i].style.fontWeight = "900";
+								}
+							}
+						}
+					}
+				}),
+			500
+		);
 	}
 
 	function highlightNodes1(data) {
@@ -122,25 +110,28 @@
 			}
 		});
 	}
-	orderByTempAndGroupByClim(data);
-
+	resetData(data);
 	function LA() {
+		todos = [];
 		resetData(data);
 		setTimeout(() => {
-			orderByTempAndGroupByClim(data, "Los Angeles");
-			setTimeout(() => highlightNodes1(data), 500);
-		}, 5000);
+			orderByTempAndGroupByClim(data, ["Los Angeles"]);
+			setTimeout(() => highlightNodes1(data), 1500);
+		}, 500);
 	}
-
 	function Scan() {
+		todos = [];
 		resetData(data);
 		setTimeout(() => {
-			orderByTempAndGroupByClim(data, "Copenhagen");
-			orderByTempAndGroupByClim(data, "Stockholm");
-			orderByTempAndGroupByClim(data, "Helsinki");
-			orderByTempAndGroupByClim(data, "Oslo");
-			setTimeout(() => highlightNodes1(data), 1000);
-		}, 10000);
+			orderByTempAndGroupByClim(data, [
+				"Oslo",
+				"Helsinki",
+				"Stockholm",
+				"Copenhagen"
+			]);
+
+			setTimeout(() => highlightNodes1(data), 1500);
+		}, 500);
 	}
 
 	$: if (value === 7) {
@@ -148,15 +139,11 @@
 			document.getElementsByClassName("board")[0].style.opacity = 1;
 		}, 100);
 	}
-	$: if (value === 8) {
-		setTimeout(() => {
-			LA();
-		}, 100);
+	$: if (value == 8) {
+		LA();
 	}
-	$: if (value === 9) {
-		setTimeout(() => {
-			Scan();
-		}, 100);
+	$: if (value == 9) {
+		Scan();
 	}
 </script>
 
@@ -809,7 +796,6 @@
 		</div>
 	</div>
 {/if}
-
 {#if value == 9}
 	<div class="board" style={`opacity:1;z-index:${value == 9 ? 100 : ""} `}>
 		<div>

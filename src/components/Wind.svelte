@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from "svelte";
-	import { WindGL } from "$actions/wind-gl.js";
 	import { json } from "d3";
 
 	onMount(() => {
@@ -23,39 +22,36 @@
 			requestAnimationFrame(frame);
 		}
 		frame();
-		const gui = new dat.GUI();
-		gui.add(wind, "numParticles", 1024, 589824);
-		gui.add(wind, "fadeOpacity", 0.96, 0.999).step(0.001).updateDisplay();
-		gui.add(wind, "speedFactor", 0.05, 1.0);
-		gui.add(wind, "dropRate", 0, 0.1);
-		gui.add(wind, "dropRateBump", 0, 0.2);
-		const meta = {
-			"2016-11-20+h": 0,
-			"retina resolution": true,
-			"github.com/mapbox/webgl-wind": function () {
-				window.location = "https://github.com/mapbox/webgl-wind";
-			}
-		};
-		gui.add(meta, "2016-11-20+h", 0, 48, 6).onFinishChange(updateWind);
-		if (pxRatio !== 1) {
-			gui.add(meta, "retina resolution").onFinishChange(updateRetina);
-		}
-		gui.add(meta, "github.com/mapbox/webgl-wind");
-		updateWind();
 
-		function updateWind() {
-			json(
-				"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/windata.json",
-				function (windData) {
-					const windImage = new Image();
-					windData.image = windImage;
-					windImage.src =
-						"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/windata.png";
-					windImage.onload = function () {
-						wind.setWind(windData);
-					};
+		const windFiles = {
+			0: "2016112000"
+		};
+
+		updateWind(0);
+
+		function updateWind(name) {
+			getJSON("wind/" + windFiles[name] + ".json", function (windData) {
+				const windImage = new Image();
+				windData.image = windImage;
+				windImage.src = "wind/" + windFiles[name] + ".png";
+				windImage.onload = function () {
+					wind.setWind(windData);
+				};
+			});
+		}
+
+		function getJSON(url, callback) {
+			const xhr = new XMLHttpRequest();
+			xhr.responseType = "json";
+			xhr.open("get", url, true);
+			xhr.onload = function () {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					callback(xhr.response);
+				} else {
+					throw new Error(xhr.statusText);
 				}
-			);
+			};
+			xhr.send();
 		}
 	});
 </script>
