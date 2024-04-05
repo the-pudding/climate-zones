@@ -26,7 +26,7 @@
 		dataset = data.features;
 	});
 	json(
-		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/final_cities.geojson"
+		"https://raw.githubusercontent.com/the-pudding/climate-zones/main/src/data/final_cities_v2.geojson"
 	).then((data) => {
 		cities = data.features;
 	});

@@ -408,6 +408,26 @@
 					</label>
 				{/each}
 			</div>
+			<div class="Arid-desert-cold">
+				<h2 class="classification">Desert, cold</h2>
+				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
+					<label
+						in:receive={{ key: todo.id }}
+						out:send={{ key: todo.id }}
+						animate:flip
+					>
+						<button
+							on:click={() => {
+								orderByTempAndGroupByClim(data, todo.name);
+
+								setTimeout(() => highlightNodes1(data), 500);
+							}}
+						>
+							{todo.name}
+						</button>
+					</label>
+				{/each}
+			</div>
 			<div class="Arid-steppe-hot">
 				<h2 class="classification">Steppe, hot</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -541,6 +561,9 @@
 	}
 	.Arid-desert-hot label {
 		background-color: rgb(255, 0, 0);
+	}
+	.Arid-desert-cold label {
+		background-color: rgb(228, 103, 103);
 	}
 	.Arid-steppe-hot label {
 		background-color: rgb(245, 165, 0);

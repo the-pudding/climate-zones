@@ -40,7 +40,7 @@
 	{/each}
 </svg>
 
-{#if (value == 1) | (value == 2)}
+{#if value == 1}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
@@ -60,12 +60,12 @@
 	</svg>
 {/if}
 
-{#if value == 3}
+{#if value == 2}
 	<svg style="opacity:1">
 		{#each present as data}
 			<path
 				style={`
-				fill: ${getColor(data.properties.DN)};
+				fill: ${getColorSimp(data.properties.DN)};
 					  
 				scale: 5   ;
 				transform: translate(-400px, -57px);	
