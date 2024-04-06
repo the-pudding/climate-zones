@@ -30,10 +30,10 @@
 		updateWind(0);
 
 		function updateWind(name) {
-			getJSON("wind/" + windFiles[name] + ".json", function (windData) {
+			getJSON(dataWind, function (windData) {
 				const windImage = new Image();
 				windData.image = windImage;
-				windImage.src = "wind/" + windFiles[name] + ".png";
+				windImage.src = "../data/2016112000.png";
 				windImage.onload = function () {
 					wind.setWind(windData);
 				};
