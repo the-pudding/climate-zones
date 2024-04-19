@@ -15,7 +15,7 @@
 	<Scrolly bind:value>
 		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as val, i}
 			{@const active = value === i}
-			<div class="step" class:active>
+			<div class="step" id={`step${i}`} class:active>
 				<p class="text">{@html text[val]}</p>
 			</div>
 		{/each}
@@ -33,14 +33,74 @@
 	}
 
 	.step {
-		height: 70vh;
+		height: 200px;
+		width: 200px;
 		position: relative;
 		z-index: 1000;
-		left: 1vw;
-		width: 25vw;
-		background: rgba(128, 128, 128, 0.6);
+		left: 50px;
+		border-radius: 10px;
+		color: rgb(0, 0, 0);
+		background: rgba(128, 128, 128, 0.9);
 		opacity: 100%;
 		text-align: center;
+		margin-bottom: 500px;
+	}
+	#step0 {
+		height: 500px;
+		width: 400px;
+		padding-bottom: 500px;
+	}
+	#step1 {
+		height: 300px;
+		width: 400px;
+	}
+	#step2 {
+		height: 200px;
+		width: 400px;
+	}
+	#step3 {
+		height: 400px;
+		width: 400px;
+	}
+	#step4 {
+		height: 400px;
+		width: 400px;
+	}
+	#step5 {
+		height: 400px;
+		width: 400px;
+	}
+	#step6 {
+		height: 400px;
+		width: 400px;
+	}
+	#step7 {
+		left: 40%;
+		height: 200px;
+		width: 400px;
+	}
+	#step8 {
+		height: 300px;
+		width: 400px;
+	}
+	#step9 {
+		left: 70%;
+		height: 300px;
+		width: 300px;
+	}
+	#step10 {
+		height: 350px;
+		width: 300px;
+	}
+	#step11 {
+		left: 70%;
+		height: 350px;
+		width: 300px;
+	}
+	#step12 {
+		left: 40%;
+		height: 400px;
+		width: 300px;
 	}
 
 	.step p {

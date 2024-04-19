@@ -4,13 +4,13 @@
 	import { flip } from "svelte/animate";
 	import { browser } from "$app/environment";
 	import { data } from "./data.svelte";
-	import { stratify } from "d3";
+	import { interval, stratify } from "d3";
 	export let value;
 
 	// Default duration
 
 	const [send, receive] = crossfade({
-		duration: 8000,
+		duration: 6000,
 		easing: quintInOut
 	});
 
@@ -95,8 +95,8 @@
 							var labels = document.getElementsByClassName("move");
 							for (var i = 0; i < labels.length; i++) {
 								if (labels[i].innerText == item.name) {
-									labels[i].style.border = `6px solid ${item.color}`;
-									labels[i].style.fontSize = `1em`;
+									labels[i].style.border = `5px solid ${item.color}`;
+									labels[i].style.fontSize = `.9em`;
 									labels[i].style.fontWeight = "900";
 								}
 							}
@@ -109,8 +109,7 @@
 			if (browser) {
 				var labels = document.getElementsByClassName("ghost");
 				for (var i = 0; i < labels.length; i++) {
-					console.log(labels[i]);
-					labels[i].style.opacity = 0.4;
+					labels[i].style.opacity = 0.2;
 				}
 			}
 		}, 500);
@@ -118,7 +117,6 @@
 			if (browser) {
 				var labels = document.getElementsByClassName("stay");
 				for (var i = 0; i < labels.length; i++) {
-					console.log(labels[i]);
 					labels[i].style.opacity = 0.8;
 				}
 			}
@@ -129,15 +127,48 @@
 	resetData(data);
 
 	function LA() {
-		todos = [];
-		resetData(data);
+		var c = canvas.getContext("2d");
+		c.clearRect(0, 0, c.width, c.height);
 		setTimeout(() => {
 			orderByTempAndGroupByClim(data, "Los Angeles");
 		}, 500);
+
+		let startPos; // Variable to store starting position
+		let endPos; // Variable to store ending position
+
+		function logPosition() {
+			var c = canvas.getContext("2d");
+			const rect = document
+				.getElementsByClassName("move")[0]
+				.getBoundingClientRect();
+			const x = rect.x;
+			const y = rect.y;
+
+			if (!startPos) {
+				startPos = { x, y };
+			}
+
+			endPos = { x, y };
+
+			c.clearRect(0, 0, c.width, c.height);
+			c.strokeStyle = "black";
+			c.moveTo(startPos.x - 150, startPos.y);
+
+			c.lineTo(endPos.x - 150, endPos.y);
+			c.stroke();
+		}
+
+		// Call logPosition() function every 100 milliseconds
+		var interval = setInterval(logPosition, 10);
+
+		// Clear the interval after 8000 milliseconds
+		setTimeout(() => clearInterval(interval), 8000);
 	}
+
 	function Scan() {
-		todos = [];
-		resetData(data);
+		var c = canvas.getContext("2d");
+		c.clearRect(0, 0, c.width, c.height);
+
 		setTimeout(() => {
 			orderByTempAndGroupByClim(data, [
 				"Oslo",
@@ -145,7 +176,40 @@
 				"Stockholm",
 				"Copenhagen"
 			]);
-		}, 500);
+		}, 200);
+
+		let endPos;
+		let startPos;
+		function logPosition() {
+			var c = canvas.getContext("2d");
+
+			var elements = Array.from(document.getElementsByClassName("move"));
+			elements.forEach(function (rect) {
+				c.clearRect(0, 0, c.width, c.height);
+
+				const x = rect.getBoundingClientRect().x;
+				const y = rect.getBoundingClientRect().y;
+
+				if (!startPos) {
+					startPos = { x, y };
+				}
+				console.log(startPos);
+				endPos = { x, y };
+
+				c.strokeStyle = "black";
+				c.moveTo(startPos.x - 150, startPos.y);
+
+				c.lineTo(endPos.x - 150, endPos.y);
+				c.stroke();
+				// Your code here
+			});
+		}
+
+		// Call logPosition() function every 100 milliseconds
+		var interval = setInterval(logPosition, 10);
+
+		// Clear the interval after 8000 milliseconds
+		setTimeout(() => clearInterval(interval), 8000);
 	}
 	function byeTemp() {
 		todos = [];
@@ -168,7 +232,7 @@
 				"Los Angeles",
 				"Santiago"
 			]);
-		}, 500);
+		}, 200);
 	}
 	function byeCold() {
 		todos = [];
@@ -192,7 +256,7 @@
 				"Seoul",
 				"Beijing"
 			]);
-		}, 500);
+		}, 200);
 	}
 
 	$: if (value === 7) {
@@ -201,10 +265,14 @@
 		}, 100);
 	}
 	$: if (value == 8) {
-		LA();
+		todos = [];
+		resetData(data);
+		setTimeout(() => LA(), 200);
 	}
 	$: if (value == 9) {
-		Scan();
+		todos = [];
+		resetData(data);
+		setTimeout(() => Scan(), 200);
 	}
 	$: if (value == 10) {
 		byeTemp();
@@ -216,6 +284,14 @@
 
 {#if value == 7}
 	<div class="board" style={`z-index:${value == 7 ? 100 : ""} `}>
+		<canvas
+			id="canvas"
+			style="position: absolute;"
+			width={document.getElementById("my_dataviz").getBoundingClientRect()
+				.width}
+			height="{document.getElementById('my_dataviz').getBoundingClientRect()
+				.height};"
+		></canvas>
 		<div>
 			<h3
 				style="
@@ -459,6 +535,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Tropical-savannah">
 					<h2 class="classification">Savannah</h2>
 
@@ -481,7 +558,7 @@
 			<h3
 				style="
 			position: relative;
-			left: 3%;
+			left: 7%;
 		"
 			>
 				Arid
@@ -503,7 +580,7 @@
 					{/each}
 				</div>
 				<div class="Arid-desert-cold">
-					<h2 class="classification">Steppe, hot</h2>
+					<h2 class="classification">Desert, cold</h2>
 					{#each todosMain.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 						<label
 							class={todo.class}
@@ -517,6 +594,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Arid-steppe-hot">
 					<h2 class="classification">Steppe, hot</h2>
 					{#each todosMain.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -554,6 +632,15 @@
 
 {#if value == 8}
 	<div class="board" style={`opacity:1;z-index:${value == 8 ? 100 : ""} `}>
+		<canvas
+			id="canvas"
+			style="position: absolute;"
+			width={document.getElementById("my_dataviz").getBoundingClientRect()
+				.width}
+			height="{document.getElementById('my_dataviz').getBoundingClientRect()
+				.height};"
+		></canvas>
+
 		<div>
 			<h3
 				style="
@@ -803,6 +890,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Tropical-savannah">
 					<h2 class="classification">Savannah</h2>
 
@@ -825,7 +913,7 @@
 			<h3
 				style="
 			position: relative;
-			left: 3%;
+			left: 7%;
 		"
 			>
 				Arid
@@ -847,7 +935,7 @@
 					{/each}
 				</div>
 				<div class="Arid-desert-cold">
-					<h2 class="classification">Steppe, hot</h2>
+					<h2 class="classification">Desert, cold</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 						<label
 							class={todo.class}
@@ -861,6 +949,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Arid-steppe-hot">
 					<h2 class="classification">Steppe, hot</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -897,6 +986,14 @@
 {/if}
 {#if value == 9}
 	<div class="board" style={`opacity:1;z-index:${value == 9 ? 100 : ""} `}>
+		<canvas
+			id="canvas"
+			style="position: absolute;"
+			width={document.getElementById("my_dataviz").getBoundingClientRect()
+				.width}
+			height="{document.getElementById('my_dataviz').getBoundingClientRect()
+				.height};"
+		></canvas>
 		<div>
 			<h3
 				style="
@@ -1146,6 +1243,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Tropical-savannah">
 					<h2 class="classification">Savannah</h2>
 
@@ -1168,7 +1266,7 @@
 			<h3
 				style="
 			position: relative;
-			left: 3%;
+			left: 7%;
 		"
 			>
 				Arid
@@ -1190,7 +1288,7 @@
 					{/each}
 				</div>
 				<div class="Arid-desert-cold">
-					<h2 class="classification">Steppe, hot</h2>
+					<h2 class="classification">Desert, cold</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 						<label
 							class={todo.class}
@@ -1204,6 +1302,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Arid-steppe-hot">
 					<h2 class="classification">Steppe, hot</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -1265,6 +1364,7 @@
 						</label>
 					{/each}
 				</div>
+
 				<div class="Cold-no-dry-season-hot-summer">
 					<h2 class="classification">No dry season, hot summer</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
@@ -1489,6 +1589,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Tropical-savannah">
 					<h2 class="classification">Savannah</h2>
 
@@ -1511,12 +1612,12 @@
 			<h3
 				style="
 			position: relative;
-			left: 3%;
+			left: 7%;
 		"
 			>
 				Arid
 			</h3>
-			<div class="Arid">
+			<div class="Arid" style="width:20%">
 				<div class="Arid-desert-hot">
 					<h2 class="classification">Desert, hot</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
@@ -1533,7 +1634,7 @@
 					{/each}
 				</div>
 				<div class="Arid-desert-cold">
-					<h2 class="classification">Steppe, hot</h2>
+					<h2 class="classification">Desert, cold</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 						<label
 							class={todo.class}
@@ -1547,6 +1648,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Arid-steppe-hot">
 					<h2 class="classification">Steppe, hot</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -1608,6 +1710,7 @@
 						</label>
 					{/each}
 				</div>
+
 				<div class="Cold-no-dry-season-hot-summer">
 					<h2 class="classification">No dry season, hot summer</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
@@ -1816,6 +1919,7 @@
 						</label>
 					{/each}
 				</div>
+
 				<div class="Tropical-rainforest">
 					<h2 class="classification">Rainforest</h2>
 
@@ -1832,6 +1936,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Tropical-savannah">
 					<h2 class="classification">Savannah</h2>
 
@@ -1854,11 +1959,12 @@
 			<h3
 				style="
 			position: relative;
-			left: 3%;
+			left: 7%;
 		"
 			>
 				Arid
 			</h3>
+
 			<div class="Arid">
 				<div class="Arid-desert-hot">
 					<h2 class="classification">Desert, hot</h2>
@@ -1876,7 +1982,7 @@
 					{/each}
 				</div>
 				<div class="Arid-desert-cold">
-					<h2 class="classification">Steppe, hot</h2>
+					<h2 class="classification">Desert, cold</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 						<label
 							class={todo.class}
@@ -1890,6 +1996,7 @@
 						</label>
 					{/each}
 				</div>
+				<p class="break"></p>
 				<div class="Arid-steppe-hot">
 					<h2 class="classification">Steppe, hot</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -1905,6 +2012,7 @@
 						</label>
 					{/each}
 				</div>
+
 				<div class="Arid-steppe-cold">
 					<h2 class="classification">Steppe, cold</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
@@ -1931,10 +2039,11 @@
 		position: sticky;
 		width: 100%;
 		height: 100%;
-		transform: translateX(10vw);
-		top: 100px;
+		transform: translateX(200px);
+		top: 20px;
 		opacity: 0;
 		transition: opacity 1s ease;
+		scale: 1;
 	}
 
 	.Cold,
@@ -1942,7 +2051,6 @@
 	.Tropical,
 	.Arid {
 		float: left;
-		width: 10%;
 		padding: 0.5em 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
 		margin-right: 1em;
@@ -1950,18 +2058,22 @@
 	}
 	.Temperate {
 		columns: 4;
-		width: 40%;
+		width: 35%;
 		background-color: rgba(88, 249, 104, 0.25);
 	}
 	.Cold {
 		columns: 2;
-		width: 20%;
+		width: 15%;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 	.Arid {
+		columns: 2;
+		width: 15%;
 		background-color: rgba(249, 88, 88, 0.6);
 	}
 	.Tropical {
+		columns: 2;
+		width: 15%;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 
@@ -1971,7 +2083,7 @@
 		display: flex;
 		font-size: 0.8em;
 		line-height: 1;
-		padding: 0.1em;
+		padding: 0em;
 		margin: 0 auto 0.5em auto;
 		border-radius: 2px;
 		background-color: #eee;
@@ -2052,5 +2164,8 @@
 	}
 	.break {
 		break-after: column;
+	}
+	.canvas {
+		z-index: 10000;
 	}
 </style>
