@@ -39,51 +39,18 @@
 		resizeMap();
 		window.addEventListener("resize", resizeMap);
 
-		map.on("load", () => {
-			map.addSource("water-source", {
-				type: "video",
-				urls: [
-					"https://raw.githubusercontent.com/bumbeishvili/Assets/master/Other/bmpvideo3.mp4"
-				],
-				coordinates: [
-					[-180, 60],
-					[180, 60],
-					[180, -80],
-					[-180, -80]
-				]
-			});
-
-			map.addLayer(
-				{
-					type: "raster",
-					id: "water-layer",
-					source: "water-source",
-					paint: {
-						"raster-opacity": 0
-					}
-				},
-				"water"
-			);
-
-			window.setSpeed = function (newSpeed) {
-				console.log(map, map.styles);
-				if (map && map.getSource) {
-					console.log("setting speed");
-					var video = map.getSource("water-source").getVideo();
-					video.playbackRate = parseFloat(newSpeed);
-				}
-			};
+		map.on("style.load", () => {
 			map.addSource("cities", {
 				type: "geojson",
-				data: "src/data/final_cities_v2.geojson"
+				data: "assets/final_cities_v2.geojson"
 			});
 			map.addSource("present1", {
 				type: "geojson",
-				data: "src/data/present_vector_v12.geojson"
+				data: "assets/present_vector_v12.geojson"
 			});
 			map.addSource("future", {
 				type: "geojson",
-				data: "src/data/future_vector_v1.geojson"
+				data: "assets/future_vector_v1.geojson"
 			});
 
 			map.addLayer({
@@ -499,12 +466,44 @@
 					"text-opacity-transition": { duration: 2000 }
 				}
 			});
+			map.addLayer(
+				{
+					type: "raster",
+					id: "water-layer",
+					source: "water-source",
+					paint: {
+						"raster-opacity": 0
+					}
+				},
+				"water"
+			);
+			map.addLayer(
+				{
+					type: "raster",
+					id: "water-layer1",
+					source: "water-source1",
+					paint: {
+						"raster-opacity": 0
+					}
+				},
+				"water"
+			);
+
+			window.setSpeed = function (newSpeed) {
+				console.log(map, map.styles);
+				if (map && map.getSource) {
+					console.log("setting speed");
+					var video = map.getSource("water-source").getVideo();
+					video.playbackRate = parseFloat(newSpeed);
+				}
+			};
 		});
 	});
 
 	$: if (value === 0) {
 		document.getElementById("year1").style.opacity = 0;
 		document.getElementById("year2").style.opacity = 0;
+
 		setTimeout(() => {
 			map.setPaintProperty("main-layer", "fill-opacity", 0);
 			function fade() {
@@ -572,14 +571,13 @@
 
 	$: if (value === 1) {
 		console.log("cancel");
-		map.setPaintProperty("water-layer", "raster-opacity", 0.5);
+
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
 		map.setPaintProperty("present-layer2", "fill-opacity", 0);
 		map.setPaintProperty("present-layer3", "fill-opacity", 0);
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 	}
 	$: if (value === 2) {
-		map.setPaintProperty("water-layer", "raster-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 0);
 		map.setPaintProperty("cities-labels", "text-opacity", 0);
@@ -956,10 +954,15 @@
 <div class="map-wrap">
 	<div id="year1">2023</div>
 	<div id="year2">2070</div>
+
 	<div class="map" bind:this={mapContainer} />
 </div>
 
 <style>
+	video {
+		position: absolute;
+		opacity: 0;
+	}
 	.map {
 		position: absolute;
 		width: 100vw;

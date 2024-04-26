@@ -232,7 +232,7 @@
 		}, 200);
 		let endPos;
 		let startPos = [];
-		c.clearRect(0, 0, canvas.width, canvas.height);
+
 		function logPosition() {
 			var c = canvas.getContext("2d");
 			var elements = Array.from(document.getElementsByClassName("move"));
