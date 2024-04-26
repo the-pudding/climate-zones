@@ -4,6 +4,7 @@
 	import { flip } from "svelte/animate";
 	import { browser } from "$app/environment";
 	import { data } from "./data.svelte";
+	import { onMount, onDestroy } from "svelte";
 
 	const [send, receive] = crossfade({
 		duration: 3000,
@@ -11,6 +12,8 @@
 	});
 
 	let todos = [];
+
+	onMount(() => {});
 
 	function orderByTempAndGroupByClim(data, city) {
 		let newData = data.map((item) => {
@@ -355,6 +358,7 @@
 					</label>
 				{/each}
 			</div>
+			<p class="break"></p>
 			<div class="Tropical-savannah">
 				<h2 class="classification">Savannah</h2>
 
@@ -408,6 +412,7 @@
 					</label>
 				{/each}
 			</div>
+
 			<div class="Arid-desert-cold">
 				<h2 class="classification">Desert, cold</h2>
 				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
@@ -428,6 +433,7 @@
 					</label>
 				{/each}
 			</div>
+			<p class="break"></p>
 			<div class="Arid-steppe-hot">
 				<h2 class="classification">Steppe, hot</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
@@ -473,15 +479,16 @@
 </div>
 
 <style>
-	* {
-		font-family: Futura;
-	}
 	.board {
+		z-index: 100;
 		position: relative;
 		width: 100%;
 		height: 100%;
-		left: 10vw;
-		top: 100px;
+		transform: translateX(20px);
+		top: -100px;
+		opacity: 1;
+		transition: opacity 1s ease;
+		scale: 1;
 	}
 
 	.Cold,
@@ -489,7 +496,6 @@
 	.Tropical,
 	.Arid {
 		float: left;
-		width: 10%;
 		padding: 0.5em 0.5em 0.5em 0.5em;
 		box-sizing: border-box;
 		margin-right: 1em;
@@ -497,18 +503,22 @@
 	}
 	.Temperate {
 		columns: 4;
-		width: 40%;
+		width: 35%;
 		background-color: rgba(88, 249, 104, 0.25);
 	}
 	.Cold {
 		columns: 2;
-		width: 20%;
+		width: 15%;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 	.Arid {
+		columns: 2;
+		width: 15%;
 		background-color: rgba(249, 88, 88, 0.6);
 	}
 	.Tropical {
+		columns: 2;
+		width: 15%;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 
@@ -518,7 +528,7 @@
 		display: flex;
 		font-size: 0.8em;
 		line-height: 1;
-		padding: 0.1em;
+		padding: 0em;
 		margin: 0 auto 0.5em auto;
 		border-radius: 2px;
 		background-color: #eee;
@@ -563,7 +573,7 @@
 		background-color: rgb(255, 0, 0);
 	}
 	.Arid-desert-cold label {
-		background-color: rgb(228, 103, 103);
+		background-color: rgb(255, 150, 150);
 	}
 	.Arid-steppe-hot label {
 		background-color: rgb(245, 165, 0);
@@ -599,5 +609,8 @@
 	}
 	.break {
 		break-after: column;
+	}
+	.canvas {
+		z-index: 10000;
 	}
 </style>

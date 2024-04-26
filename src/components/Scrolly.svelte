@@ -13,7 +13,7 @@
 	<MapTitle {value} />
 	<Board {value} />
 	<Scrolly bind:value>
-		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as val, i}
+		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 			{@const active = value === i}
 			<div class="step" id={`step${i}`} class:active>
 				<p class="text">{@html text[val]}</p>
@@ -46,20 +46,22 @@
 		margin-bottom: 500px;
 	}
 	#step0 {
+		height: 100%;
+		width: 100%;
+		padding-bottom: 200px;
+		background-color: transparent;
+	}
+	#step1 {
 		height: 500px;
 		width: 400px;
 		padding-bottom: 500px;
 	}
-	#step1 {
+	#step2 {
 		height: 300px;
 		width: 400px;
 	}
-	#step2 {
-		height: 200px;
-		width: 400px;
-	}
 	#step3 {
-		height: 400px;
+		height: 200px;
 		width: 400px;
 	}
 	#step4 {
@@ -75,32 +77,36 @@
 		width: 400px;
 	}
 	#step7 {
+		height: 400px;
+		width: 400px;
+	}
+	#step8 {
 		left: 40%;
 		height: 200px;
 		width: 400px;
 	}
-	#step8 {
+	#step9 {
 		height: 300px;
 		width: 400px;
 	}
-	#step9 {
+	#step10 {
 		left: 70%;
 		height: 300px;
 		width: 300px;
 	}
-	#step10 {
-		height: 350px;
-		width: 300px;
-	}
 	#step11 {
-		left: 70%;
 		height: 350px;
 		width: 300px;
 	}
 	#step12 {
-		left: 40%;
-		height: 400px;
+		left: 70%;
+		height: 350px;
 		width: 300px;
+	}
+	#step13 {
+		left: 25%;
+		height: 200px;
+		width: 800px;
 	}
 
 	.step p {

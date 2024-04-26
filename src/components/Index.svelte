@@ -5,6 +5,7 @@
 	import VizScrolly from "$components/Scrolly.svelte";
 	import VizStatic from "$components/viz_static.svelte";
 	import Wind from "$components/Wind.svelte";
+	import Mapbox from "$components/Mapbox.svelte";
 
 	// import Footer from "$components/Footer.svelte";
 
@@ -14,5 +15,3 @@
 
 <VizScrolly />
 <VizStatic />
-
-<!-- <Footer /> -->
