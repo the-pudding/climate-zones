@@ -19,6 +19,7 @@
 */
 </script>
 
-<VizScrolly />
+<!-- <VizScrolly /> -->
 
-<VizStatic />
+<!-- <VizStatic /> -->
+<VizStaticMobile />

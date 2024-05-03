@@ -90,7 +90,7 @@
 </script>
 
 <div class="board">
-	<div>
+	<div class="rect">
 		<h3
 			style="
 			position: relative;
@@ -100,7 +100,7 @@
 			Cold
 		</h3>
 		<div class="Cold">
-			<div class="Cold-dry-winter-hot-summer">
+			<div class="Cold-dry-winter-hot-summer Row">
 				<h2 class="classification">Dry winter, hot summer</h2>
 				{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo (todo.id)}
 					<label
@@ -120,7 +120,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Cold-no-dry-season-hot-summer">
+			<div class="Cold-no-dry-season-hot-summer Row">
 				<h2 class="classification">No dry season, hot summer</h2>
 				{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo (todo.id)}
 					<label
@@ -140,8 +140,7 @@
 					</label>
 				{/each}
 			</div>
-			<p class="break"></p>
-			<div class="Cold-no-dry-season-warm-summer">
+			<div class="Cold-no-dry-season-warm-summer  Row">
 				<h2 class="classification">No dry season, warm summer</h2>
 				{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo (todo.id)}
 					<label
@@ -164,10 +163,9 @@
 		</div>
 	</div>
 
-	<div>
+	<div class="rect">
 		<div
-			style="    transform: translateY(-55px);
-		"
+			style=""
 		>
 			<h3
 				style="
@@ -178,7 +176,7 @@
 				Temperate
 			</h3>
 			<div class="Temperate">
-				<div class="Temperate-dry-summer-hot-summer">
+				<div class="Temperate-dry-summer-hot-summer Row">
 					<h2 class="classification">Dry summer, hot summer</h2>
 
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo (todo.id)}
@@ -199,8 +197,7 @@
 						</label>
 					{/each}
 				</div>
-				<p class="break"></p>
-				<div class="Temperate-no-dry-season-warm-summer">
+				<div class="Temperate-no-dry-season-warm-summer Row">
 					<h2 class="classification">No dry season, warm summer</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo (todo.id)}
 						<label
@@ -221,8 +218,7 @@
 					{/each}
 				</div>
 
-				<p class="break"></p>
-				<div class="Temperate-no-dry-season-hot-summer">
+				<div class="Temperate-no-dry-season-hot-summer Row">
 					<h2 class="classification">No dry season, hot summer</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo (todo.id)}
 						<label
@@ -242,8 +238,7 @@
 						</label>
 					{/each}
 				</div>
-				<p class="break"></p>
-				<div class="Temperate-dry-summer-warm-summer">
+				<div class="Temperate-dry-summer-warm-summer Row">
 					<h2 class="classification">Dry summer, warm summer</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo (todo.id)}
 						<label
@@ -263,7 +258,7 @@
 						</label>
 					{/each}
 				</div>
-				<div class="Temperate-dry-winter-hot-summer">
+				<div class="Temperate-dry-winter-hot-summer Row">
 					<h2 class="classification">Dry winter, hot summer</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo (todo.id)}
 						<label
@@ -283,7 +278,7 @@
 						</label>
 					{/each}
 				</div>
-				<div class="Temperate-dry-winter-warm-summer">
+				<div class="Temperate-dry-winter-warm-summer Row">
 					<h2 class="classification">Dry winter, warm summer</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo (todo.id)}
 						<label
@@ -306,7 +301,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="transform: translateY(-110px);">
+	<div class="rect" style="">
 		<h3
 			style="
 			position: relative;
@@ -316,7 +311,7 @@
 			Tropical
 		</h3>
 		<div class="Tropical">
-			<div class="Tropical-monsoon">
+			<div class="Tropical-monsoon Row">
 				<h2 class="classification">Monsoon</h2>
 
 				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo (todo.id)}
@@ -337,7 +332,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Tropical-rainforest">
+			<div class="Tropical-rainforest Row">
 				<h2 class="classification">Rainforest</h2>
 
 				{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo (todo.id)}
@@ -358,8 +353,7 @@
 					</label>
 				{/each}
 			</div>
-			<p class="break"></p>
-			<div class="Tropical-savannah">
+			<div class="Tropical-savannah Row">
 				<h2 class="classification">Savannah</h2>
 
 				{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo (todo.id)}
@@ -382,7 +376,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="transform: translateY(-165px);">
+	<div class="rect" style="">
 		<h3
 			style="
 			position: relative;
@@ -392,7 +386,7 @@
 			Arid
 		</h3>
 		<div class="Arid">
-			<div class="Arid-desert-hot">
+			<div class="Arid-desert-hot Row">
 				<h2 class="classification">Desert, hot</h2>
 				{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo (todo.id)}
 					<label
@@ -413,7 +407,7 @@
 				{/each}
 			</div>
 
-			<div class="Arid-desert-cold">
+			<div class="Arid-desert-cold Row">
 				<h2 class="classification">Desert, cold</h2>
 				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo (todo.id)}
 					<label
@@ -433,8 +427,7 @@
 					</label>
 				{/each}
 			</div>
-			<p class="break"></p>
-			<div class="Arid-steppe-hot">
+			<div class="Arid-steppe-hot Row">
 				<h2 class="classification">Steppe, hot</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo (todo.id)}
 					<label
@@ -454,7 +447,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Arid-steppe-cold">
+			<div class="Arid-steppe-cold Row">
 				<h2 class="classification">Steppe, cold</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo (todo.id)}
 					<label
@@ -479,16 +472,35 @@
 </div>
 
 <style>
+	.rect {
+		display: flex;
+		width: 100%;
+	}
+	.rect .Cold, .rect .Temperate, .rect .Arid, .rect .Tropical { 
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.Row {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+
+	.Row label {
+		margin: 0;
+		
+	}
 	.board {
 		z-index: 100;
 		position: relative;
 		width: 100%;
 		height: 100%;
-		transform: translateX(20px);
-		top: -100px;
 		opacity: 1;
 		transition: opacity 1s ease;
 		scale: 1;
+		display: flex;
+		flex-wrap: wrap;
 	}
 
 	.Temperate {
@@ -496,31 +508,24 @@
 		bottom: 0;
 		order: 1; /* This will push Temperate to the bottom */
 		display: flex;
-		transform: translate(0px, 270px);
 		justify-content: space-between;
-		width: 90%;
 		background-color: rgba(88, 249, 104, 0.25);
 	}
 	.Cold {
 		position: relative;
-		columns: 2;
-		transform: translate(0px, 150px);
-		width: 30%;
+		width: 100%;
+		display: flex;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 	.Arid {
 		position: relative;
 		columns: 2;
-		transform: translate(125px, -420px);
-		width: 30%;
 		background-color: rgba(249, 88, 88, 0.6);
 	}
 	.Tropical {
 		position: relative;
-		transform: translate(250px, -300px);
 		top: 0px;
 		columns: 2;
-		width: 30%;
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 
@@ -595,7 +600,8 @@
 	}
 
 	button {
-		font-size: 0.8em;
+		font-size: 12px;
+		padding: 0;
 		text-align: center;
 		background-color: transparent;
 		fill: white;
