@@ -526,7 +526,7 @@
 		top: 0;
 		left: 0;
 		display: flex;
-		font-size: 0.8em;
+		font-size: 0.9em;
 		line-height: 1;
 		padding: 0em;
 		margin: 0 auto 0.5em auto;

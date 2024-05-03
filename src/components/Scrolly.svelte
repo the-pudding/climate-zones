@@ -1,5 +1,6 @@
 <script>
 	import Board from "$components/Board.svelte";
+	import BoardMobile from "$components/Board_mobile.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
 	import { map } from "d3";

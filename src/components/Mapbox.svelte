@@ -24,11 +24,21 @@
 					1,
 					0.2
 				]);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					if (e.id == "aridMap") {
+						e.style.opacity = 1;
+					} else {
+						e.style.opacity = 0.5;
+					}
+				});
 			});
 		document
 			.getElementById("aridMap")
 			.addEventListener("mouseout", function (event) {
-				map.setPaintProperty("main-layer", "fill-opacity", 1); // Reset the fill-opacity
+				map.setPaintProperty("main-layer", "fill-opacity", 1);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					e.style.opacity = 1;
+				});
 			});
 
 		document
@@ -40,11 +50,97 @@
 					1,
 					0.2
 				]);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					if (e.id == "tropicalMap") {
+						e.style.opacity = 1;
+					} else {
+						e.style.opacity = 0.5;
+					}
+				});
 			});
 		document
 			.getElementById("tropicalMap")
 			.addEventListener("mouseout", function (event) {
-				map.setPaintProperty("main-layer", "fill-opacity", 1); // Reset the fill-opacity
+				map.setPaintProperty("main-layer", "fill-opacity", 1);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					e.style.opacity = 1;
+				});
+			});
+
+		document
+			.getElementById("tempMap")
+			.addEventListener("mouseover", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", [
+					"case",
+					["all", [">", ["get", "DN"], 7], ["<=", ["get", "DN"], 16]],
+					1,
+					0.2
+				]);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					if (e.id == "tempMap") {
+						e.style.opacity = 1;
+					} else {
+						e.style.opacity = 0.5;
+					}
+				});
+			});
+		document
+			.getElementById("tempMap")
+			.addEventListener("mouseout", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", 1);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					e.style.opacity = 1;
+				});
+			});
+		document
+			.getElementById("coldMap")
+			.addEventListener("mouseover", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", [
+					"case",
+					["all", [">", ["get", "DN"], 16], ["<=", ["get", "DN"], 28]],
+					1,
+					0.2
+				]);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					if (e.id == "coldMap") {
+						e.style.opacity = 1;
+					} else {
+						e.style.opacity = 0.5;
+					}
+				});
+			});
+		document
+			.getElementById("coldMap")
+			.addEventListener("mouseout", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", 1);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					e.style.opacity = 1;
+				});
+			});
+		document
+			.getElementById("polarMap")
+			.addEventListener("mouseover", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", [
+					"case",
+					["all", [">", ["get", "DN"], 28], ["<=", ["get", "DN"], 36]],
+					1,
+					0.2
+				]);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					if (e.id == "polarMap") {
+						e.style.opacity = 1;
+					} else {
+						e.style.opacity = 0.5;
+					}
+				});
+			});
+		document
+			.getElementById("polarMap")
+			.addEventListener("mouseout", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", 1);
+				[...document.getElementsByClassName("classMap")].forEach((e) => {
+					e.style.opacity = 1;
+				});
 			});
 
 		const initialState = { lng: lng, lat: lat, zoom: zoom };
@@ -461,19 +557,34 @@
 			map.setPaintProperty("future-layer", "fill-opacity-transition", {
 				duration: 2000
 			});
-
-			window.setSpeed = function (newSpeed) {
-				console.log(map, map.styles);
-				if (map && map.getSource) {
-					console.log("setting speed");
-					var video = map.getSource("water-source").getVideo();
-					video.playbackRate = parseFloat(newSpeed);
-				}
-			};
 		});
+		// At low zooms, complete a revolution every two minutes.
 	});
 
 	$: if (value === 0) {
+		/*map.setProjection("globe");
+
+		map.setZoom(2);
+
+		function spinGlobe() {
+			if (value != 0) {
+				return;
+			}
+
+			let distancePerSecond = 360 / 120;
+
+			const center = map.getCenter();
+			center.lng -= distancePerSecond;
+			// Smoothly animate the map over one second.
+			// When this animation is complete, it calls a 'moveend' event.
+			map.easeTo({ center, duration: 1000, easing: (n) => n });
+		}
+
+		spinGlobe();
+		map.on("moveend", () => {
+			spinGlobe();
+		});*/
+
 		document.getElementById("year1").style.opacity = 0;
 		document.getElementById("year2").style.opacity = 0;
 
@@ -543,6 +654,8 @@
 	}
 
 	$: if (value === 1) {
+		map.setProjection("equalEarth");
+
 		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
