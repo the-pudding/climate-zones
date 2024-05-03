@@ -7,7 +7,8 @@
 	import Wind from "$components/Wind.svelte";
 	import Mapbox from "$components/Mapbox.svelte";
 	import VizStaticMobile from "$components/viz_static_mobile.svelte";
-
+	import { viewport } from "$stores/viewport.js";
+	
 	// import Footer from "$components/Footer.svelte";
 
 	// const copy = getContext("copy");
@@ -21,5 +22,9 @@
 
 <!-- <VizScrolly /> -->
 
-<!-- <VizStatic /> -->
-<VizStaticMobile />
+{#if $viewport.width < 500}
+	<VizStaticMobile />
+{:else}
+	<VizStatic />
+{/if}
+

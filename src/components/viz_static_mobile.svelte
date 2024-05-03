@@ -5,6 +5,7 @@
 	import { browser } from "$app/environment";
 	import { data } from "./data.svelte";
 	import { onMount, onDestroy } from "svelte";
+	import { viewport } from "$stores/viewport.js";
 
 	const [send, receive] = crossfade({
 		duration: 3000,
