@@ -6,12 +6,19 @@
 	import VizStatic from "$components/viz_static.svelte";
 	import Wind from "$components/Wind.svelte";
 	import Mapbox from "$components/Mapbox.svelte";
+	import VizStaticMobile from "$components/viz_static_mobile.svelte";
 
 	// import Footer from "$components/Footer.svelte";
 
 	// const copy = getContext("copy");
 	// const data = getContext("data");
+	/*
+<VizScrolly />
+
+<VizStatic />
+*/
 </script>
 
 <VizScrolly />
+
 <VizStatic />

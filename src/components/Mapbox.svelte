@@ -5,6 +5,7 @@
 	import { getColorSimp } from "$actions/getColorSimp.js";
 	import { onMount, onDestroy } from "svelte";
 	import { fade } from "svelte/transition";
+	import MapPoints from "./layercake/todo/MapPoints.canvas.svelte";
 	let map;
 	let mapContainer;
 	let lng, lat, zoom;
@@ -13,13 +14,46 @@
 	zoom = 1.3;
 	export let value;
 	onMount(() => {
+		document
+			.getElementById("aridMap")
+			.addEventListener("mouseover", function (event) {
+				// Your mouseover event handling code here
+				map.setPaintProperty("main-layer", "fill-opacity", [
+					"case",
+					["all", [">", ["get", "DN"], 3], ["<=", ["get", "DN"], 7]],
+					1,
+					0.2
+				]);
+			});
+		document
+			.getElementById("aridMap")
+			.addEventListener("mouseout", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", 1); // Reset the fill-opacity
+			});
+
+		document
+			.getElementById("tropicalMap")
+			.addEventListener("mouseover", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", [
+					"case",
+					["all", [">", ["get", "DN"], 0], ["<=", ["get", "DN"], 3]],
+					1,
+					0.2
+				]);
+			});
+		document
+			.getElementById("tropicalMap")
+			.addEventListener("mouseout", function (event) {
+				map.setPaintProperty("main-layer", "fill-opacity", 1); // Reset the fill-opacity
+			});
+
 		const initialState = { lng: lng, lat: lat, zoom: zoom };
 
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			accessToken:
-				"pk.eyJ1IjoiZGVyZWtzcGF0aWFsIiwiYSI6ImNsdGluMDFydTBlMmYycW8wZG9raHo5MTgifQ.SxCwTeircSEiw2NrreUoUA",
-			style: "mapbox://styles/derekspatial/clv6sdrpi00mo01ph5dg11h53",
+				"pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2xqc2g3N2o5MHAyMDNjdGhzM2V2cmR3NiJ9.3x1ManoY4deDkAGBuUMnSw",
+			style: "mapbox://styles/dock4242/clvqhl9fj01oa01qrcse27w6z",
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
 			scrollZoom: false,
@@ -44,395 +78,6 @@
 				type: "geojson",
 				data: "assets/final_cities_v2.geojson"
 			});
-			map.addSource("present1", {
-				type: "geojson",
-				data: "assets/present_vector_v12.geojson"
-			});
-			map.addSource("future", {
-				type: "geojson",
-				data: "assets/future_vector_v1.geojson"
-			});
-
-			map.addLayer({
-				id: "future-layer",
-				type: "fill",
-				source: "future",
-				paint: {
-					"fill-color": [
-						"case",
-						["==", ["get", "DN"], 0],
-						getColor(0),
-						["==", ["get", "DN"], 1],
-						getColor(1),
-						["==", ["get", "DN"], 2],
-						getColor(2),
-						["==", ["get", "DN"], 3],
-						getColor(3),
-						// Repeat the pattern for up to 30 values
-						["==", ["get", "DN"], 4],
-						getColor(4),
-						["==", ["get", "DN"], 5],
-						getColor(5),
-						["==", ["get", "DN"], 6],
-						getColor(6),
-						["==", ["get", "DN"], 7],
-						getColor(7),
-						["==", ["get", "DN"], 8],
-						getColor(8),
-						["==", ["get", "DN"], 9],
-						getColor(9),
-						["==", ["get", "DN"], 10],
-						getColor(10),
-						["==", ["get", "DN"], 11],
-						getColor(11),
-						["==", ["get", "DN"], 12],
-						getColor(12),
-						["==", ["get", "DN"], 13],
-						getColor(13),
-						["==", ["get", "DN"], 14],
-						getColor(14),
-						["==", ["get", "DN"], 15],
-						getColor(15),
-						["==", ["get", "DN"], 16],
-						getColor(16),
-						["==", ["get", "DN"], 17],
-						getColor(17),
-						["==", ["get", "DN"], 18],
-						getColor(18),
-						["==", ["get", "DN"], 19],
-						getColor(19),
-						["==", ["get", "DN"], 20],
-						getColor(20),
-						["==", ["get", "DN"], 21],
-						getColor(21),
-						["==", ["get", "DN"], 22],
-						getColor(22),
-						["==", ["get", "DN"], 23],
-						getColor(23),
-						["==", ["get", "DN"], 24],
-						getColor(24),
-						["==", ["get", "DN"], 25],
-						getColor(25),
-						["==", ["get", "DN"], 26],
-						getColor(26),
-						["==", ["get", "DN"], 27],
-						getColor(27),
-						["==", ["get", "DN"], 28],
-						getColor(28),
-						["==", ["get", "DN"], 29],
-						getColor(29),
-						["==", ["get", "DN"], 30],
-						getColor(30),
-						"transparent" // Default color if none of the conditions are met
-					],
-					"fill-opacity": 0,
-					"fill-opacity-transition": { duration: 2000 }
-				}
-			});
-			map.addLayer({
-				id: "main-layer",
-				type: "fill",
-				source: "present1",
-				paint: {
-					"fill-color": [
-						"case",
-						["==", ["get", "DN"], 0],
-						getColorSimp(0),
-						["==", ["get", "DN"], 1],
-						getColorSimp(1),
-						["==", ["get", "DN"], 2],
-						getColorSimp(2),
-						["==", ["get", "DN"], 3],
-						getColorSimp(3),
-						// Repeat the pattern for up to 30 values
-						["==", ["get", "DN"], 4],
-						getColorSimp(4),
-						["==", ["get", "DN"], 5],
-						getColorSimp(5),
-						["==", ["get", "DN"], 6],
-						getColorSimp(6),
-						["==", ["get", "DN"], 7],
-						getColorSimp(7),
-						["==", ["get", "DN"], 8],
-						getColorSimp(8),
-						["==", ["get", "DN"], 9],
-						getColorSimp(9),
-						["==", ["get", "DN"], 10],
-						getColorSimp(10),
-						["==", ["get", "DN"], 11],
-						getColorSimp(11),
-						["==", ["get", "DN"], 12],
-						getColorSimp(12),
-						["==", ["get", "DN"], 13],
-						getColorSimp(13),
-						["==", ["get", "DN"], 14],
-						getColorSimp(14),
-						["==", ["get", "DN"], 15],
-						getColorSimp(15),
-						["==", ["get", "DN"], 16],
-						getColorSimp(16),
-						["==", ["get", "DN"], 17],
-						getColorSimp(17),
-						["==", ["get", "DN"], 18],
-						getColorSimp(18),
-						["==", ["get", "DN"], 19],
-						getColorSimp(19),
-						["==", ["get", "DN"], 20],
-						getColorSimp(20),
-						["==", ["get", "DN"], 21],
-						getColorSimp(21),
-						["==", ["get", "DN"], 22],
-						getColorSimp(22),
-						["==", ["get", "DN"], 23],
-						getColorSimp(23),
-						["==", ["get", "DN"], 24],
-						getColorSimp(24),
-						["==", ["get", "DN"], 25],
-						getColorSimp(25),
-						["==", ["get", "DN"], 26],
-						getColorSimp(26),
-						["==", ["get", "DN"], 27],
-						getColorSimp(27),
-						["==", ["get", "DN"], 28],
-						getColorSimp(28),
-						["==", ["get", "DN"], 29],
-						getColorSimp(29),
-						["==", ["get", "DN"], 30],
-						getColorSimp(30),
-						"transparent" // Default color if none of the conditions are met
-					],
-					"fill-opacity": 0,
-					"fill-opacity-transition": { duration: 2000 }
-				}
-			});
-			map.addLayer({
-				id: "present-layer3",
-				type: "fill",
-				source: "present1",
-				paint: {
-					"fill-color": [
-						"case",
-						["==", ["get", "DN"], 0],
-						getColor(0),
-						["==", ["get", "DN"], 1],
-						getColor(1),
-						["==", ["get", "DN"], 2],
-						getColor(2),
-						["==", ["get", "DN"], 3],
-						getColor(3),
-						// Repeat the pattern for up to 30 values
-						["==", ["get", "DN"], 4],
-						getColor(4),
-						["==", ["get", "DN"], 5],
-						getColor(5),
-						["==", ["get", "DN"], 6],
-						getColor(6),
-						["==", ["get", "DN"], 7],
-						getColor(7),
-						["==", ["get", "DN"], 8],
-						getColor(8),
-						["==", ["get", "DN"], 9],
-						getColor(9),
-						["==", ["get", "DN"], 10],
-						getColor(10),
-						["==", ["get", "DN"], 11],
-						getColor(11),
-						["==", ["get", "DN"], 12],
-						getColor(12),
-						["==", ["get", "DN"], 13],
-						getColor(13),
-						["==", ["get", "DN"], 14],
-						getColor(14),
-						["==", ["get", "DN"], 15],
-						getColor(15),
-						["==", ["get", "DN"], 16],
-						getColor(16),
-						["==", ["get", "DN"], 17],
-						getColor(17),
-						["==", ["get", "DN"], 18],
-						getColor(18),
-						["==", ["get", "DN"], 19],
-						getColor(19),
-						["==", ["get", "DN"], 20],
-						getColor(20),
-						["==", ["get", "DN"], 21],
-						getColor(21),
-						["==", ["get", "DN"], 22],
-						getColor(22),
-						["==", ["get", "DN"], 23],
-						getColor(23),
-						["==", ["get", "DN"], 24],
-						getColor(24),
-						["==", ["get", "DN"], 25],
-						getColor(25),
-						["==", ["get", "DN"], 26],
-						getColor(26),
-						["==", ["get", "DN"], 27],
-						getColor(27),
-						["==", ["get", "DN"], 28],
-						getColor(28),
-						["==", ["get", "DN"], 29],
-						getColor(29),
-						["==", ["get", "DN"], 30],
-						getColor(30),
-						"transparent" // Default color if none of the conditions are met
-					],
-					"fill-opacity": 0,
-					"fill-opacity-transition": { duration: 2000 }
-				}
-			});
-			map.addLayer({
-				id: "present-layer1",
-				type: "fill",
-				source: "present1",
-				paint: {
-					"fill-color": [
-						"case",
-						["==", ["get", "DN"], 0],
-						getColor(0),
-						["==", ["get", "DN"], 1],
-						getColor(1),
-						["==", ["get", "DN"], 2],
-						getColor(2),
-						["==", ["get", "DN"], 3],
-						getColor(3),
-						// Repeat the pattern for up to 30 values
-						["==", ["get", "DN"], 4],
-						getColor(4),
-						["==", ["get", "DN"], 5],
-						getColor(5),
-						["==", ["get", "DN"], 6],
-						getColor(6),
-						["==", ["get", "DN"], 7],
-						getColor(7),
-						["==", ["get", "DN"], 8],
-						getColor(8),
-						["==", ["get", "DN"], 9],
-						getColor(9),
-						["==", ["get", "DN"], 10],
-						getColor(10),
-						["==", ["get", "DN"], 11],
-						getColor(11),
-						["==", ["get", "DN"], 12],
-						getColor(12),
-						["==", ["get", "DN"], 13],
-						getColor(13),
-						["==", ["get", "DN"], 14],
-						getColor(14),
-						["==", ["get", "DN"], 15],
-						getColor(15),
-						["==", ["get", "DN"], 16],
-						getColor(16),
-						["==", ["get", "DN"], 17],
-						getColor(17),
-						["==", ["get", "DN"], 18],
-						getColor(18),
-						["==", ["get", "DN"], 19],
-						getColor(19),
-						["==", ["get", "DN"], 20],
-						getColor(20),
-						["==", ["get", "DN"], 21],
-						getColor(21),
-						["==", ["get", "DN"], 22],
-						getColor(22),
-						["==", ["get", "DN"], 23],
-						getColor(23),
-						["==", ["get", "DN"], 24],
-						getColor(24),
-						["==", ["get", "DN"], 25],
-						getColor(25),
-						["==", ["get", "DN"], 26],
-						getColor(26),
-						["==", ["get", "DN"], 27],
-						getColor(27),
-						["==", ["get", "DN"], 28],
-						getColor(28),
-						["==", ["get", "DN"], 29],
-						getColor(29),
-						["==", ["get", "DN"], 30],
-						getColor(30),
-						"transparent" // Default color if none of the conditions are met
-					],
-					"fill-opacity": 0,
-					"fill-opacity-transition": { duration: 2000 }
-				}
-			});
-			map.addLayer({
-				id: "present-layer2",
-				type: "fill",
-				source: "present1",
-				paint: {
-					"fill-color": [
-						"case",
-						["==", ["get", "DN"], 0],
-						getColor(0),
-						["==", ["get", "DN"], 1],
-						getColor(1),
-						["==", ["get", "DN"], 2],
-						getColor(2),
-						["==", ["get", "DN"], 3],
-						getColor(3),
-						// Repeat the pattern for up to 30 values
-						["==", ["get", "DN"], 4],
-						getColor(4),
-						["==", ["get", "DN"], 5],
-						getColor(5),
-						["==", ["get", "DN"], 6],
-						getColor(6),
-						["==", ["get", "DN"], 7],
-						getColor(7),
-						["==", ["get", "DN"], 8],
-						getColor(8),
-						["==", ["get", "DN"], 9],
-						getColor(9),
-						["==", ["get", "DN"], 10],
-						getColor(10),
-						["==", ["get", "DN"], 11],
-						getColor(11),
-						["==", ["get", "DN"], 12],
-						getColor(12),
-						["==", ["get", "DN"], 13],
-						getColor(13),
-						["==", ["get", "DN"], 14],
-						getColor(14),
-						["==", ["get", "DN"], 15],
-						getColor(15),
-						["==", ["get", "DN"], 16],
-						getColor(16),
-						["==", ["get", "DN"], 17],
-						getColor(17),
-						["==", ["get", "DN"], 18],
-						getColor(18),
-						["==", ["get", "DN"], 19],
-						getColor(19),
-						["==", ["get", "DN"], 20],
-						getColor(20),
-						["==", ["get", "DN"], 21],
-						getColor(21),
-						["==", ["get", "DN"], 22],
-						getColor(22),
-						["==", ["get", "DN"], 23],
-						getColor(23),
-						["==", ["get", "DN"], 24],
-						getColor(24),
-						["==", ["get", "DN"], 25],
-						getColor(25),
-						["==", ["get", "DN"], 26],
-						getColor(26),
-						["==", ["get", "DN"], 27],
-						getColor(27),
-						["==", ["get", "DN"], 28],
-						getColor(28),
-						["==", ["get", "DN"], 29],
-						getColor(29),
-						["==", ["get", "DN"], 30],
-						getColor(30),
-						"transparent" // Default color if none of the conditions are met
-					],
-					"fill-opacity": 0,
-					"fill-opacity-transition": { duration: 2000 }
-				}
-			});
 			map.addLayer({
 				id: "cities-layer",
 				type: "circle",
@@ -440,7 +85,6 @@
 				paint: {
 					"circle-radius": 3,
 					"circle-color": "white",
-
 					"circle-stroke-width": 1,
 					"circle-opacity": 0,
 					"circle-stroke-color": "black",
@@ -466,28 +110,357 @@
 					"text-opacity-transition": { duration: 2000 }
 				}
 			});
-			map.addLayer(
-				{
-					type: "raster",
-					id: "water-layer",
-					source: "water-source",
-					paint: {
-						"raster-opacity": 0
-					}
-				},
-				"water"
-			);
-			map.addLayer(
-				{
-					type: "raster",
-					id: "water-layer1",
-					source: "water-source1",
-					paint: {
-						"raster-opacity": 0
-					}
-				},
-				"water"
-			);
+			map.setPaintProperty("main-layer", "fill-color", [
+				"case",
+				["==", ["get", "DN"], 0],
+				getColorSimp(0),
+				["==", ["get", "DN"], 1],
+				getColorSimp(1),
+				["==", ["get", "DN"], 2],
+				getColorSimp(2),
+				["==", ["get", "DN"], 3],
+				getColorSimp(3),
+				// Repeat the pattern for up to 30 values
+				["==", ["get", "DN"], 4],
+				getColorSimp(4),
+				["==", ["get", "DN"], 5],
+				getColorSimp(5),
+				["==", ["get", "DN"], 6],
+				getColorSimp(6),
+				["==", ["get", "DN"], 7],
+				getColorSimp(7),
+				["==", ["get", "DN"], 8],
+				getColorSimp(8),
+				["==", ["get", "DN"], 9],
+				getColorSimp(9),
+				["==", ["get", "DN"], 10],
+				getColorSimp(10),
+				["==", ["get", "DN"], 11],
+				getColorSimp(11),
+				["==", ["get", "DN"], 12],
+				getColorSimp(12),
+				["==", ["get", "DN"], 13],
+				getColorSimp(13),
+				["==", ["get", "DN"], 14],
+				getColorSimp(14),
+				["==", ["get", "DN"], 15],
+				getColorSimp(15),
+				["==", ["get", "DN"], 16],
+				getColorSimp(16),
+				["==", ["get", "DN"], 17],
+				getColorSimp(17),
+				["==", ["get", "DN"], 18],
+				getColorSimp(18),
+				["==", ["get", "DN"], 19],
+				getColorSimp(19),
+				["==", ["get", "DN"], 20],
+				getColorSimp(20),
+				["==", ["get", "DN"], 21],
+				getColorSimp(21),
+				["==", ["get", "DN"], 22],
+				getColorSimp(22),
+				["==", ["get", "DN"], 23],
+				getColorSimp(23),
+				["==", ["get", "DN"], 24],
+				getColorSimp(24),
+				["==", ["get", "DN"], 25],
+				getColorSimp(25),
+				["==", ["get", "DN"], 26],
+				getColorSimp(26),
+				["==", ["get", "DN"], 27],
+				getColorSimp(27),
+				["==", ["get", "DN"], 28],
+				getColorSimp(28),
+				["==", ["get", "DN"], 29],
+				getColorSimp(29),
+				["==", ["get", "DN"], 30],
+				getColorSimp(30),
+				"transparent" // Default color if none of the conditions are met
+			]);
+			map.setPaintProperty("present-layer1", "fill-color", [
+				"case",
+				["==", ["get", "DN"], 0],
+				getColor(0),
+				["==", ["get", "DN"], 1],
+				getColor(1),
+				["==", ["get", "DN"], 2],
+				getColor(2),
+				["==", ["get", "DN"], 3],
+				getColor(3),
+				// Repeat the pattern for up to 30 values
+				["==", ["get", "DN"], 4],
+				getColor(4),
+				["==", ["get", "DN"], 5],
+				getColor(5),
+				["==", ["get", "DN"], 6],
+				getColor(6),
+				["==", ["get", "DN"], 7],
+				getColor(7),
+				["==", ["get", "DN"], 8],
+				getColor(8),
+				["==", ["get", "DN"], 9],
+				getColor(9),
+				["==", ["get", "DN"], 10],
+				getColor(10),
+				["==", ["get", "DN"], 11],
+				getColor(11),
+				["==", ["get", "DN"], 12],
+				getColor(12),
+				["==", ["get", "DN"], 13],
+				getColor(13),
+				["==", ["get", "DN"], 14],
+				getColor(14),
+				["==", ["get", "DN"], 15],
+				getColor(15),
+				["==", ["get", "DN"], 16],
+				getColor(16),
+				["==", ["get", "DN"], 17],
+				getColor(17),
+				["==", ["get", "DN"], 18],
+				getColor(18),
+				["==", ["get", "DN"], 19],
+				getColor(19),
+				["==", ["get", "DN"], 20],
+				getColor(20),
+				["==", ["get", "DN"], 21],
+				getColor(21),
+				["==", ["get", "DN"], 22],
+				getColor(22),
+				["==", ["get", "DN"], 23],
+				getColor(23),
+				["==", ["get", "DN"], 24],
+				getColor(24),
+				["==", ["get", "DN"], 25],
+				getColor(25),
+				["==", ["get", "DN"], 26],
+				getColor(26),
+				["==", ["get", "DN"], 27],
+				getColor(27),
+				["==", ["get", "DN"], 28],
+				getColor(28),
+				["==", ["get", "DN"], 29],
+				getColor(29),
+				["==", ["get", "DN"], 30],
+				getColor(30),
+				"transparent" // Default color if none of the conditions are met
+			]);
+			map.setPaintProperty("present-layer2", "fill-color", [
+				"case",
+				["==", ["get", "DN"], 0],
+				getColor(0),
+				["==", ["get", "DN"], 1],
+				getColor(1),
+				["==", ["get", "DN"], 2],
+				getColor(2),
+				["==", ["get", "DN"], 3],
+				getColor(3),
+				// Repeat the pattern for up to 30 values
+				["==", ["get", "DN"], 4],
+				getColor(4),
+				["==", ["get", "DN"], 5],
+				getColor(5),
+				["==", ["get", "DN"], 6],
+				getColor(6),
+				["==", ["get", "DN"], 7],
+				getColor(7),
+				["==", ["get", "DN"], 8],
+				getColor(8),
+				["==", ["get", "DN"], 9],
+				getColor(9),
+				["==", ["get", "DN"], 10],
+				getColor(10),
+				["==", ["get", "DN"], 11],
+				getColor(11),
+				["==", ["get", "DN"], 12],
+				getColor(12),
+				["==", ["get", "DN"], 13],
+				getColor(13),
+				["==", ["get", "DN"], 14],
+				getColor(14),
+				["==", ["get", "DN"], 15],
+				getColor(15),
+				["==", ["get", "DN"], 16],
+				getColor(16),
+				["==", ["get", "DN"], 17],
+				getColor(17),
+				["==", ["get", "DN"], 18],
+				getColor(18),
+				["==", ["get", "DN"], 19],
+				getColor(19),
+				["==", ["get", "DN"], 20],
+				getColor(20),
+				["==", ["get", "DN"], 21],
+				getColor(21),
+				["==", ["get", "DN"], 22],
+				getColor(22),
+				["==", ["get", "DN"], 23],
+				getColor(23),
+				["==", ["get", "DN"], 24],
+				getColor(24),
+				["==", ["get", "DN"], 25],
+				getColor(25),
+				["==", ["get", "DN"], 26],
+				getColor(26),
+				["==", ["get", "DN"], 27],
+				getColor(27),
+				["==", ["get", "DN"], 28],
+				getColor(28),
+				["==", ["get", "DN"], 29],
+				getColor(29),
+				["==", ["get", "DN"], 30],
+				getColor(30),
+				"transparent" // Default color if none of the conditions are met
+			]);
+			map.setPaintProperty("present-layer3", "fill-color", [
+				"case",
+				["==", ["get", "DN"], 0],
+				getColor(0),
+				["==", ["get", "DN"], 1],
+				getColor(1),
+				["==", ["get", "DN"], 2],
+				getColor(2),
+				["==", ["get", "DN"], 3],
+				getColor(3),
+				// Repeat the pattern for up to 30 values
+				["==", ["get", "DN"], 4],
+				getColor(4),
+				["==", ["get", "DN"], 5],
+				getColor(5),
+				["==", ["get", "DN"], 6],
+				getColor(6),
+				["==", ["get", "DN"], 7],
+				getColor(7),
+				["==", ["get", "DN"], 8],
+				getColor(8),
+				["==", ["get", "DN"], 9],
+				getColor(9),
+				["==", ["get", "DN"], 10],
+				getColor(10),
+				["==", ["get", "DN"], 11],
+				getColor(11),
+				["==", ["get", "DN"], 12],
+				getColor(12),
+				["==", ["get", "DN"], 13],
+				getColor(13),
+				["==", ["get", "DN"], 14],
+				getColor(14),
+				["==", ["get", "DN"], 15],
+				getColor(15),
+				["==", ["get", "DN"], 16],
+				getColor(16),
+				["==", ["get", "DN"], 17],
+				getColor(17),
+				["==", ["get", "DN"], 18],
+				getColor(18),
+				["==", ["get", "DN"], 19],
+				getColor(19),
+				["==", ["get", "DN"], 20],
+				getColor(20),
+				["==", ["get", "DN"], 21],
+				getColor(21),
+				["==", ["get", "DN"], 22],
+				getColor(22),
+				["==", ["get", "DN"], 23],
+				getColor(23),
+				["==", ["get", "DN"], 24],
+				getColor(24),
+				["==", ["get", "DN"], 25],
+				getColor(25),
+				["==", ["get", "DN"], 26],
+				getColor(26),
+				["==", ["get", "DN"], 27],
+				getColor(27),
+				["==", ["get", "DN"], 28],
+				getColor(28),
+				["==", ["get", "DN"], 29],
+				getColor(29),
+				["==", ["get", "DN"], 30],
+				getColor(30),
+				"transparent" // Default color if none of the conditions are met
+			]);
+			map.setPaintProperty("future-layer", "fill-color", [
+				"case",
+				["==", ["get", "DN"], 0],
+				getColor(0),
+				["==", ["get", "DN"], 1],
+				getColor(1),
+				["==", ["get", "DN"], 2],
+				getColor(2),
+				["==", ["get", "DN"], 3],
+				getColor(3),
+				// Repeat the pattern for up to 30 values
+				["==", ["get", "DN"], 4],
+				getColor(4),
+				["==", ["get", "DN"], 5],
+				getColor(5),
+				["==", ["get", "DN"], 6],
+				getColor(6),
+				["==", ["get", "DN"], 7],
+				getColor(7),
+				["==", ["get", "DN"], 8],
+				getColor(8),
+				["==", ["get", "DN"], 9],
+				getColor(9),
+				["==", ["get", "DN"], 10],
+				getColor(10),
+				["==", ["get", "DN"], 11],
+				getColor(11),
+				["==", ["get", "DN"], 12],
+				getColor(12),
+				["==", ["get", "DN"], 13],
+				getColor(13),
+				["==", ["get", "DN"], 14],
+				getColor(14),
+				["==", ["get", "DN"], 15],
+				getColor(15),
+				["==", ["get", "DN"], 16],
+				getColor(16),
+				["==", ["get", "DN"], 17],
+				getColor(17),
+				["==", ["get", "DN"], 18],
+				getColor(18),
+				["==", ["get", "DN"], 19],
+				getColor(19),
+				["==", ["get", "DN"], 20],
+				getColor(20),
+				["==", ["get", "DN"], 21],
+				getColor(21),
+				["==", ["get", "DN"], 22],
+				getColor(22),
+				["==", ["get", "DN"], 23],
+				getColor(23),
+				["==", ["get", "DN"], 24],
+				getColor(24),
+				["==", ["get", "DN"], 25],
+				getColor(25),
+				["==", ["get", "DN"], 26],
+				getColor(26),
+				["==", ["get", "DN"], 27],
+				getColor(27),
+				["==", ["get", "DN"], 28],
+				getColor(28),
+				["==", ["get", "DN"], 29],
+				getColor(29),
+				["==", ["get", "DN"], 30],
+				getColor(30),
+				"transparent" // Default color if none of the conditions are met
+			]);
+
+			map.setPaintProperty("main-layer", "fill-opacity-transition", {
+				duration: 2000
+			});
+			map.setPaintProperty("present-layer1", "fill-opacity-transition", {
+				duration: 2000
+			});
+			map.setPaintProperty("present-layer2", "fill-opacity-transition", {
+				duration: 2000
+			});
+			map.setPaintProperty("present-layer3", "fill-opacity-transition", {
+				duration: 2000
+			});
+			map.setPaintProperty("future-layer", "fill-opacity-transition", {
+				duration: 2000
+			});
 
 			window.setSpeed = function (newSpeed) {
 				console.log(map, map.styles);
@@ -864,7 +837,12 @@
 			getColor(30),
 			"transparent" // Default color if none of the conditions are met
 		]);
-		map.setPaintProperty("main-layer", "fill-opacity", 1);
+		map.setPaintProperty("main-layer", "fill-opacity", [
+			"case",
+			["all", ["==", ["get", "DN"], 14]],
+			1,
+			0.1
+		]);
 		map.setPaintProperty("future-layer", "fill-opacity", 0);
 	}
 	$: if (value === 6) {
@@ -891,7 +869,7 @@
 			if (value != 6) {
 				return;
 			}
-
+			map.setPaintProperty("future-layer", "fill-opacity", 0);
 			document.getElementById("year2").style.opacity = 0;
 			setTimeout(() => {
 				map.setPaintProperty("future-layer", "fill-opacity", 1);

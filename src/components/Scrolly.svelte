@@ -2,11 +2,11 @@
 	import Board from "$components/Board.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
+	import { map } from "d3";
 	import { text } from "./Text.svelte";
 	import { onMount } from "svelte";
 	let value;
 	$: value, console.log(value);
-	onMount(() => {});
 </script>
 
 <section id="scrolly">
@@ -23,6 +23,9 @@
 </section>
 
 <style>
+	#scrolly {
+		background-color: #f7f7f7;
+	}
 	h2 {
 		position: sticky;
 		top: 4em;
@@ -40,7 +43,7 @@
 		left: 50px;
 		border-radius: 10px;
 		color: rgb(0, 0, 0);
-		background: rgba(128, 128, 128, 0.9);
+		background: rgba(255, 255, 255, 0.9);
 		opacity: 100%;
 		text-align: center;
 		margin-bottom: 500px;
@@ -52,13 +55,12 @@
 		background-color: transparent;
 	}
 	#step1 {
-		height: 500px;
-		width: 400px;
-		padding-bottom: 500px;
+		height: 400px;
+		width: 300px;
 	}
 	#step2 {
 		height: 300px;
-		width: 400px;
+		width: 300px;
 	}
 	#step3 {
 		height: 200px;
@@ -69,7 +71,7 @@
 		width: 400px;
 	}
 	#step5 {
-		height: 400px;
+		height: 300px;
 		width: 400px;
 	}
 	#step6 {
@@ -77,7 +79,7 @@
 		width: 400px;
 	}
 	#step7 {
-		height: 400px;
+		height: 300px;
 		width: 400px;
 	}
 	#step8 {
