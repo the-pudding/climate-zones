@@ -152,9 +152,9 @@
 
 			c.clearRect(0, 0, c.width, c.height);
 			c.strokeStyle = "black";
-			c.moveTo(startPos.x, startPos.y);
-
-			c.lineTo(endPos.x, endPos.y);
+			c.moveTo(startPos.x + 20, startPos.y - 10);
+			c.lineTo(endPos.x + 20, endPos.y - 10);
+			c.closePath(); // close
 			c.stroke();
 		}
 
@@ -193,8 +193,8 @@
 
 				c.beginPath(); // begin
 				c.strokeStyle = "black";
-				c.moveTo(startPos[i].x, startPos[i].y);
-				c.lineTo(endPos.x, endPos.y);
+				c.moveTo(startPos[i].x + 20, startPos[i].y - 10);
+				c.lineTo(endPos.x + 20, endPos.y - 10);
 				c.closePath(); // close
 				c.stroke();
 			});
@@ -247,8 +247,8 @@
 
 				c.beginPath(); // begin
 				c.strokeStyle = "black";
-				c.moveTo(startPos[i].x, startPos[i].y);
-				c.lineTo(endPos.x, endPos.y);
+				c.moveTo(startPos[i].x + 20, startPos[i].y - 10);
+				c.lineTo(endPos.x + 20, endPos.y - 10);
 				c.closePath(); // close
 				c.stroke();
 			});
@@ -301,8 +301,8 @@
 
 				c.beginPath(); // begin
 				c.strokeStyle = "black";
-				c.moveTo(startPos[i].x, startPos[i].y);
-				c.lineTo(endPos.x, endPos.y);
+				c.moveTo(startPos[i].x + 20, startPos[i].y - 10);
+				c.lineTo(endPos.x + 20, endPos.y - 10);
 				c.closePath(); // close
 				c.stroke();
 			});

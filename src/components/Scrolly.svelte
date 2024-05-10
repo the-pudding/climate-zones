@@ -16,7 +16,7 @@
 			screenWidth = window.innerWidth;
 			isMobile = screenWidth < 600;
 		};
-
+		handleResize();
 		window.addEventListener("resize", handleResize);
 
 		return () => {

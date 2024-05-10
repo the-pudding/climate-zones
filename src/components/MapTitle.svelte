@@ -3,11 +3,6 @@
 	import Map from "./layercake/todo/Map.canvas.svelte";
 
 	export let value;
-
-	let dataset = [];
-	let cities = [];
-	let present = [];
-	let future = [];
 </script>
 
 <div class="intro-map">
