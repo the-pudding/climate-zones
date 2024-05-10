@@ -8,11 +8,30 @@
 	import { onMount } from "svelte";
 	let value;
 	$: value, console.log(value);
+	let screenWidth;
+	let isMobile = screenWidth < 600;
+
+	onMount(() => {
+		const handleResize = () => {
+			screenWidth = window.innerWidth;
+			isMobile = screenWidth < 600;
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	});
 </script>
 
 <section id="scrolly">
 	<MapTitle {value} />
-	<Board {value} />
+	{#if isMobile}
+		<BoardMobile {value} />
+	{:else}
+		<Board {value} />
+	{/if}
 	<Scrolly bind:value>
 		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 			{@const active = value === i}
@@ -76,7 +95,7 @@
 		width: 400px;
 	}
 	#step6 {
-		height: 400px;
+		height: 430px;
 		width: 400px;
 	}
 	#step7 {
@@ -90,7 +109,7 @@
 	}
 	#step9 {
 		height: 300px;
-		width: 400px;
+		width: 300px;
 	}
 	#step10 {
 		left: 70%;

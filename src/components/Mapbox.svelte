@@ -557,7 +557,27 @@
 			map.setPaintProperty("future-layer", "fill-opacity-transition", {
 				duration: 2000
 			});
+			map.addSource("video-source", {
+				type: "video",
+				urls: ["assets/wind6.mov"],
+				coordinates: [
+					[-400, 90],
+					[360, 90],
+					[360, -90],
+					[-400, -90]
+				]
+			});
+			map.addLayer({
+				id: "video-layer",
+				type: "raster",
+				source: "video-source",
+				paint: {
+					"raster-opacity": 0,
+					"raster-opacity-transition": { duration: 2000 }
+				}
+			});
 		});
+
 		// At low zooms, complete a revolution every two minutes.
 	});
 
@@ -589,6 +609,8 @@
 		document.getElementById("year2").style.opacity = 0;
 
 		setTimeout(() => {
+			map.setPaintProperty("video-layer", "raster-opacity", 0);
+
 			map.setPaintProperty("main-layer", "fill-opacity", 0);
 			function fade() {
 				if (value >= 1) {
@@ -654,8 +676,7 @@
 	}
 
 	$: if (value === 1) {
-		map.setProjection("equalEarth");
-
+		map.setPaintProperty("video-layer", "raster-opacity", 0.45);
 		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -664,6 +685,7 @@
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 	}
 	$: if (value === 2) {
+		map.setPaintProperty("video-layer", "raster-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 0);
 		map.setPaintProperty("cities-labels", "text-opacity", 0);

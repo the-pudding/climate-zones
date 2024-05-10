@@ -1,7 +1,4 @@
 <script>
-	import { json } from "d3";
-	import Marks from "$components/Marks.svelte";
-	import OverlayMap from "$components/OverlayMap.svelte";
 	import Mapbox from "$components/Mapbox.svelte";
 	import Map from "./layercake/todo/Map.canvas.svelte";
 
@@ -15,16 +12,13 @@
 
 <div class="intro-map">
 	<Mapbox {value} />
-	<svg
-		id="my_dataviz"
-		viewBox="-100 0 1000 550"
-		preserveAspectRatio="xMidYMid meet"
-	>
-	</svg>
+	<svg id="my_dataviz" style="width:100%;height:100%;"> </svg>
 </div>
 
 <style>
 	.intro-map {
+		width: 100%;
+		height: 100%;
 		position: sticky;
 		top: 100px;
 		background-color: rgb(232, 232, 232);
