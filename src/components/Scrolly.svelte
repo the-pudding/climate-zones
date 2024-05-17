@@ -127,7 +127,7 @@
 	}
 	#step13 {
 		left: 25%;
-		height: 200px;
+		height: 250px;
 		width: 800px;
 	}
 
