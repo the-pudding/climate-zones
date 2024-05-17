@@ -6,6 +6,7 @@
 	import { browser } from "$app/environment";
 	import { data } from "./data.svelte";
 	import Canvas from "$components/Canvas.svelte";
+	import "@fortawesome/fontawesome-free/css/all.min.css";
 	import { interval, stratify, group, groups } from "d3";
 	export let value;
 
@@ -356,10 +357,21 @@
 				<div
 					style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#735fca;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px"
 				>
-					Cold
+					Cold <i class="fa-solid fa-circle-info"></i>
 				</div>
 				<div class="Cold-dry-winter-hot-summer">
-					<h2 class="classification">Dry winter, hot summer</h2>
+					<h2 class="classification">
+						Dry winter, hot summer
+						<span class="popup"
+							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
+							/>
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />Precipitation Pattern: Dry Winter: The driest month in
+							winter (Pwdry) has significantly low precipitation, defined as
+							Pwdry ≤ Pswet/10.</span
+						>
+					</h2>
+
 					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -383,7 +395,15 @@
 					{/each}
 				</div>
 				<div class="Cold-no-dry-season-hot-summer">
-					<h2 class="classification">No dry season, hot summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
+							/>
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br /> Precipitation Pattern: The driest month in summer or winter
+							does not drop below the levels that define a dry season.</span
+						>No dry season, hot summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -409,7 +429,16 @@
 				</div>
 				<p class="break"></p>
 				<div class="Cold-no-dry-season-warm-summer">
-					<h2 class="classification">No dry season, warm summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Less than or equal to 0°C.<br
+							/>
+							Temperature of the Warmest Month: Less than 22°C and greater than 10°C.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.</span
+						>No dry season, warm summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -444,7 +473,17 @@
 					Temperate
 				</div>
 				<div class="Temperate-dry-summer-hot-summer">
-					<h2 class="classification">Dry summer, hot summer</h2>
+					<h2 class="classification">
+						<span class="popup">
+							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br /> Precipitation Pattern: The driest month in summer has less than
+							40 mm of precipitation, and is less than one-third of the precipitation
+							in the wettest month in winter.
+						</span>
+						Dry summer, hot summer
+					</h2>
 
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -470,7 +509,18 @@
 				</div>
 				<p class="break"></p>
 				<div class="Temperate-no-dry-season-warm-summer">
-					<h2 class="classification">No dry season, warm summer</h2>
+					<h2 class="classification">
+						<span class="popup">
+							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.
+						</span>
+						No dry season, warm summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -497,7 +547,17 @@
 
 				<p class="break"></p>
 				<div class="Temperate-no-dry-season-hot-summer">
-					<h2 class="classification">No dry season, hot summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.</span
+						>
+						No dry season, hot summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -523,7 +583,19 @@
 				</div>
 				<p class="break"></p>
 				<div class="Temperate-dry-summer-warm-summer">
-					<h2 class="classification">Dry summer, warm summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br /> Precipitation Pattern: The driest month in summer has less
+							than 40 mm of precipitation, and is less than one-third of the
+							precipitation in the wettest month in winter.
+							<br />
+						</span>
+						Dry summer, warm summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -547,7 +619,16 @@
 					{/each}
 				</div>
 				<div class="Temperate-dry-winter-hot-summer">
-					<h2 class="classification">Dry winter, hot summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />
+							The driest month in winter has less than one-tenth of the precipitation
+							of the wettest month in summer.</span
+						>Dry winter, hot summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -571,7 +652,17 @@
 					{/each}
 				</div>
 				<div class="Temperate-dry-winter-warm-summer">
-					<h2 class="classification">Dry winter, warm summer</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br />
+							The driest month in winter has less than one-tenth of the precipitation
+							of the wettest month in summer.</span
+						>Dry winter, warm summer
+					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -604,7 +695,15 @@
 				Tropical
 			</div>
 			<div class="Tropical-monsoon">
-				<h2 class="classification">Monsoon</h2>
+				<div>
+					<span class="popup"
+						>Mean Annual Temperature: Greater than or equal to 18°C.
+						<br />
+						Precipitation Pattern: The driest month has less precipitation than the
+						wettest month but more than 60 mm</span
+					>
+					<h2 class="classification">Monsoon</h2>
+				</div>
 
 				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}
 					{@const bindMe =
@@ -630,7 +729,13 @@
 				{/each}
 			</div>
 			<div class="Tropical-rainforest">
-				<h2 class="classification">Rainforest</h2>
+				<h2 class="classification">
+					<span class="popup">
+						Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean Annual
+						Precipitation: More than 100 mm per month, regardless of the season.</span
+					>
+					Rainforest
+				</h2>
 
 				{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo, i (todo.id)}
 					{@const bindMe =
@@ -657,7 +762,13 @@
 			</div>
 			<p class="break"></p>
 			<div class="Tropical-savannah">
-				<h2 class="classification">Savannah</h2>
+				<h2 class="classification">
+					<span class="popup"
+						>Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
+						Annual Precipitation: More than 100 mm per month during the wet season,
+						but less than 60 mm per month during the dry season.</span
+					>Savannah
+				</h2>
 
 				{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo, i (todo.id)}
 					{@const bindMe =
@@ -691,7 +802,15 @@
 				Arid
 			</div>
 			<div class="Arid-desert-hot">
-				<h2 class="classification">Desert, hot</h2>
+				<h2 class="classification">
+					<span class="popup"
+						>Mean Annual Temperature: Greater than or equal to 18°C.
+						Precipitation: The mean annual precipitation is typically less than
+						100 mm, and often significantly lower. There may be months with
+						virtually no rainfall.</span
+					>
+					Desert, hot
+				</h2>
 				{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -716,7 +835,14 @@
 				{/each}
 			</div>
 			<div class="Arid-desert-cold">
-				<h2 class="classification">Desert, cold</h2>
+				<h2 class="classification">
+					<span class="popup"
+						>Mean Annual Temperature: Can vary but often falls below 18°C.
+						Precipitation: The mean annual precipitation is typically less than
+						100 mm, and often significantly lower. There may be months with
+						virtually no rainfall.</span
+					>Desert, cold
+				</h2>
 				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -742,7 +868,15 @@
 			</div>
 			<p class="break"></p>
 			<div class="Arid-steppe-hot">
-				<h2 class="classification">Steppe, hot</h2>
+				<h2 class="classification">
+					<span class="popup"
+						>Mean Annual Temperature: Generally exceeds 18°C. <br /> Moderate Precipitation:
+						The mean annual precipitation (MAP) is typically higher than in arid
+						desert climates but still relatively low, often ranging from 100 mm to
+						500 mm per year.</span
+					>
+					Steppe, hot
+				</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -766,7 +900,14 @@
 				{/each}
 			</div>
 			<div class="Arid-steppe-cold">
-				<h2 class="classification">Steppe, cold</h2>
+				<h2 class="classification">
+					<span class="popup"
+						>Mean Annual Temperature: Generally belows 18°C. <br /> Moderate Precipitation:
+						The mean annual precipitation (MAP) is typically higher than in arid
+						desert climates but still relatively low, often ranging from 100 mm to
+						500 mm per year.</span
+					>Steppe, cold
+				</h2>
 				{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
@@ -805,7 +946,8 @@
 		position: sticky;
 		width: 100%;
 		height: 100%;
-		top: 0;
+		top: 100px;
+
 		opacity: 0;
 		transition: opacity 1s ease;
 		scale: 1;
@@ -927,6 +1069,7 @@
 	}
 
 	.classification {
+		cursor: pointer;
 		font-size: 0.6em;
 		text-align: center;
 
@@ -940,5 +1083,41 @@
 	}
 	.canvas {
 		z-index: 10000;
+	}
+	.fa-circle-info {
+		font-size: 10px;
+		position: absolute;
+	}
+	.popup {
+		width: 300px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: #f9f9f9cb;
+		padding: 10px;
+		font-weight: 300;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		transform: translate(-80px, -100px);
+		z-index: 1;
+	}
+	.popup::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 50%; /* Position the arrow horizontally centered */
+		border: solid transparent;
+		border-width: 8px;
+		border-top-color: #f9f9f9; /* Match popup background color */
+		z-index: 2;
+		transform: translateX(-50%); /* Center horizontally */
+	}
+
+	/* Styling for the arrow */
+
+	.classification:hover .popup {
+		display: block;
 	}
 </style>
