@@ -8,6 +8,8 @@
 	let mounted = false;
 	let pos = [];
 
+	// $: console.log(linesToDraw)
+
 	onMount(() => {
 		mounted = true;
 	});
