@@ -7,7 +7,6 @@
 
 <div class="intro-map">
 	<Mapbox {value} />
-	<svg id="my_dataviz" style="width:100%;height:100%;"> </svg>
 </div>
 
 <style>

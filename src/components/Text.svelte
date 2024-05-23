@@ -1,6 +1,9 @@
 <script context="module">
+	import { titleSVG } from "$actions/titleSVGModule.js";
+
 	export var text = [
-		'<h1 style="font-size:10em">Climate Zones</h1><h2 style="font-size:2em">How your city will feel in the future</h2>',
+		titleSVG,
+
 		`Climate change is often spoken about in terms of total earth warming, sea-level rise, and natural disasters. But unless you are a climate scientist, a two degree rise in temperature may not be helpful in providing a tangible vision of our future. <br><br> Perhaps that’s because we’re more familiar with weather: the daily, short-term forecasts that make you pack an extra sweater or wear your rain boots. Climate, on the other hand, describes average weather systems over long periods of time.
 		<br><br> 
 		`,
@@ -14,7 +17,7 @@
 
 		`A recent study, led by climatologist Hylke Beck, used projected data from climate models along with the current Koppen Climate Classification to give a glimpse at what our world may look and feel like in 2070. <br><br>At a zoomed out level, some of these changes are hard to notice...<br><br><span  class='classMap' id='tempMap' style="border-radius:2px;font-weight:700;padding:2px;color:black;background-color:#abe340">TEMPERATE </span> climates shifting north <br> <br>   <span style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#1761fd">TROPICAL</span> and <span style="font-weight:700;border-radius:2px;padding:2px;color:black;background-color:#ff8563">ARID</span> climates growing <br><br>  <span style="font-weight:700;position:relative;border-radius:2px;padding:2px;color:white;background-color:#735fca">COLD</span> climates dissapearing <br><br> But what if we were to zoom into the city level to see how these climate changes, will effect the way cities feel?`,
 		" This project looks at 70 global cities, and tracks their classification from 2023 to 2070. <br><br> And with climate change, your city isn't just getting hotter...it's beginning to resemble the climate of different cities.<br><br>By moving cities into the future, while leaving others in their 2023 classification, we can start to imagine what the places we love may feel like in 2070… ",
-		"Here we see our 70 global cities listed in their current classification. With a click of the mouse we can transport any city into their future classification. What sort of findings lay within the dataset?",
+		"Here we see our 70 global cities listed in their current classification. As we scroll down we can transport any city into their future classification. What sort of findings lay within the dataset?",
 		"<h4>Hollywood Becomes Bollywood:</h4><br>In the year 2070, Los Angeles is predicted to increase 3 degrees celsius and moves from the Temperate to Arid classification and will feel much more like New Delhi feels today.",
 		"<h4>The Scandinavian Riveria:</h4><br>In the near future, people might be bragging about their luxurious beach side resort in Copenhagen. Much of Scandavia and Northern Europe change from cold to temperate climates.",
 		"<h4>The Growth of Arid and Tropics:</h4><br>The now temperate cities, with hot or wet summers become swallowed by the Tropical and Arid classifications. Contributing to a migration of almost 90 million people being moved from the Temperate zones into harsher environments.",

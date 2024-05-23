@@ -19,13 +19,9 @@
 		easing: customEasing1
 	});
 
-	// $:console.log(bindFinder)
-
 	let itemsToMove = [];
-	let bindFinder = { bind: [], noBind: [] };
+	let bindFinder = { move: {}, ghost: {}, stay: {}, noClass: {} };
 	let linesToDraw;
-
-	//$: bindFinder["bind"], getBounds(bindFinder["bind"].filter(d => d));
 
 	let todos = [];
 	let todosMain = [];
@@ -51,41 +47,77 @@
 		if (itemsToMove.length == 0) {
 			return 0;
 		}
+		if (value == 13) {
+			return 1000;
+		}
 		return 3000;
 	}
 
 	function customEasing1(t) {
-		getBounds(bindFinder["bind"].filter((d) => d));
+		// let merged = bindFinder["move"].filter((d) => d).concat(bindFinder["ghost"].filter((d) => d));
+		getBounds();
 		return quintInOut(t); //Math.abs(Math.cos(t * Math.PI));
 	}
 
-	function getBounds(nodes) {
+	function getBounds() {
 		let positions = [];
-		let groupings = groups(nodes, (d) => d.getAttribute("data"));
-		if (groupings.length > 0) {
-			for (let item of groupings) {
-				if (item[1].length > 1) {
-					let elOne = item[1][0].getBoundingClientRect();
-					let elTwo = item[1][1].getBoundingClientRect();
+		for (let item of itemsToMove) {
+			let elOne = bindFinder["ghost"][item]; //.getBoundingClientRect();
+			let elTwo = bindFinder["move"][item]; //.getBoundingClientRect();
+			if (elOne && elTwo) {
+				elOne = elOne.getBoundingClientRect();
+				elTwo = elTwo.getBoundingClientRect();
+				let x1 = elOne.x + elOne.width / 2;
+				let x2 = elTwo.x + elTwo.width / 2;
+				let y1 = elOne.y + elOne.height / 2;
+				let y2 = elTwo.y + elTwo.height / 2;
+				let pos = [
+					[x1, y1],
+					[x2, y2]
+				];
 
-					let x1 = elOne.x + elOne.width / 2;
-					let x2 = elTwo.x + elTwo.width / 2;
-					let y1 = elOne.y + elOne.height / 2;
-					let y2 = elTwo.y + elTwo.height / 2;
-					let pos = [
-						[x1, y1],
-						[x2, y2]
-					];
-
-					positions.push(pos);
-				}
+				positions.push(pos);
 			}
 		}
+		// let groupings = groups(nodes, (d) => d.getAttribute("data"));
+		// if (groupings.length > 0) {
+		// 	for (let item of groupings) {
+		// 		if (item[1].length > 1) {
+		// 			let elOne = item[1][0].getBoundingClientRect();
+		// 			let elTwo = item[1][1].getBoundingClientRect();
+
+		// 			let x1 = elOne.x + elOne.width / 2;
+		// 			let x2 = elTwo.x + elTwo.width / 2;
+		// 			let y1 = elOne.y + elOne.height / 2;
+		// 			let y2 = elTwo.y + elTwo.height / 2;
+		// 			let pos = [
+		// 				[x1, y1],
+		// 				[x2, y2]
+		// 			];
+
+		// 			positions.push(pos);
+		// 		}
+		// 	}
+		// }
 
 		linesToDraw = positions;
 	}
 
+	function updateBindFinder() {
+		for (let item of itemsToMove) {
+			bindFinder["ghost"][item] = null;
+			bindFinder["move"][item] = null;
+		}
+	}
+
 	function resetData(data, city) {
+		bindFinder = { move: {}, ghost: {}, stay: {}, noClass: {} };
+		for (let bindClass of Object.keys(bindFinder)) {
+			for (let city of data) {
+				bindFinder[bindClass][city.name] = null;
+			}
+		}
+
 		let freshData = data.map((item) => {
 			return {
 				id: item.id,
@@ -115,6 +147,7 @@
 			for (var i = 0; i < labels.length; i++) {
 				labels[i].style.position = null;
 				labels[i].style.transform = null;
+				labels[i].style.outline = "none";
 			}
 		}
 	}
@@ -163,6 +196,7 @@
 		});
 
 		todos = newData;
+
 		setTimeout(
 			() =>
 				data.forEach((item) => {
@@ -172,8 +206,6 @@
 							for (var i = 0; i < labels.length; i++) {
 								if (labels[i].innerText == item.name) {
 									labels[i].style.outline = `4px solid ${item.color}`;
-									labels[i].style.fontSize = `.9em`;
-									labels[i].style.fontWeight = "900";
 								}
 							}
 						}
@@ -194,9 +226,10 @@
 				var labels = document.getElementsByClassName("stay");
 				for (var i = 0; i < labels.length; i++) {
 					labels[i].style.opacity = 0.8;
+					labels[i].style.outline = `none`;
 				}
 			}
-		}, 500);
+		}, 100);
 	}
 
 	resetData(data);
@@ -221,8 +254,15 @@
 		disableClick();
 		clearTimeout(moveTimeout);
 
+		// ["Los Angeles"].forEach(item => {
+		// 	bindFinder["ghost"][item] = null;
+		// 	bindFinder["move"][item] = null;
+		// })
+
+		// console.log(bindFinder)
 		moveTimeout = setTimeout(() => {
 			itemsToMove = ["Los Angeles"];
+			updateBindFinder();
 			orderByTempAndGroupByClim(data, ["Los Angeles"]);
 		}, 2000);
 	}
@@ -357,7 +397,7 @@
 				<div
 					style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#735fca;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px"
 				>
-					Cold <i class="fa-solid fa-circle-info"></i>
+					Cold
 				</div>
 				<div class="Cold-dry-winter-hot-summer">
 					<h2 class="classification">
@@ -375,10 +415,11 @@
 					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							out:send={{ key: todo.id }}
 							animate:flip={{ easing: customEasing1 }}
@@ -407,11 +448,12 @@
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							out:send={{ key: todo.id }}
 							animate:flip={{ easing: customEasing1 }}
@@ -442,11 +484,12 @@
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							out:send={{ key: todo.id }}
 							animate:flip={{ easing: customEasing1 }}
@@ -454,6 +497,7 @@
 							<button
 								on:click={() => {
 									itemsToMove = [data];
+									updateBindFinder();
 									orderByTempAndGroupByClim(data, todo.name);
 								}}
 							>
@@ -488,13 +532,15 @@
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
 							animate:flip={{ easing: customEasing1 }}
 							data={todo.name}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 						>
 							<button
 								on:click={() => {
@@ -524,13 +570,14 @@
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
 							data={todo.name}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							animate:flip={{ easing: customEasing1 }}
 						>
 							<button
@@ -561,12 +608,13 @@
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							animate:flip={{ easing: customEasing1 }}
 						>
@@ -599,11 +647,13 @@
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							animate:flip={{ easing: customEasing1 }}
 						>
@@ -632,11 +682,12 @@
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							animate:flip={{ easing: customEasing1 }}
 						>
@@ -666,11 +717,12 @@
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
-							bind:this={bindFinder[bindMe][i]}
+							bind:this={bindFinder[classToBind][todo.name]}
 							data={todo.name}
 							animate:flip={{ easing: customEasing1 }}
 						>
@@ -708,12 +760,13 @@
 				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						data={todo.name}
 						animate:flip={{ easing: customEasing1 }}
 					>
@@ -740,12 +793,13 @@
 				{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						data={todo.name}
 						animate:flip={{ easing: customEasing1 }}
 					>
@@ -773,12 +827,13 @@
 				{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						data={todo.name}
 						animate:flip={{ easing: customEasing1 }}
 					>
@@ -814,12 +869,13 @@
 				{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						data={todo.name}
 						animate:flip={{ easing: customEasing1 }}
 					>
@@ -846,12 +902,13 @@
 				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						data={todo.name}
 						animate:flip={{ easing: customEasing1 }}
 					>
@@ -880,12 +937,13 @@
 				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
 						data={todo.name}
-						bind:this={bindFinder[bindMe][i]}
+						bind:this={bindFinder[classToBind][todo.name]}
 						animate:flip={{ easing: customEasing1 }}
 					>
 						<button
@@ -911,11 +969,13 @@
 				{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
 					{@const bindMe =
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
+						bind:this={bindFinder[classToBind][todo.name]}
 						animate:flip={{ easing: customEasing1 }}
 					>
 						<button
@@ -946,8 +1006,8 @@
 		position: sticky;
 		width: 100%;
 		height: 100%;
-		top: 100px;
-
+		top: 0px;
+		margin: 20px;
 		opacity: 0;
 		transition: opacity 1s ease;
 		scale: 1;

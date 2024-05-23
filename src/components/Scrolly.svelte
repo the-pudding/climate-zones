@@ -45,6 +45,8 @@
 <style>
 	#scrolly {
 		background-color: #f7f7f7;
+		width: 100%;
+		height: 100%;
 	}
 	h2 {
 		position: sticky;

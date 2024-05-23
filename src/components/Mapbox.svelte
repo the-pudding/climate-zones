@@ -9,8 +9,8 @@
 	let map;
 	let mapContainer;
 	let lng, lat, zoom;
-	lng = -20;
-	lat = -15;
+	lng = 0;
+	lat = 0;
 	zoom = 1.3;
 	export let value;
 	onMount(() => {
@@ -561,10 +561,10 @@
 				type: "video",
 				urls: ["assets/wind6.mov"],
 				coordinates: [
-					[-400, 90],
-					[360, 90],
-					[360, -90],
-					[-400, -90]
+					[-320, 90],
+					[320, 90],
+					[320, -90],
+					[-320, -90]
 				]
 			});
 			map.addLayer({
@@ -591,7 +591,6 @@
 				return;
 			}
 
-			let distancePerSecond = 360 / 120;
 
 			const center = map.getCenter();
 			center.lng -= distancePerSecond;
@@ -676,7 +675,7 @@
 	}
 
 	$: if (value === 1) {
-		map.setPaintProperty("video-layer", "raster-opacity", 0.45);
+		map.setPaintProperty("video-layer", "raster-opacity", 0.55);
 		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -1060,10 +1059,6 @@
 	}
 </script>
 
-<div style="display:initial" class="wind-map-container">
-	<canvas id="mapcanvas" width="1440" height="604"></canvas>
-</div>
-
 <div class="map-wrap">
 	<div id="year1">2023</div>
 	<div id="year2">2070</div>
@@ -1080,16 +1075,9 @@
 		position: absolute;
 		width: 100vw;
 		height: 100vh;
+		top: -100px;
 	}
-	.wind-map-container {
-		opacity: 1;
-		position: fixed;
-		top: 0px;
-		width: 100%;
-		height: 900px;
-		z-index: 99;
-		pointer-events: none;
-	}
+
 	#year1 {
 		opacity: 0;
 		position: fixed;
