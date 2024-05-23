@@ -6,22 +6,16 @@
 	import { map } from "d3";
 	import { text } from "./Text.svelte";
 	import { onMount } from "svelte";
+	import viewport from "$stores/viewport.js";
+
 	let value;
 	$: value, console.log(value);
-	let screenWidth;
-	let isMobile = screenWidth < 600;
 
+	let isMobile;
 	onMount(() => {
-		const handleResize = () => {
-			screenWidth = window.innerWidth;
-			isMobile = screenWidth < 600;
-		};
-		handleResize();
-		window.addEventListener("resize", handleResize);
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
+		isMobile = $viewport.width < 600;
+		console.log($viewport.width);
+		console.log(isMobile);
 	});
 </script>
 
@@ -119,16 +113,20 @@
 		width: 300px;
 	}
 	#step11 {
-		height: 350px;
+		height: 400px;
 		width: 300px;
 	}
 	#step12 {
 		left: 70%;
-		height: 350px;
+		height: 400px;
 		width: 300px;
+		margin-bottom: 1000px;
 	}
 	#step13 {
-		left: 25%;
+		margin: auto;
+		max-width: calc(100vw - 100px);
+		left: auto;
+		top: -400px;
 		height: 250px;
 		width: 800px;
 	}

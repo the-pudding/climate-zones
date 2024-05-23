@@ -48,7 +48,7 @@
 			return 0;
 		}
 		if (value == 13) {
-			return 1000;
+			return 2000;
 		}
 		return 3000;
 	}
@@ -1006,8 +1006,9 @@
 		position: sticky;
 		width: 100%;
 		height: 100%;
-		top: 0px;
-		margin: 20px;
+		top: 10%;
+		left: 50%;
+		transform: translate(3%, -50%);
 		opacity: 0;
 		transition: opacity 1s ease;
 		scale: 1;

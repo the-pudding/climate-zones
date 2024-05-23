@@ -675,7 +675,7 @@
 	}
 
 	$: if (value === 1) {
-		map.setPaintProperty("video-layer", "raster-opacity", 0.55);
+		map.setPaintProperty("video-layer", "raster-opacity", 0.65);
 		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
