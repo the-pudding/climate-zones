@@ -12,8 +12,16 @@
 	lng = 0;
 	lat = 0;
 	zoom = 1.3;
+	let zoomLevel;
 	export let value;
 	onMount(() => {
+		window.addEventListener("resize", () => {
+			if (value == 0 || value == 1 || value == 2 || value == 5) {
+				fitMapToBounds();
+			} else {
+				return;
+			}
+		});
 		document
 			.getElementById("aridMap")
 			.addEventListener("mouseover", function (event) {
@@ -152,23 +160,35 @@
 			style: "mapbox://styles/dock4242/clvqhl9fj01oa01qrcse27w6z",
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
+			maxBounds: [
+				[-180, -90],
+				[180, 90]
+			],
 			scrollZoom: false,
 			attributionControl: false // Hide attribution
 		});
+		function fitMapToBounds() {
+			// Calculate the bounds for the entire world
+			const bounds = [
+				[-180, -90], // Southwest coordinates
+				[180, 90] // Northeast coordinates
+			];
 
-		// Function to resize map to fit container
-		const resizeMap = () => {
-			const { width, height } = mapContainer.getBoundingClientRect();
-			const aspectRatio = width / height;
+			const mapSize = map.getContainer().getBoundingClientRect();
 
-			// Adjust map dimensions while maintaining aspect ratio
-			map.resize({ width: width, height: width / aspectRatio });
-		};
+			zoomLevel = Math.min(
+				Math.log2(mapSize.width / 460),
+				Math.log2(mapSize.height / 280)
+			);
 
-		// Call resizeMap initially and on window resize
-		resizeMap();
-		window.addEventListener("resize", resizeMap);
+			// Set the new zoom level and center the map
+			map.setZoom(zoomLevel);
+			map.setCenter([lng, lat]);
+		}
 
+		// Fit the map to the bounds initially
+		fitMapToBounds();
+		console.log(zoomLevel);
 		map.on("style.load", () => {
 			map.addSource("cities", {
 				type: "geojson",
@@ -693,7 +713,7 @@
 		map.setPaintProperty("main-layer", "fill-opacity", 1);
 		map.flyTo({
 			center: [lng, lat],
-			zoom: zoom,
+			zoom: zoomLevel,
 			essential: true // this animation is considered essential with respect to prefers-reduced-motion
 		});
 	}
@@ -901,7 +921,7 @@
 		document.getElementById("year2").style.opacity = 0;
 		map.flyTo({
 			center: [lng, lat],
-			zoom: zoom,
+			zoom: zoomLevel,
 			essential: true // this animation is considered essential with respect to prefers-reduced-motion
 		});
 		map.setPaintProperty("main-layer", "fill-color", [
@@ -1073,9 +1093,9 @@
 	}
 	.map {
 		position: absolute;
-		width: 100vw;
+		width: 100%;
 		height: 100vh;
-		top: -100px;
+		top: -50px;
 	}
 
 	#year1 {

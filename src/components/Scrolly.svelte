@@ -22,18 +22,25 @@
 <section id="scrolly">
 	<MapTitle {value} />
 	{#if isMobile}
-		<BoardMobile {value} />
+		<BoardMobile {value} {isMobile} />
+		<Scrolly bind:value>
+			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
+				{@const active = value === i}
+
+				<div class="step" id={`step_mobile${i}`} class:active>
+					<p class="text">{@html text[val]}</p>
+				</div>
+			{/each}
+		</Scrolly>
 	{:else}
-		<Board {value} />
-	{/if}
-	<Scrolly bind:value>
+		<Board {value} {isMobile} />
 		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 			{@const active = value === i}
 			<div class="step" id={`step${i}`} class:active>
 				<p class="text">{@html text[val]}</p>
 			</div>
 		{/each}
-	</Scrolly>
+	{/if}
 </section>
 
 <style>
@@ -52,7 +59,7 @@
 	}
 
 	.step {
-		height: 200px;
+		height: 100%;
 		width: 200px;
 		position: relative;
 		z-index: 1000;
@@ -62,64 +69,140 @@
 		background: rgba(255, 255, 255, 0.9);
 		opacity: 100%;
 		text-align: center;
+		font-size: 12px;
 		margin-bottom: 500px;
 	}
 	#step0 {
 		height: 100%;
 		width: 100%;
+		max-width: calc(100vw - 100px);
 		padding-bottom: 200px;
 		background-color: transparent;
+		scale: 0.7;
+		top: -100px;
+	}
+	#step_mobile0 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
+		padding-bottom: 200px;
+		background-color: transparent;
+		left: 10%;
 	}
 	#step1 {
-		height: 400px;
+		height: 100%;
 		width: 300px;
+		max-width: 300px;
+	}
+	#step_mobile1 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step2 {
-		height: 300px;
+		height: 100%;
 		width: 300px;
+		max-width: 300px;
+	}
+	#step_mobile2 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step3 {
-		height: 200px;
+		height: 100%;
 		width: 400px;
+		max-width: 300px;
+	}
+	#step_mobile3 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step4 {
-		height: 400px;
+		height: 100%;
 		width: 400px;
+	}
+	#step_mobile4 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step5 {
-		height: 300px;
+		height: 100%;
 		width: 400px;
+	}
+	#step_mobile5 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step6 {
-		height: 430px;
+		height: 100%;
 		width: 400px;
+	}
+	#step_mobile6 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step7 {
-		height: 300px;
+		height: 100%;
 		width: 400px;
 	}
+	#step_mobile7 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
+	}
 	#step8 {
-		left: 40%;
+		height: 100%;
 		height: 200px;
 		width: 400px;
 	}
+	#step_mobile8 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
+	}
 	#step9 {
-		height: 300px;
+		height: 100%;
 		width: 300px;
+	}
+	#step_mobile9 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step10 {
-		left: 70%;
+		height: 100%;
 		height: 300px;
 		width: 300px;
 	}
+	#step_mobile10 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
+	}
 	#step11 {
-		height: 400px;
+		height: 100%;
 		width: 300px;
+	}
+	#step_mobile11 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 	}
 	#step12 {
 		left: 70%;
-		height: 400px;
+		height: 100%;
 		width: 300px;
+		margin-bottom: 1000px;
+	}
+	#step_mobile12 {
+		height: 100%;
+		width: 100%;
+		max-width: calc(100vw - 100px);
 		margin-bottom: 1000px;
 	}
 	#step13 {
@@ -127,7 +210,15 @@
 		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		height: 250px;
+		height: 100%;
+		width: 800px;
+	}
+	#step_mobile13 {
+		margin: auto;
+		max-width: calc(100vw - 100px);
+		left: auto;
+		top: -400px;
+		height: 100%;
 		width: 800px;
 	}
 

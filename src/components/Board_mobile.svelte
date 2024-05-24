@@ -9,6 +9,7 @@
 	import "@fortawesome/fontawesome-free/css/all.min.css";
 	import { interval, stratify, group, groups } from "d3";
 	export let value;
+	export let isMobile;
 
 	// Default duration
 
@@ -385,7 +386,7 @@
 {#if mounted && value > 7}
 	<div class="board" style="opacity:1; z-index:100;">
 		{#if linesToDraw}
-			<Canvas {linesToDraw} />
+			<Canvas {linesToDraw} {isMobile} />
 		{/if}
 		<div>
 			<div class="rect">
@@ -879,6 +880,7 @@
 		height: 100%;
 		transform: translateX(0px);
 		top: 20px;
+
 		opacity: 1;
 		transition: opacity 1s ease;
 		scale: 1;
@@ -986,7 +988,7 @@
 	button {
 		cursor: pointer;
 		opacity: 1;
-		font-size: 12px;
+		font-size: 10px;
 		padding: 2px;
 		text-align: center;
 		background-color: transparent;

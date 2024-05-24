@@ -9,6 +9,7 @@
 	import "@fortawesome/fontawesome-free/css/all.min.css";
 	import { interval, stratify, group, groups } from "d3";
 	export let value;
+	export let isMobile;
 
 	// Default duration
 
@@ -390,7 +391,7 @@
 {#if mounted && value > 7}
 	<div class="board" style="opacity:1; z-index:100;">
 		{#if linesToDraw}
-			<Canvas {linesToDraw} />
+			<Canvas {linesToDraw} {isMobile} />
 		{/if}
 		<div>
 			<div class="Cold">
