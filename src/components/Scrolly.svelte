@@ -34,12 +34,14 @@
 		</Scrolly>
 	{:else}
 		<Board {value} {isMobile} />
-		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
-			{@const active = value === i}
-			<div class="step" id={`step${i}`} class:active>
-				<p class="text">{@html text[val]}</p>
-			</div>
-		{/each}
+		<Scrolly bind:value>
+			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
+				{@const active = value === i}
+				<div class="step" id={`step${i}`} class:active>
+					<p class="text">{@html text[val]}</p>
+				</div>
+			{/each}
+		</Scrolly>
 	{/if}
 </section>
 

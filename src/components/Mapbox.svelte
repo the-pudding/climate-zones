@@ -1,6 +1,7 @@
 <script>
 	import mapboxgl from "mapbox-gl";
 	import { getColor } from "$actions/getColor.js";
+	import "mapbox-gl/dist/mapbox-gl.css";
 
 	import { getColorSimp } from "$actions/getColorSimp.js";
 	import { onMount, onDestroy } from "svelte";
