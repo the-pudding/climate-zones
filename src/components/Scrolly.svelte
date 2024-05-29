@@ -12,7 +12,26 @@
 	$: value, console.log(value);
 
 	let isMobile;
+	let initViewportHeight;
+
+	$: if ($viewport && typeof document !== "undefined" && initViewportHeight) {
+		setViewportHeight();
+	}
+
+	function setViewportHeight() {
+		const root = document.documentElement;
+
+		if (CSS.supports("height", "100lvh")) {
+			root.style.setProperty("--viewport-height", "100lvh");
+		} else {
+			root.style.setProperty("--viewport-height", `${$isMobile ? initViewportHeight : $viewport.height}px`);
+		}
+	}
+
 	onMount(() => {
+		initViewportHeight = $viewport.height
+		setViewportHeight();
+
 		isMobile = $viewport.width < 600;
 		console.log($viewport.width);
 		console.log(isMobile);
@@ -27,7 +46,7 @@
 			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 				{@const active = value === i}
 
-				<div class="step" id={`step_mobile${i}`} class:active>
+				<div class="step {isMobile ? "step-mobile" : ''}" id={`step_mobile${i}`} class:active>
 					<p class="text">{@html text[val]}</p>
 				</div>
 			{/each}
@@ -37,7 +56,9 @@
 		<Scrolly bind:value>
 			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 				{@const active = value === i}
-				<div class="step" id={`step${i}`} class:active>
+				<div class="step" id={`step${i}`}
+					class:active
+				>
 					<p class="text">{@html text[val]}</p>
 				</div>
 			{/each}
@@ -57,152 +78,144 @@
 	}
 
 	.spacer {
-		height: 100vh;
+		height: var(--viewport-height);
 	}
 
 	.step {
-		height: 100%;
+		height: var(--viewport-height);
 		width: 200px;
 		position: relative;
 		z-index: 1000;
-		left: 50px;
 		border-radius: 10px;
 		color: rgb(0, 0, 0);
-		background: rgba(255, 255, 255, 0.9);
 		opacity: 100%;
 		text-align: center;
 		font-size: 12px;
-		margin-bottom: 500px;
+		margin-left: 50px;
 	}
-	#step0 {
-		height: 100%;
+
+	.step-mobile {
+		margin: 0 auto;
+	}
+
+	.step p {
+		background-color: rgba(255,255,255,.9);
+		font-size: 16px;
+		text-align: left;
+		padding: 1rem;		
+	}
+
+	#step0, #step_mobile0 {
+		min-height: var(--viewport-height);
 		width: 100%;
-		max-width: calc(100vw - 100px);
-		padding-bottom: 200px;
-		background-color: transparent;
-		scale: 0.7;
-		top: -100px;
+		margin: 0 auto;
+		background: transparent;
+		margin-bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		margin-bottom: 0;
 	}
+
+	#step0 p, #step_mobile0 p {
+		background: none;
+	}
+
+
+
 	#step_mobile0 {
-		height: 100%;
-		width: 100%;
-		max-width: calc(100vw - 100px);
-		padding-bottom: 200px;
-		background-color: transparent;
-		left: 10%;
+		margin-bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		margin-bottom: 0;
 	}
 	#step1 {
-		height: 100%;
 		width: 300px;
 		max-width: 300px;
 	}
 	#step_mobile1 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step2 {
-		height: 100%;
 		width: 300px;
 		max-width: 300px;
 	}
 	#step_mobile2 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step3 {
-		height: 100%;
 		width: 400px;
 		max-width: 300px;
 	}
 	#step_mobile3 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step4 {
-		height: 100%;
 		width: 400px;
 	}
 	#step_mobile4 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step5 {
-		height: 100%;
 		width: 400px;
 	}
 	#step_mobile5 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step6 {
-		height: 100%;
 		width: 400px;
 	}
 	#step_mobile6 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step7 {
-		height: 100%;
 		width: 400px;
 	}
 	#step_mobile7 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step8 {
-		height: 100%;
-		height: 200px;
 		width: 400px;
 	}
 	#step_mobile8 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step9 {
-		height: 100%;
 		width: 300px;
 	}
 	#step_mobile9 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step10 {
-		height: 100%;
-		height: 300px;
 		width: 300px;
 	}
 	#step_mobile10 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step11 {
-		height: 100%;
 		width: 300px;
 	}
 	#step_mobile11 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 	}
 	#step12 {
 		left: 70%;
-		height: 100%;
 		width: 300px;
 		margin-bottom: 1000px;
 	}
 	#step_mobile12 {
-		height: 100%;
 		width: 100%;
 		max-width: calc(100vw - 100px);
 		margin-bottom: 1000px;
@@ -212,7 +225,6 @@
 		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		height: 100%;
 		width: 800px;
 	}
 	#step_mobile13 {
@@ -220,13 +232,9 @@
 		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		height: 100%;
 		width: 800px;
 	}
 
-	.step p {
-		padding: 1rem;
-	}
 	.intro-text {
 		text-align: center;
 		position: absolute;

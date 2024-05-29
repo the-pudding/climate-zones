@@ -48,7 +48,7 @@
 	svg {
 		position: absolute;
 		width: 100vw;
-		height: 100vh;
+		height: var(--viewport-height);
 		z-index: 100000;
 		pointer-events: none;
 	}

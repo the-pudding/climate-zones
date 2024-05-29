@@ -4,6 +4,7 @@
  */
 
 :root {
+  --viewport-height: 100vh;
   --category-blue: #4477AA;
   --category-red: #EE6677;
   --category-green: #228833;

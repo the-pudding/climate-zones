@@ -39,6 +39,15 @@
 	--1s: 1ms;
 }
 
+.tempText {
+	display: block;
+}
+
+.mapboxgl-ctrl-logo {
+	border: none;
+	text-decoration: none;
+}
+
 /* dark theme */
 /* this is a starting place for dark mode - test before deploying */
 
