@@ -215,15 +215,18 @@
 				source: "cities",
 				layout: {
 					"text-field": ["get", "name"],
-					"text-weight": 700,
 					"text-size": 16,
 					"text-variable-anchor": ["top", "bottom", "left", "right"],
 					"text-radial-offset": 0.5,
-					"text-justify": "auto"
+					"text-justify": "auto",
+					'text-font': ['DIN Pro Medium','Open Sans Bold', 'Arial Unicode MS Bold'],
 				},
 				paint: {
 					"text-color": "black",
 					"text-opacity": 0,
+					'text-halo-color': '#FFF',  // White halo color
+			        'text-halo-width': 1,           // Halo width of 2 pixels
+					'text-halo-blur': 1,           // Halo width of 2 pixels
 					"text-opacity-transition": { duration: 2000 }
 				}
 			});
@@ -1095,8 +1098,11 @@
 	.map {
 		position: absolute;
 		width: 100%;
-		height: 100vh;
-		top: -50px;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		height: var(--viewport-height);
 	}
 
 	#year1 {
@@ -1116,5 +1122,21 @@
 		top: 75%;
 		z-index: 1000;
 		transition: opacity 2s; /* Specify the opacity property and duration */
+	}
+
+	#year1, #year2 {
+		font-family: var(--sans);
+		padding: 5px 20px;
+		border-radius: 60px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		width: fit-content;
+		top: 28px;
+		font-weight: 500;
+		background: black;
+		color: white;
+		font-size: 36px;
+		
 	}
 </style>

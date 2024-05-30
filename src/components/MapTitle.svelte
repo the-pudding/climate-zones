@@ -14,7 +14,7 @@
 		width: 100%;
 		height: 100%;
 		position: sticky;
-		top: 100px;
+		top: 0;
 		background-color: rgb(232, 232, 232);
 		opacity: 1;
 		transition: opacity 0.5s;
