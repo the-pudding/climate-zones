@@ -219,14 +219,18 @@
 					"text-variable-anchor": ["top", "bottom", "left", "right"],
 					"text-radial-offset": 0.5,
 					"text-justify": "auto",
-					'text-font': ['DIN Pro Medium','Open Sans Bold', 'Arial Unicode MS Bold'],
+					"text-font": [
+						"DIN Pro Medium",
+						"Open Sans Bold",
+						"Arial Unicode MS Bold"
+					]
 				},
 				paint: {
 					"text-color": "black",
 					"text-opacity": 0,
-					'text-halo-color': '#FFF',  // White halo color
-			        'text-halo-width': 1,           // Halo width of 2 pixels
-					'text-halo-blur': 1,           // Halo width of 2 pixels
+					"text-halo-color": "#FFF", // White halo color
+					"text-halo-width": 1, // Halo width of 2 pixels
+					"text-halo-blur": 1, // Halo width of 2 pixels
 					"text-opacity-transition": { duration: 2000 }
 				}
 			});
@@ -1124,7 +1128,8 @@
 		transition: opacity 2s; /* Specify the opacity property and duration */
 	}
 
-	#year1, #year2 {
+	#year1,
+	#year2 {
 		font-family: var(--sans);
 		padding: 5px 20px;
 		border-radius: 60px;
@@ -1137,6 +1142,5 @@
 		background: black;
 		color: white;
 		font-size: 36px;
-		
 	}
 </style>
