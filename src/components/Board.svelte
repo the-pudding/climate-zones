@@ -749,13 +749,15 @@
 			</div>
 			<div class="Tropical-monsoon">
 				<div>
-					<span class="popup"
-						>Mean Annual Temperature: Greater than or equal to 18°C.
-						<br />
-						Precipitation Pattern: The driest month has less precipitation than the
-						wettest month but more than 60 mm</span
-					>
-					<h2 class="classification">Monsoon</h2>
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Greater than or equal to 18°C.
+							<br />
+							Precipitation Pattern: The driest month has less precipitation than
+							the wettest month but more than 60 mm</span
+						>
+						Monsoon
+					</h2>
 				</div>
 
 				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}

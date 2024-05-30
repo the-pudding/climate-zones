@@ -27,7 +27,7 @@
 			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 				{@const active = value === i}
 
-				<div class="step" id={`step_mobile${i}`} class:active>
+				<div class="step_mobile" id={`step_mobile${i}`} class:active>
 					<p class="text">{@html text[val]}</p>
 				</div>
 			{/each}
@@ -61,6 +61,20 @@
 	}
 
 	.step {
+		height: 100%;
+		width: 200px;
+		position: relative;
+		z-index: 1000;
+		left: 50px;
+		border-radius: 10px;
+		color: rgb(0, 0, 0);
+		background: rgba(255, 255, 255, 0.9);
+		opacity: 100%;
+		text-align: center;
+		font-size: 14px;
+		margin-bottom: 500px;
+	}
+	.step_mobile {
 		height: 100%;
 		width: 200px;
 		position: relative;
@@ -159,8 +173,8 @@
 	}
 	#step8 {
 		height: 100%;
-		height: 200px;
-		width: 400px;
+		left: calc(50vw - 250px);
+		width: 500px;
 	}
 	#step_mobile8 {
 		height: 100%;
@@ -178,7 +192,7 @@
 	}
 	#step10 {
 		height: 100%;
-		height: 300px;
+		left: 70%;
 		width: 300px;
 	}
 	#step_mobile10 {
