@@ -62,28 +62,28 @@
 		</Scrolly>
 	{:else}
 		<Board {value} {isMobile} />
+		<Scrolly bind:value>
+			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
+				{@const active = value === i}
+				<div
+					class="step {isMobile ? 'step-mobile' : ''}"
+					id={isMobile ? `step_mobile${i}` : `step${i}`}
+					class:active
+				>
+					{#if val == 0}
+						<a style="border:none;" target="_blank" href="https://pudding.cool"
+							><img
+								class="sticker-shadows sticker-mask cloud-logo"
+								src="assets/pudding/stickers/cloud.jpg"
+								alt="The Pudding"
+							/></a
+						>
+					{/if}
+					<p class="text">{@html text[val]}</p>
+				</div>
+			{/each}
+		</Scrolly>
 	{/if}
-	<Scrolly bind:value>
-		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
-			{@const active = value === i}
-			<div
-				class="step {isMobile ? 'step-mobile' : ''}"
-				id={isMobile ? `step_mobile${i}` : `step${i}`}
-				class:active
-			>
-				{#if val == 0}
-					<a style="border:none;" target="_blank" href="https://pudding.cool"
-						><img
-							class="sticker-shadows sticker-mask cloud-logo"
-							src="assets/pudding/stickers/cloud.jpg"
-							alt="The Pudding"
-						/></a
-					>
-				{/if}
-				<p class="text">{@html text[val]}</p>
-			</div>
-		{/each}
-	</Scrolly>
 </section>
 
 <style>
@@ -236,42 +236,52 @@
 	}
 	#step7 {
 		width: 400px;
+		margin-bottom: 300px;
 	}
 	#step_mobile7 {
 		width: 100%;
 		max-width: calc(100vw - 100px);
+		margin-bottom: 300px;
 	}
 	#step8 {
 		height: 100%;
 		left: calc(50vw - 250px);
 		width: 500px;
+		margin-bottom: 300px;
 	}
 	#step_mobile8 {
 		width: 100%;
 		max-width: calc(100vw - 100px);
+		margin-bottom: 300px;
 	}
 	#step9 {
 		width: 300px;
+		margin-bottom: 300px;
 	}
 	#step_mobile9 {
 		width: 100%;
 		max-width: calc(100vw - 100px);
+		margin-bottom: 300px;
 	}
 	#step10 {
 		height: 100%;
 		left: 70%;
 		width: 300px;
+		margin-bottom: 300px;
 	}
 	#step_mobile10 {
 		width: 100%;
 		max-width: calc(100vw - 100px);
+		margin-bottom: 300px;
 	}
 	#step11 {
 		width: 300px;
+		margin-bottom: 300px;
 	}
 	#step_mobile11 {
 		width: 100%;
 		max-width: calc(100vw - 100px);
+		margin-bottom: 300px;
 	}
 	#step12 {
 		left: 70%;

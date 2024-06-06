@@ -62,12 +62,15 @@
 
 	function getBounds() {
 		let positions = [];
+
 		for (let item of itemsToMove) {
 			let elOne = bindFinder["ghost"][item]; //.getBoundingClientRect();
 			let elTwo = bindFinder["move"][item]; //.getBoundingClientRect();
+
 			if (elOne && elTwo) {
 				elOne = elOne.getBoundingClientRect();
 				elTwo = elTwo.getBoundingClientRect();
+				console.log(elTwo);
 				let x1 = elOne.x + elOne.width / 2;
 				let x2 = elTwo.x + elTwo.width / 2;
 				let y1 = elOne.y + elOne.height / 2;
@@ -80,26 +83,6 @@
 				positions.push(pos);
 			}
 		}
-		// let groupings = groups(nodes, (d) => d.getAttribute("data"));
-		// if (groupings.length > 0) {
-		// 	for (let item of groupings) {
-		// 		if (item[1].length > 1) {
-		// 			let elOne = item[1][0].getBoundingClientRect();
-		// 			let elTwo = item[1][1].getBoundingClientRect();
-
-		// 			let x1 = elOne.x + elOne.width / 2;
-		// 			let x2 = elTwo.x + elTwo.width / 2;
-		// 			let y1 = elOne.y + elOne.height / 2;
-		// 			let y2 = elTwo.y + elTwo.height / 2;
-		// 			let pos = [
-		// 				[x1, y1],
-		// 				[x2, y2]
-		// 			];
-
-		// 			positions.push(pos);
-		// 		}
-		// 	}
-		// }
 
 		linesToDraw = positions;
 	}
@@ -204,15 +187,17 @@
 					if (city.includes(item.name)) {
 						if (browser) {
 							var labels = document.getElementsByClassName("move");
+							console.log(labels[0].innerText.trim() == item.name.trim());
+							console.log(item.name);
 							for (var i = 0; i < labels.length; i++) {
-								if (labels[i].innerText == item.name) {
-									labels[i].style.outline = `4px solid ${item.color}`;
+								if (labels[i].innerText.trim() == item.name.trim()) {
+									labels[i].style.boxShadow = `0 0 0 4px ${item.color}`;
 								}
 							}
 						}
 					}
 				}),
-			500
+			0
 		);
 		setTimeout(() => {
 			if (browser) {
@@ -221,16 +206,16 @@
 					labels[i].style.opacity = 0.2;
 				}
 			}
-		}, 500);
+		}, 0);
 		setTimeout(() => {
 			if (browser) {
 				var labels = document.getElementsByClassName("stay");
 				for (var i = 0; i < labels.length; i++) {
 					labels[i].style.opacity = 0.8;
-					labels[i].style.outline = `none`;
+					labels[i].style.boxShadow = `none`;
 				}
 			}
-		}, 100);
+		}, 0);
 	}
 
 	resetData(data);
@@ -397,10 +382,14 @@
 			<div class="Cold">
 				<div
 					style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#735fca;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px"
+					aria-label="Cold"
 				>
 					Cold
 				</div>
-				<div class="Cold-dry-winter-hot-summer">
+				<div
+					aria-label="Cold, dry winter, hot summer"
+					class="Cold-dry-winter-hot-summer"
+				>
 					<h2 class="classification">
 						Dry winter, hot summer
 						<span class="popup"
@@ -418,6 +407,7 @@
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
+							aria-label="Cold, dry winter, hot summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							bind:this={bindFinder[classToBind][todo.name]}
@@ -436,7 +426,10 @@
 						</label>
 					{/each}
 				</div>
-				<div class="Cold-no-dry-season-hot-summer">
+				<div
+					class="Cold-no-dry-season-hot-summer"
+					aria-label="Cold, no dry season, hot summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
@@ -452,6 +445,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Cold, no dry season, hot summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							bind:this={bindFinder[classToBind][todo.name]}
@@ -471,7 +465,10 @@
 					{/each}
 				</div>
 				<p class="break"></p>
-				<div class="Cold-no-dry-season-warm-summer">
+				<div
+					class="Cold-no-dry-season-warm-summer"
+					aria-label="Cold, no dry season, warm summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Less than or equal to 0°C.<br
@@ -488,6 +485,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Cold, no dry season, warm summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							bind:this={bindFinder[classToBind][todo.name]}
@@ -514,10 +512,14 @@
 			<div class="Temperate">
 				<div
 					style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#abe340;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px;color:black"
+					aria-label="Temperate"
 				>
 					Temperate
 				</div>
-				<div class="Temperate-dry-summer-hot-summer">
+				<div
+					aria-label="Temperate, dry summer, hot summer"
+					class="Temperate-dry-summer-hot-summer"
+				>
 					<h2 class="classification">
 						<span class="popup">
 							Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -536,6 +538,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Temperate, dry summer, hot summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -555,7 +558,10 @@
 					{/each}
 				</div>
 				<p class="break"></p>
-				<div class="Temperate-no-dry-season-warm-summer">
+				<div
+					aria-label="Temperate, no dry season, warm summer"
+					class="Temperate-no-dry-season-warm-summer"
+				>
 					<h2 class="classification">
 						<span class="popup">
 							Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -574,6 +580,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Temperate, no dry season, warm summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -594,7 +601,10 @@
 				</div>
 
 				<p class="break"></p>
-				<div class="Temperate-no-dry-season-hot-summer">
+				<div
+					aria-label="Temperate, no dry season, hot summer"
+					class="Temperate-no-dry-season-hot-summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -612,6 +622,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Temperate, no dry season, hot summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -631,7 +642,10 @@
 					{/each}
 				</div>
 				<p class="break"></p>
-				<div class="Temperate-dry-summer-warm-summer">
+				<div
+					aria-label="Temperate, dry summer, warm summer"
+					class="Temperate-dry-summer-warm-summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -651,6 +665,7 @@
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 
 						<label
+							aria-label="Temperate, dry summer, warm summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -669,7 +684,10 @@
 						</label>
 					{/each}
 				</div>
-				<div class="Temperate-dry-winter-hot-summer">
+				<div
+					aria-label="Temperate, dry winter, hot summer"
+					class="Temperate-dry-winter-hot-summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -685,6 +703,7 @@
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
+							aria-label="Temperate, dry winter, hot summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -703,7 +722,10 @@
 						</label>
 					{/each}
 				</div>
-				<div class="Temperate-dry-winter-warm-summer">
+				<div
+					aria-label="Temperate, dry winter, warm summer"
+					class="Temperate-dry-winter-warm-summer"
+				>
 					<h2 class="classification">
 						<span class="popup"
 							>Temperature of the Coldest Month: Between 0°C and 18°C.
@@ -720,6 +742,7 @@
 							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
 						{@const classToBind = todo.class ? todo.class : "noClass"}
 						<label
+							aria-label="Temperate, dry winter, warm summer"
 							class={todo.class}
 							in:receive={{ key: todo.id }}
 							out:send={{ key: todo.id }}
@@ -744,10 +767,11 @@
 		<div class="Tropical">
 			<div
 				style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#1761fd;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px;color:white"
+				aria-label="Tropical"
 			>
 				Tropical
 			</div>
-			<div class="Tropical-monsoon">
+			<div aria-label="Tropical, monsoon" class="Tropical-monsoon">
 				<div>
 					<h2 class="classification">
 						<span class="popup"
@@ -766,6 +790,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Tropical, monsoon"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -784,7 +809,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Tropical-rainforest">
+			<div aria-label="Tropical, rainforest" class="Tropical-rainforest">
 				<h2 class="classification">
 					<span class="popup">
 						Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean Annual
@@ -799,6 +824,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Tropical, rainforest"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -818,7 +844,7 @@
 				{/each}
 			</div>
 			<p class="break"></p>
-			<div class="Tropical-savannah">
+			<div aria-label="Tropical, savannah" class="Tropical-savannah">
 				<h2 class="classification">
 					<span class="popup"
 						>Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
@@ -833,6 +859,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Tropical, savannah"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -856,10 +883,11 @@
 		<div class="Arid">
 			<div
 				style="font-weight:700;border-radius:2px;padding:2px;color:white;background-color:#ff8563;text-align:center;border-radius:5px;position:absolute;width:100%;right:0px;top:-10px;color:white"
+				aria-label="Arid"
 			>
 				Arid
 			</div>
-			<div class="Arid-desert-hot">
+			<div aria-label="Arid, desert, hot" class="Arid-desert-hot">
 				<h2 class="classification">
 					<span class="popup"
 						>Mean Annual Temperature: Greater than or equal to 18°C.
@@ -875,6 +903,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Arid, desert, hot"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -893,7 +922,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Arid-desert-cold">
+			<div aria-label="Arid, desert, cold" class="Arid-desert-cold">
 				<h2 class="classification">
 					<span class="popup"
 						>Mean Annual Temperature: Can vary but often falls below 18°C.
@@ -908,6 +937,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Arid, desert, cold"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -927,7 +957,7 @@
 				{/each}
 			</div>
 			<p class="break"></p>
-			<div class="Arid-steppe-hot">
+			<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot">
 				<h2 class="classification">
 					<span class="popup"
 						>Mean Annual Temperature: Generally exceeds 18°C. <br /> Moderate Precipitation:
@@ -942,6 +972,7 @@
 						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 					<label
+						aria-label="Arid, steppe, hot"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -960,7 +991,7 @@
 					</label>
 				{/each}
 			</div>
-			<div class="Arid-steppe-cold">
+			<div aria-label="Arid, steppe, cold" class="Arid-steppe-cold">
 				<h2 class="classification">
 					<span class="popup"
 						>Mean Annual Temperature: Generally belows 18°C. <br /> Moderate Precipitation:
@@ -975,6 +1006,7 @@
 					{@const classToBind = todo.class ? todo.class : "noClass"}
 
 					<label
+						aria-label="Arid, steppe, cold"
 						class={todo.class}
 						in:receive={{ key: todo.id }}
 						out:send={{ key: todo.id }}
@@ -1143,7 +1175,8 @@
 		font-family: Futura;
 	}
 	.break {
-		break-after: column;
+		column-fill: balance;
+		break-after: always;
 	}
 	.canvas {
 		z-index: 10000;

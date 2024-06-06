@@ -189,7 +189,7 @@
 
 		// Fit the map to the bounds initially
 		fitMapToBounds();
-		console.log(zoomLevel);
+
 		map.on("style.load", () => {
 			map.addSource("cities", {
 				type: "geojson",
@@ -587,7 +587,7 @@
 			});
 			map.addSource("video-source", {
 				type: "video",
-				urls: ["assets/wind6.mov"],
+				urls: ["assets/wind6.mp4"],
 				coordinates: [
 					[-320, 90],
 					[320, 90],
@@ -610,96 +610,78 @@
 	});
 
 	$: if (value === 0) {
-		/*map.setProjection("globe");
+		map.on("style.load", () => {
+			map.setZoom(zoomLevel);
+			map.setCenter([lng, lat]);
+			document.getElementById("year1").style.opacity = 0;
+			document.getElementById("year2").style.opacity = 0;
 
-		map.setZoom(2);
-
-		function spinGlobe() {
-			if (value != 0) {
-				return;
-			}
-
-
-			const center = map.getCenter();
-			center.lng -= distancePerSecond;
-			// Smoothly animate the map over one second.
-			// When this animation is complete, it calls a 'moveend' event.
-			map.easeTo({ center, duration: 1000, easing: (n) => n });
-		}
-
-		spinGlobe();
-		map.on("moveend", () => {
-			spinGlobe();
-		});*/
-
-		document.getElementById("year1").style.opacity = 0;
-		document.getElementById("year2").style.opacity = 0;
-
-		setTimeout(() => {
-			map.setPaintProperty("video-layer", "raster-opacity", 0);
-
-			map.setPaintProperty("main-layer", "fill-opacity", 0);
-			function fade() {
-				if (value >= 1) {
-					return;
-				}
-				var filter = ["<=", "DN", 7];
-
-				// Set filter on layer
-				map.setFilter("present-layer1", filter);
-
-				map.setPaintProperty("present-layer1", "fill-opacity", 1);
-				// After 2 seconds, fade out
-				setTimeout(() => {
-					map.setPaintProperty("present-layer1", "fill-opacity", 0);
-					// After fade out, call fade function again after a delay
-					setTimeout(fade, 2000);
-				}, 2000);
-				document.getElementById("year1").style.opacity = 0;
-				document.getElementById("year2").style.opacity = 0;
-			}
-			function fade1() {
-				if (value != 0) {
-					return;
-				}
-				var filter = ["all", [">", "DN", 7], ["<=", "DN", 16]];
-
-				// Set filter on layer
-				map.setFilter("present-layer2", filter);
-
-				map.setPaintProperty("present-layer2", "fill-opacity", 1);
-				// After 2 seconds, fade out
-				setTimeout(() => {
-					map.setPaintProperty("present-layer2", "fill-opacity", 0);
-					// After fade out, call fade function again after a delay
-					setTimeout(fade1, 2000);
-				}, 2000);
-			}
-			function fade2() {
-				if (value >= 1) {
-					return;
-				}
-				var filter = ["all", [">", "DN", 16]];
-
-				// Set filter on layer
-				map.setFilter("present-layer3", filter);
-
-				map.setPaintProperty("present-layer3", "fill-opacity", 1);
-				// After 2 seconds, fade out
-				setTimeout(() => {
-					map.setPaintProperty("present-layer3", "fill-opacity", 0);
-					// After fade out, call fade function again after a delay
-					setTimeout(fade2, 2000);
-				}, 2000);
-			}
-			fade();
 			setTimeout(() => {
-				fade1();
+				map.setPaintProperty("video-layer", "raster-opacity", 0);
+
+				map.setPaintProperty("main-layer", "fill-opacity", 0);
+				function fade() {
+					if (value >= 1) {
+						return;
+					}
+					var filter = ["<=", "DN", 7];
+
+					// Set filter on layer
+					map.setFilter("present-layer1", filter);
+
+					map.setPaintProperty("present-layer1", "fill-opacity", 1);
+					// After 2 seconds, fade out
+					setTimeout(() => {
+						map.setPaintProperty("present-layer1", "fill-opacity", 0);
+						// After fade out, call fade function again after a delay
+						setTimeout(fade, 2000);
+					}, 2000);
+					document.getElementById("year1").style.opacity = 0;
+					document.getElementById("year2").style.opacity = 0;
+				}
+				function fade1() {
+					if (value != 0) {
+						return;
+					}
+					var filter = ["all", [">", "DN", 7], ["<=", "DN", 16]];
+
+					// Set filter on layer
+					map.setFilter("present-layer2", filter);
+
+					map.setPaintProperty("present-layer2", "fill-opacity", 1);
+					// After 2 seconds, fade out
+					setTimeout(() => {
+						map.setPaintProperty("present-layer2", "fill-opacity", 0);
+						// After fade out, call fade function again after a delay
+						setTimeout(fade1, 2000);
+					}, 2000);
+				}
+				function fade2() {
+					if (value >= 1) {
+						return;
+					}
+					var filter = ["all", [">", "DN", 16]];
+
+					// Set filter on layer
+					map.setFilter("present-layer3", filter);
+
+					map.setPaintProperty("present-layer3", "fill-opacity", 1);
+					// After 2 seconds, fade out
+					setTimeout(() => {
+						map.setPaintProperty("present-layer3", "fill-opacity", 0);
+						// After fade out, call fade function again after a delay
+						setTimeout(fade2, 2000);
+					}, 2000);
+				}
+				fade();
+				setTimeout(() => {
+					fade1();
+				}, 1000);
+				setTimeout(() => {
+					fade2();
+				}, 2000);
 			}, 1000);
-			setTimeout(() => {
-				fade2();
-			}, 2000);
-		}, 1000);
+		});
 	}
 
 	$: if (value === 1) {

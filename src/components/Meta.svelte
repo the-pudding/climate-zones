@@ -38,5 +38,4 @@
 	{#each preloadFont as href}
 		<link rel="preload" {href} as="font" type="font/woff2" crossorigin />
 	{/each}
-	<script src="assets/wind-gl.js"></script>
 </svelte:head>

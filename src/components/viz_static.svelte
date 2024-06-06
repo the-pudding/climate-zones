@@ -608,7 +608,8 @@
 		text-align: center;
 	}
 	.break {
-		break-after: column;
+		column-fill: balance;
+		break-after: always;
 	}
 	.canvas {
 		z-index: 10000;
