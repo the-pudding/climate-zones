@@ -391,7 +391,7 @@
 		<div>
 			<div class="rect">
 				<div
-					style="font-weight:700;position:relative;border-radius:2px;padding:2px;color:white;background-color:#735fca;writing-mode: vertical-rl; text-orientation: upright;text-align:center"
+					style="font-weight:700;position:relative;border-radius:2px;padding:2px;color:white;background-color:#735fca;writing-mode: vertical-rl; text-orientation: upright;text-align:center;font-size:12px"
 				>
 					Cold
 				</div>
@@ -483,7 +483,7 @@
 		<div>
 			<div class="rect">
 				<div
-					style="border-radius:2px;font-weight:700;padding:2px;color:black;background-color:#abe340;writing-mode: vertical-rl; text-orientation: upright;text-align:center;position:relative"
+					style="border-radius:2px;font-weight:700;padding:2px;color:black;background-color:#abe340;writing-mode: vertical-rl; text-orientation: upright;text-align:center;position:relative;font-size:12px"
 				>
 					Temperate
 				</div>
@@ -659,7 +659,7 @@
 		</div>
 		<div class="rect">
 			<div
-				style="border-radius:2px;padding:2px;color:white;background-color:#1761fd;writing-mode: vertical-rl;font-weight:700; text-orientation: upright;text-align:center;position:relative"
+				style="border-radius:2px;padding:2px;color:white;background-color:#1761fd;writing-mode: vertical-rl;font-weight:700; text-orientation: upright;text-align:center;position:relative;font-size:12px"
 			>
 				Tropical
 			</div>
@@ -753,7 +753,7 @@
 		</div>
 		<div class="rect">
 			<div
-				style="border-radius:2px;padding:2px;color:white;background-color:#ff8563;writing-mode: vertical-rl; font-weight:700;text-orientation: upright;text-align:center"
+				style="border-radius:2px;padding:2px;color:white;background-color:#ff8563;writing-mode: vertical-rl; font-weight:700;text-orientation: upright;text-align:center;font-size:12px"
 			>
 				Arid
 			</div>
@@ -910,15 +910,19 @@
 
 	.Temperate {
 		background-color: rgba(88, 249, 104, 0.25);
+		font-size: 10px;
 	}
 	.Cold {
 		background-color: rgba(178, 88, 249, 0.25);
+		font-size: 10px;
 	}
 	.Arid {
 		background-color: rgba(249, 88, 88, 0.6);
+		font-size: 10px;
 	}
 	.Tropical {
 		background-color: rgba(23, 97, 253, 0.5);
+		font-size: 10px;
 	}
 
 	label {
@@ -1003,6 +1007,7 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		word-spacing: 5px;
+		font-size: 10px;
 		font-family: Futura;
 	}
 
@@ -1011,7 +1016,7 @@
 	}
 	h2 {
 		display: contents;
-		font-size: 12px;
+		font-size: 11px;
 	}
 	h3 {
 		display: none;

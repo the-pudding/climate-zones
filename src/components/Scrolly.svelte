@@ -41,7 +41,7 @@
 		mounted = true;
 		initViewportHeight = $viewport.height;
 
-		isMobile = $viewport.width < 600;
+		isMobile = $viewport.width < 800;
 		console.log($viewport.width);
 		setViewportHeight();
 	});
