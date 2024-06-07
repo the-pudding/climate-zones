@@ -1091,7 +1091,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		z-index: 0;
+		z-index: -1;
 		margin: 0 auto;
 		height: var(--viewport-height);
 	}
