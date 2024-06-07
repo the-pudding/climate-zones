@@ -109,6 +109,7 @@
 		width: 150px;
 		margin-left: -20px;
 		margin-top: 10px;
+		position: absolute;
 	}
 
 	#scrolly {

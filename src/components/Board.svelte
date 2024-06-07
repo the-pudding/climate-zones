@@ -391,8 +391,7 @@
 					class="Cold-dry-winter-hot-summer"
 				>
 					<h2 class="classification">
-						Dry winter, hot summer
-						<span class="popup"
+						<span class="popupCold"
 							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
 							/>
 							Temperature of the Warmest Month: Greater than or equal to 22°C.
@@ -400,6 +399,7 @@
 							winter (Pwdry) has significantly low precipitation, defined as
 							Pwdry ≤ Pswet/10.</span
 						>
+						Dry winter, hot summer
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
@@ -431,7 +431,7 @@
 					aria-label="Cold, no dry season, hot summer"
 				>
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupCold"
 							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
 							/>
 							Temperature of the Warmest Month: Greater than or equal to 22°C.
@@ -464,7 +464,7 @@
 						</label>
 					{/each}
 				</div>
-				<p class="break"></p>
+				<div class="break"></div>
 				<div
 					class="Cold-no-dry-season-warm-summer"
 					aria-label="Cold, no dry season, warm summer"
@@ -521,7 +521,7 @@
 					class="Temperate-dry-summer-hot-summer"
 				>
 					<h2 class="classification">
-						<span class="popup">
+						<span onclick="" class="popup">
 							Temperature of the Coldest Month: Between 0°C and 18°C.
 							<br />
 							Temperature of the Warmest Month: Greater than or equal to 22°C.
@@ -1036,11 +1036,15 @@
 	.rect .Arid,
 	.rect .Tropical {
 	}
+	* {
+		break-before: avoid;
+		break-after: avoid;
+		break-inside: avoid;
+	}
 	.board {
 		z-index: -100;
 		position: sticky;
-		width: 100%;
-		height: 100%;
+
 		top: 10%;
 		left: 50%;
 		transform: translate(3%, -50%);
@@ -1068,6 +1072,7 @@
 	.Cold {
 		columns: 2;
 		width: 18%;
+
 		background-color: rgba(178, 88, 249, 0.25);
 	}
 	.Arid {
@@ -1128,6 +1133,20 @@
 	.Cold-no-dry-season-warm-summer label {
 		background-color: rgb(55, 200, 255);
 	}
+	@supports (-moz-appearance: none) {
+		.Cold-no-dry-season-warm-summer,
+		.Tropical-savannah,
+		.Arid-steppe-hot,
+		.Arid-steppe-cold,
+		.Temperate-dry-summer-warm-summer,
+		.Temperate-dry-winter-hot-summer,
+		.Temperate-dry-winter-warm-summer,
+		.Temperate-no-dry-season-warm-summer,
+		.Temperate-no-dry-season-hot-summer {
+			position: relative;
+			top: 15px;
+		}
+	}
 	.Arid-desert-hot label {
 		background-color: rgb(255, 0, 0);
 	}
@@ -1167,8 +1186,10 @@
 	.classification {
 		cursor: pointer;
 		font-size: 0.6em;
+		width: 103%;
 		text-align: center;
-
+		position: relative;
+		top: 0px;
 		text-transform: uppercase;
 		font-weight: 700;
 		word-spacing: 5px;
@@ -1186,7 +1207,7 @@
 		position: absolute;
 	}
 	.popup {
-		width: 300px;
+		width: 400px;
 		word-spacing: normal;
 		display: none;
 		position: absolute;
@@ -1197,9 +1218,33 @@
 		text-transform: none;
 		border: 1px solid #ccc;
 		border-radius: 5px;
-		transform: translate(-80px, -100px);
+
+		top: 50%;
+		transform: translate(-50%, -129%);
+		left: 50%;
+		align-items: center;
 		z-index: 1;
 	}
+	.popupCold {
+		width: 400px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: #f9f9f9cb;
+		padding: 10px;
+		font-weight: 300;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+
+		top: 50%;
+		transform: translate(-20%, -129%);
+		left: 50%;
+		align-items: center;
+		z-index: 1;
+	}
+
 	.popup::after {
 		content: "";
 		position: absolute;
@@ -1211,10 +1256,24 @@
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
+	.popupCold::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 50%; /* Position the arrow horizontally centered */
+		border: solid transparent;
+		border-width: 8px;
+		border-top-color: #f9f9f9; /* Match popup background color */
+		z-index: 2;
+		transform: translateX(-816%); /* Center horizontally */
+	}
 
 	/* Styling for the arrow */
 
 	.classification:hover .popup {
+		display: block;
+	}
+	.classification:hover .popupCold {
 		display: block;
 	}
 </style>
