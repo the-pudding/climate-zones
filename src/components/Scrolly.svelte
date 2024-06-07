@@ -3,7 +3,7 @@
 	import BoardMobile from "$components/Board_mobile.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
-	import { map } from "d3";
+
 	import { text } from "./Text.svelte";
 	import { onMount } from "svelte";
 	import viewport from "$stores/viewport.js";
@@ -55,7 +55,16 @@
 			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 				{@const active = value === i}
 
-				<div class="step_mobile" id={`step_mobile${i}`} class:active>
+				<div class="step" id={`step_mobile${i}`} class:active>
+					{#if val == 0}
+						<a style="border:none;" target="_blank" href="https://pudding.cool"
+							><img
+								class="sticker-shadows sticker-mask cloud-logo"
+								src="assets/pudding/stickers/cloud.jpg"
+								alt="The Pudding"
+							/></a
+						>
+					{/if}
 					<p class="text">{@html text[val]}</p>
 				</div>
 			{/each}
@@ -66,7 +75,7 @@
 			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 				{@const active = value === i}
 				<div
-					class="step {isMobile ? 'step-mobile' : ''}"
+					class="step"
 					id={isMobile ? `step_mobile${i}` : `step${i}`}
 					class:active
 				>
@@ -135,14 +144,12 @@
 		height: var(--viewport-height);
 		width: 200px;
 		position: relative;
-		z-index: 1000;
 		border-radius: 10px;
 		color: rgb(0, 0, 0);
-		opacity: 100%;
 		text-align: center;
+		z-index: 10000;
 		font-size: 12px;
 		margin-left: 50px;
-		opacity: 0.2;
 		filter: blur(1px);
 		transition: all 0.5s;
 	}
@@ -152,7 +159,7 @@
 	}
 
 	.step p {
-		background-color: rgba(0, 0, 0, 0.98);
+		background-color: rgba(0, 0, 0, 0.7);
 		font-size: 16px;
 		color: white;
 		text-align: left;
@@ -189,6 +196,7 @@
 		flex-direction: column;
 		justify-content: space-around;
 		margin-bottom: 0;
+		max-width: calc(100vw - 100px);
 	}
 	#step1 {
 		width: 300px;

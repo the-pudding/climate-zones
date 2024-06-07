@@ -165,9 +165,13 @@
 				[-180, -90],
 				[180, 90]
 			],
+			doubleClickZoom: false,
+			touchZoomRotate: false,
 			scrollZoom: false,
+			dragPan: false,
 			attributionControl: false // Hide attribution
 		});
+
 		function fitMapToBounds() {
 			// Calculate the bounds for the entire world
 			const bounds = [
@@ -1083,10 +1087,11 @@
 	}
 	.map {
 		position: absolute;
-		width: 100%;
+		width: 99%;
 		top: 0;
 		left: 0;
 		right: 0;
+		z-index: 0;
 		margin: 0 auto;
 		height: var(--viewport-height);
 	}
