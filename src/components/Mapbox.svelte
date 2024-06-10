@@ -689,7 +689,7 @@
 	}
 
 	$: if (value === 1) {
-		map.setPaintProperty("video-layer", "raster-opacity", 0.65);
+		map.setPaintProperty("video-layer", "raster-opacity", 0.45);
 		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -1009,7 +1009,7 @@
 			document.getElementById("year1").style.opacity = 1;
 			setTimeout(() => {
 				map.setPaintProperty("main-layer", "fill-opacity", 0);
-				document.getElementById("year1").style.opacity = 0;
+				document.getElementById("year1").style.opacity = .3;
 				setTimeout(fade1, 2000);
 			}, 2000);
 		}
@@ -1018,7 +1018,7 @@
 				return;
 			}
 			map.setPaintProperty("future-layer", "fill-opacity", 0);
-			document.getElementById("year2").style.opacity = 0;
+			document.getElementById("year2").style.opacity = .3;
 			setTimeout(() => {
 				map.setPaintProperty("future-layer", "fill-opacity", 1);
 				document.getElementById("year2").style.opacity = 1;
@@ -1047,7 +1047,7 @@
 			document.getElementById("year1").style.opacity = 1;
 			setTimeout(() => {
 				map.setPaintProperty("main-layer", "fill-opacity", 0);
-				document.getElementById("year1").style.opacity = 0;
+				document.getElementById("year1").style.opacity = .3;
 				setTimeout(fade1, 2000);
 			}, 2000);
 		}
@@ -1057,7 +1057,7 @@
 			}
 
 			map.setPaintProperty("future-layer", "fill-opacity", 0);
-			document.getElementById("year2").style.opacity = 0;
+			document.getElementById("year2").style.opacity = .3;
 			setTimeout(() => {
 				map.setPaintProperty("future-layer", "fill-opacity", 1);
 				document.getElementById("year2").style.opacity = 1;
@@ -1074,13 +1074,25 @@
 </script>
 
 <div class="map-wrap">
-	<div id="year1">2023</div>
-	<div id="year2">2070</div>
+	<div class="years">
+		<div id="year1">2023</div>
+		<div id="year2">2070</div>
+	</div>
+	
 
 	<div class="map" bind:this={mapContainer} />
 </div>
 
 <style>
+	.years {
+		display: flex;
+		position: fixed;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		top: 28px;
+		justify-content: center;
+	}
 	video {
 		position: absolute;
 		opacity: 0;
@@ -1096,38 +1108,27 @@
 		height: var(--viewport-height);
 	}
 
-	#year1 {
-		opacity: 0;
-		position: fixed;
-		font-size: 3em;
-		left: 70%;
-		top: 75%;
-		z-index: 1000;
-		transition: opacity 2s; /* Specify the opacity property and duration */
-	}
-	#year2 {
-		opacity: 0;
-		position: fixed;
-		font-size: 3em;
-		left: 70%;
-		top: 75%;
-		z-index: 1000;
-		transition: opacity 2s; /* Specify the opacity property and duration */
-	}
+
+
 
 	#year1,
 	#year2 {
 		font-family: var(--sans);
 		padding: 5px 20px;
 		border-radius: 60px;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
+		margin: 0;
 		width: fit-content;
-		top: 28px;
 		font-weight: 500;
 		background: black;
 		color: white;
 		font-size: 36px;
+		opacity: 0;
+		transition: opacity 2s; /* Specify the opacity property and duration */
+	}
+
+	#year1 {
+		margin-right: 20px;
+	}
+	#year2 {
 	}
 </style>

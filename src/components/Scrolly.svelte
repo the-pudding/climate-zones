@@ -118,7 +118,6 @@
 		width: 150px;
 		margin-left: -20px;
 		margin-top: 10px;
-		position: absolute;
 	}
 
 	#scrolly {
@@ -149,8 +148,9 @@
 		text-align: center;
 		z-index: 10000;
 		font-size: 12px;
-		margin-left: 50px;
+		margin-left: 20px;
 		filter: blur(1px);
+		opacity: .5;
 		transition: all 0.5s;
 	}
 
@@ -159,7 +159,7 @@
 	}
 
 	.step p {
-		background-color: rgba(0, 0, 0, 0.7);
+		background-color: rgba(0, 0, 0, 0.95);
 		font-size: 16px;
 		color: white;
 		text-align: left;
@@ -181,7 +181,7 @@
 		margin-bottom: 0;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: flex-start;
 		margin-bottom: 500px;
 	}
 
@@ -194,7 +194,7 @@
 		margin-bottom: 0;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: flex-start;
 		margin-bottom: 0;
 		max-width: calc(100vw - 100px);
 	}
@@ -307,14 +307,14 @@
 		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		width: 800px;
+		width: 400px;
 	}
 	#step_mobile13 {
 		margin: auto;
 		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		width: 800px;
+		width: 400px;
 	}
 
 	.intro-text {

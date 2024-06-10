@@ -38,7 +38,8 @@
 	"
 		>
 			{#each linesToDraw as line}
-				<line x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
+				<line class="fill" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
+				<line class="stroke" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
 			{/each}
 		</svg>
 	{/if}
@@ -55,6 +56,14 @@
 	line {
 		stroke: black;
 		stroke-width: 1px;
+	}
+	.stroke {
 		stroke-dasharray: 5, 5;
 	}
+	.fill {
+		stroke-width: 5px;
+		opacity: .2;
+		stroke: grey;
+	}
+			
 </style>
