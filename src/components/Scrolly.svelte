@@ -3,6 +3,7 @@
 	import BoardMobile from "$components/Board_mobile.svelte";
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
+	import TapeText from "$components/TapeText.svelte";
 
 	import { text } from "./Text.svelte";
 	import { onMount } from "svelte";
@@ -51,53 +52,74 @@
 	<MapTitle {value} />
 	{#if isMobile}
 		<BoardMobile {value} {isMobile} />
-		<Scrolly bind:value>
-			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
-				{@const active = value === i}
-
-				<div class="step" id={`step_mobile${i}`} class:active>
-					{#if val == 0}
-						<a style="border:none;" target="_blank" href="https://pudding.cool"
-							><img
-								class="sticker-shadows sticker-mask cloud-logo"
-								src="assets/pudding/stickers/cloud.jpg"
-								alt="The Pudding"
-							/></a
-						>
-					{/if}
-					<p class="text">{@html text[val]}</p>
-				</div>
-			{/each}
-		</Scrolly>
 	{:else}
 		<Board {value} {isMobile} />
-		<Scrolly bind:value>
-			{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
-				{@const active = value === i}
-				<div
-					class="step"
-					id={isMobile ? `step_mobile${i}` : `step${i}`}
-					class:active
-				>
-					{#if val == 0}
-						<a style="border:none;" target="_blank" href="https://pudding.cool"
-							><img
-								class="sticker-shadows sticker-mask cloud-logo"
-								src="assets/pudding/stickers/cloud.jpg"
-								alt="The Pudding"
-							/></a
-						>
-					{/if}
-					<p class="text">{@html text[val]}</p>
-				</div>
-			{/each}
-		</Scrolly>
 	{/if}
+	<Scrolly bind:value>
+		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
+			{@const active = value === i}
+			<div
+				class="step"
+				id={isMobile ? `step_mobile${i}` : `step${i}`}
+				class:active
+			>
+				{#if val == 0}
+					<a class="sticker-logo" style="border:none;" target="_blank" href="https://pudding.cool"
+						><img
+							class="sticker-shadows sticker-mask cloud-logo"
+							src="assets/pudding/stickers/cloud.jpg"
+							alt="The Pudding"
+						/>
+					</a>
+					<div class="title-svg">
+						{@html text[val]}
+					</div>
+					<div class="bottom">
+						<p class="byline">By <a href="https://pudding.cool/author/derek-taylor/" target=_blank>Derek Taylor</a></p>
+						<TapeText text={"HOW WILL YOUR CITY FEEL IN THE FUTURE?"} />
+					</div>
+				{:else}
+					<p class="text">{@html text[val]}</p>
+				{/if}
+			</div>
+		{/each}
+	</Scrolly>
 </section>
 
 <style>
+	.sticker-logo {
+		position: absolute;
+		
+	}
+	.title-svg {
+		max-width: 1200px;
+		width:100%;
+		margin: 0 auto;
+		padding-top: 100px;
+	}
+
+	.step .byline {
+		font-family: var(--sans);
+		color: black;
+		text-align: center;
+		font-size: 16px;
+		font-weight: 700;
+		margin: 0 auto;
+		margin-bottom: 50px;
+		background-color: white;
+		display: block;
+		display: inline-block;
+    	padding: 5px 13px;
+		z-index: 10000;
+	}
 	.sticker-mask {
 		border-radius: 50%;
+	}
+
+	.bottom {
+		padding-bottom: 100px;
+		max-width: 400px;
+		margin: 0 auto;
 	}
 
 	.sticker-shadows {
@@ -141,7 +163,7 @@
 
 	.step {
 		height: var(--viewport-height);
-		width: 200px;
+		width: 400px;
 		position: relative;
 		border-radius: 10px;
 		color: rgb(0, 0, 0);
@@ -154,13 +176,19 @@
 		transition: all 0.5s;
 	}
 
+	.step.isMobile {
+		width: calc(100% - 10px);
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 	.step-mobile {
 		margin: 0 auto;
 	}
 
 	.step p {
 		background-color: rgba(0, 0, 0, 0.95);
-		font-size: 16px;
+		font-size: 18px;
 		color: white;
 		text-align: left;
 		padding: 1rem;
@@ -181,13 +209,7 @@
 		margin-bottom: 0;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
-		margin-bottom: 500px;
-	}
-
-	#step0 p,
-	#step_mobile0 p {
-		background: none;
+		justify-content: space-between;
 	}
 
 	#step_mobile0 {
@@ -196,60 +218,29 @@
 		flex-direction: column;
 		justify-content: flex-start;
 		margin-bottom: 0;
-		max-width: calc(100vw - 100px);
 	}
-	#step1 {
-		width: 300px;
-		max-width: 300px;
+
+
+	#step1, #step_mobile1 {
+		margin-top: 500px;
 	}
-	#step_mobile1 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
-	}
-	#step2 {
-		width: 300px;
-		max-width: 300px;
-	}
-	#step_mobile2 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
-	}
-	#step3 {
-		width: 400px;
-		max-width: 300px;
-	}
-	#step_mobile3 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
-	}
+
 	#step4 {
 		width: 400px;
 	}
-	#step_mobile4 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
-	}
+
 	#step5 {
 		width: 400px;
 	}
-	#step_mobile5 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
-	}
+
 	#step6 {
 		width: 400px;
-	}
-	#step_mobile6 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
 	}
 	#step7 {
 		width: 400px;
 		margin-bottom: 300px;
 	}
 	#step_mobile7 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 300px;
 	}
 	#step8 {
@@ -260,7 +251,6 @@
 	}
 	#step_mobile8 {
 		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 300px;
 	}
 	#step9 {
@@ -269,18 +259,15 @@
 	}
 	#step_mobile9 {
 		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 300px;
 	}
 	#step10 {
 		height: 100%;
-		left: 70%;
 		width: 300px;
+		margin-inline-start: auto;
 		margin-bottom: 300px;
 	}
 	#step_mobile10 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 300px;
 	}
 	#step11 {
@@ -288,18 +275,14 @@
 		margin-bottom: 300px;
 	}
 	#step_mobile11 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 300px;
 	}
 	#step12 {
-		left: 70%;
+		margin-inline-start: auto;
 		width: 300px;
 		margin-bottom: 1000px;
 	}
 	#step_mobile12 {
-		width: 100%;
-		max-width: calc(100vw - 100px);
 		margin-bottom: 1000px;
 	}
 	#step13 {
@@ -311,10 +294,8 @@
 	}
 	#step_mobile13 {
 		margin: auto;
-		max-width: calc(100vw - 100px);
 		left: auto;
 		top: -400px;
-		width: 400px;
 	}
 
 	.intro-text {

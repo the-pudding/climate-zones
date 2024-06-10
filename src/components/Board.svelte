@@ -182,41 +182,6 @@
 		});
 
 		todos = newData;
-
-		// setTimeout(
-		// 	() =>
-		// 		data.forEach((item) => {
-		// 			if (city.includes(item.name)) {
-		// 				if (browser) {
-		// 					var labels = document.getElementsByClassName("move");
-		// 					// console.log(labels[0].innerText.trim() == item.name.trim());
-		// 					for (var i = 0; i < labels.length; i++) {
-		// 						if (labels[i].innerText.trim() == item.name.trim()) {
-		// 							// labels[i].style.boxShadow = `0 0 0 2px ${item.color}`;
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-		// 		}),
-		// 	0
-		// );
-		// setTimeout(() => {
-		// 	if (browser) {
-		// 		var labels = document.getElementsByClassName("ghost");
-		// 		for (var i = 0; i < labels.length; i++) {
-		// 			labels[i].style.opacity = 0.2;
-		// 		}
-		// 	}
-		// }, 0);
-		// setTimeout(() => {
-		// 	if (browser) {
-		// 		var labels = document.getElementsByClassName("stay");
-		// 		for (var i = 0; i < labels.length; i++) {
-		// 			labels[i].style.opacity = 0.8;
-		// 			// labels[i].style.boxShadow = `none`;
-		// 		}
-		// 	}
-		// }, 0);
 	}
 
 	resetData(data);
