@@ -385,8 +385,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -423,8 +423,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -463,9 +463,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								updateBindFinder();
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -516,8 +515,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -557,8 +556,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -597,8 +596,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -639,8 +638,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -677,8 +676,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -717,8 +716,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -763,8 +762,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -797,8 +796,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -831,8 +830,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -876,8 +875,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -910,8 +909,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -944,8 +943,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}
@@ -977,8 +976,8 @@
 					>
 						<button
 							on:click={() => {
-								itemsToMove = [data];
-								orderByTempAndGroupByClim(data, todo.name);
+								itemsToMove = [todo.name];
+								orderByTempAndGroupByClim(data, [todo.name]);
 							}}
 						>
 							{todo.name}

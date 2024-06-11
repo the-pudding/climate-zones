@@ -154,7 +154,7 @@
 	}
 
 	.cloud-logo {
-		width: 20vw;
+		width: 16vw;
 		max-width: 200px;
 		margin-left: -20px;
 		margin-top: 10px;
@@ -285,7 +285,6 @@
 		margin: auto;
 		max-width: calc(100vw - 100px);
 		left: auto;
-		top: -400px;
 		width: 400px;
 	}
 	.intro-text {
@@ -301,7 +300,8 @@
 			.title-wrapper {
 				justify-content: center;
 			}
-
-
+			.title-svg {
+				width: calc(100% - 100px);
+			}
 	}
 </style>

@@ -260,6 +260,8 @@
         padding-top: 50px;
 		color: var(--color-black);
 		font-family: 'Atlas Grotesk', sans;
+        z-index: 100000;
+        position: relative;
 	}
 
     p {
