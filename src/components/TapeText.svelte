@@ -1,8 +1,9 @@
 <script>
 	export let text;
+    export let isMobile;
 </script>
 
-<div class="text tape-text-wrap">
+<div class="text tape-text-wrap" class:isMobile>
 	<p class="text tape-text-wrap-fg">
 		<span>{@html text}
             <br>
@@ -48,6 +49,16 @@
 		font-size: 24px;
         margin: 0;
 	}
+
+    .isMobile p {
+        font-size: 18px;
+    }
+
+    .isMobile span svg {
+        width: 25px;
+        height: 35px;
+        padding-top: 10px;
+    }
 
     .tape-text-wrap {
     position: relative;

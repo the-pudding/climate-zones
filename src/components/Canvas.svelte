@@ -15,34 +15,15 @@
 </script>
 
 {#if mounted}
-	{#if isMobile}
-		<svg
-			height="1000"
-			width="1000"
-			style="
-		
-		transform: translate(0%, -2%);
-	"
-		>
-			{#each linesToDraw as line}
-				<line x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
-			{/each}
-		</svg>
-	{:else}
-		<svg
-			height="1000"
-			width="1000"
-			style="
-		
-		transform: translate(-3%, -10%);
-	"
-		>
-			{#each linesToDraw as line}
-				<line class="fill" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
-				<line class="stroke" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
-			{/each}
-		</svg>
-	{/if}
+	<svg
+		width="100%"
+		style=""
+	>
+		{#each linesToDraw as line}
+			<line class="fill" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
+			<line class="stroke" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
+		{/each}
+	</svg>
 {/if}
 
 <style>
@@ -52,6 +33,7 @@
 		height: var(--viewport-height);
 		z-index: 100000;
 		pointer-events: none;
+		transform: translate(0,-100px);
 	}
 	line {
 		stroke: black;
@@ -64,6 +46,12 @@
 		stroke-width: 5px;
 		opacity: .2;
 		stroke: grey;
+	}
+
+	@media only screen and (max-width: 600px) {
+		svg {
+			transform: translate(0,-20px);
+		}
 	}
 			
 </style>

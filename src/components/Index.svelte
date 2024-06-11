@@ -7,8 +7,8 @@
 	import Mapbox from "$components/Mapbox.svelte";
 	// import VizStaticMobile from "$components/viz_static_mobile.svelte";
 	import Scrolly from "./Scrolly.svelte";
-
-	// import Footer from "$components/Footer.svelte";
+	import Footer from "$components/Footer.svelte";
+	import viewport from "$stores/viewport.js";
 
 	// const copy = getContext("copy");
 	// const data = getContext("data");
@@ -19,5 +19,8 @@
 */
 </script>
 
+
 <!-- <VizScrolly /> -->
 <Scrolly />
+<Footer backgroundColor={"#F2F2F2"} width={$viewport.width} storyRecirculation={false}/>
+

@@ -339,8 +339,8 @@
 	}
 </script>
 
-{#if mounted && value > 7}
-	<div class="board" style="opacity:1; z-index:100;">
+{#if mounted}
+	<div class="board" style="opacity:{value > 7 ? 1 : 0}; z-index:100;">
 		{#if linesToDraw}
 			<Canvas {linesToDraw} {isMobile} />
 		{/if}
@@ -1025,15 +1025,18 @@
 		/* break-inside: avoid; */
 	}
 	.board {
-		z-index: -100;
-		position: sticky;
-
-		top: 10%;
-		left: 50%;
-		transform: translate(3%, -50%);
+		position: absolute;
+		top: 100px;
+		transform: translate(0%, 0%);
 		opacity: 0;
 		transition: opacity 1s ease;
 		scale: 1;
+		width: 100%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
 	}
 
 	.column {
@@ -1211,7 +1214,7 @@
 		display: none;
 		position: absolute;
 		text-align: left;
-		background-color: #f9f9f9cb;
+		background-color: rgba(249,249,249,1);
 		padding: 10px;
 		font-weight: 300;
 		text-transform: none;
@@ -1295,6 +1298,59 @@
 	.ghost {
 		opacity: .2;
 	}
+
+	@media only screen and (max-width: 600px) {
+		.board {
+			flex-wrap: wrap;
+			top: 20px;
+		}
+
+		.Cold, .Arid, .Temperate, .Tropical {
+			width: calc(100% - 10px);
+			margin: 0;
+			margin-bottom: 5px;
+		}
+
+		button {
+			font-size: 12px;
+			font-weight: 700;
+			
+		}
+
+		.classification {
+			letter-spacing: 0;
+			text-transform: none;
+		}
+
+		.header {
+			transform: translate(0,-5px);
+			font-size: 14px;
+			right: 0;
+			left: auto;
+		}
+
+		.grouping {
+			padding: 0;
+			padding-bottom: 2px;
+		}
+
+		.column {
+			display: flex;
+			flex-wrap: wrap;
+			padding: 0;
+			padding-left: 2px;
+		}
+
+		@media only screen and (min-height: 600px) {
+			.column {
+				margin-bottom: 20px;
+			}
+		}
+
+
+
+	}
+
 
 
 

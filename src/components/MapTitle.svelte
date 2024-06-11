@@ -13,11 +13,12 @@
 	.intro-map {
 		width: 100%;
 		height: 100%;
-		position: sticky;
+		position: absolute;
 		top: 0;
 		background-color: rgb(232, 232, 232);
 		opacity: 1;
 		transition: opacity 0.5s;
+		pointer-events: none;
 	}
 	#my_dataviz {
 		position: fixed;

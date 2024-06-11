@@ -12,6 +12,7 @@
 	let lng, lat, zoom;
 	lng = 0;
 	lat = 0;
+	let loaded = false;
 	zoom = 1.3;
 	let zoomLevel;
 	export let value;
@@ -608,12 +609,14 @@
 					"raster-opacity-transition": { duration: 2000 }
 				}
 			});
+
+			loaded = true;
 		});
 
 		// At low zooms, complete a revolution every two minutes.
 	});
 
-	$: if (value === 0) {
+	$: if (value === 0 && loaded) {
 		map.on("style.load", () => {
 			map.setZoom(zoomLevel);
 			map.setCenter([lng, lat]);
@@ -798,6 +801,9 @@
 		]);
 	}
 	$: if (value === 4) {
+		document.getElementById("year1").style.opacity = 0;
+		document.getElementById("year2").style.opacity = 0;
+
 		map.flyTo({
 			center: [2.3522, 42.8566],
 			zoom: 4,

@@ -4,13 +4,13 @@
 	import Scrolly from "$components/helpers/Scrolly.svelte";
 	import MapTitle from "$components/MapTitle.svelte";
 	import TapeText from "$components/TapeText.svelte";
+	import Title from "$svg/title.svg";
 
 	import { text } from "./Text.svelte";
 	import { onMount } from "svelte";
 	import viewport from "$stores/viewport.js";
 
 	let value;
-	$: value, console.log(value);
 
 	let isMobile;
 	let mounted = false;
@@ -49,12 +49,14 @@
 </script>
 
 <section id="scrolly">
-	<MapTitle {value} />
-	{#if isMobile}
-		<BoardMobile {value} {isMobile} />
-	{:else}
-		<Board {value} {isMobile} />
-	{/if}
+	<div class="sticky">
+		<MapTitle {value} />
+		<!-- {#if isMobile}
+			<BoardMobile {value} {isMobile} />
+		{:else} -->
+			<Board {value} {isMobile} />
+		<!-- {/if} -->
+	</div>
 	<Scrolly bind:value>
 		{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as val, i}
 			{@const active = value === i}
@@ -62,6 +64,7 @@
 				class="step"
 				id={isMobile ? `step_mobile${i}` : `step${i}`}
 				class:active
+				class:isMobile
 			>
 				{#if val == 0}
 					<a class="sticker-logo" style="border:none;" target="_blank" href="https://pudding.cool"
@@ -71,13 +74,16 @@
 							alt="The Pudding"
 						/>
 					</a>
-					<div class="title-svg">
-						{@html text[val]}
+					<div class="title-wrapper">
+						<div class="title-svg">
+							{@html Title}
+						</div>
+						<div class="bottom">
+							<p class="byline">By <a href="https://pudding.cool/author/derek-taylor/" target=_blank>Derek Taylor</a></p>
+							<TapeText text={"HOW WILL YOUR CITY FEEL IN THE FUTURE?"} {isMobile}/>
+						</div>
 					</div>
-					<div class="bottom">
-						<p class="byline">By <a href="https://pudding.cool/author/derek-taylor/" target=_blank>Derek Taylor</a></p>
-						<TapeText text={"HOW WILL YOUR CITY FEEL IN THE FUTURE?"} />
-					</div>
+					
 				{:else}
 					<p class="text">{@html text[val]}</p>
 				{/if}
@@ -87,6 +93,13 @@
 </section>
 
 <style>
+
+	.sticky {
+		z-index: 0;
+		position: sticky;
+		top: 0;
+	}
+
 	.sticker-logo {
 		position: absolute;
 		
@@ -96,6 +109,10 @@
 		width:100%;
 		margin: 0 auto;
 		padding-top: 100px;
+	}
+
+	.isMobile .title-svg {
+		padding-top: 150px;
 	}
 
 	.step .byline {
@@ -137,7 +154,8 @@
 	}
 
 	.cloud-logo {
-		width: 150px;
+		width: 20vw;
+		max-width: 200px;
 		margin-left: -20px;
 		margin-top: 10px;
 	}
@@ -181,7 +199,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-
 	.step-mobile {
 		margin: 0 auto;
 	}
@@ -209,19 +226,18 @@
 		margin-bottom: 0;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: flex-start;
 	}
 
-	#step_mobile0 {
-		margin-bottom: 0;
+	.title-wrapper {
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-		margin-bottom: 0;
+
 	}
 
-
-	#step1, #step_mobile1 {
+	#step1 {
 		margin-top: 500px;
 	}
 
@@ -238,53 +254,33 @@
 	}
 	#step7 {
 		width: 400px;
-		margin-bottom: 300px;
 	}
-	#step_mobile7 {
-		margin-bottom: 300px;
-	}
+
 	#step8 {
-		height: 100%;
 		left: calc(50vw - 250px);
 		width: 500px;
-		margin-bottom: 300px;
 	}
-	#step_mobile8 {
-		width: 100%;
-		margin-bottom: 300px;
-	}
+
 	#step9 {
 		width: 300px;
-		margin-bottom: 300px;
 	}
-	#step_mobile9 {
-		width: 100%;
-		margin-bottom: 300px;
-	}
+
 	#step10 {
-		height: 100%;
 		width: 300px;
 		margin-inline-start: auto;
-		margin-bottom: 300px;
+		margin-inline-end: 20px;
 	}
-	#step_mobile10 {
-		margin-bottom: 300px;
-	}
+
 	#step11 {
 		width: 300px;
-		margin-bottom: 300px;
 	}
-	#step_mobile11 {
-		margin-bottom: 300px;
-	}
+
 	#step12 {
 		margin-inline-start: auto;
+		margin-inline-end: 20px;
 		width: 300px;
-		margin-bottom: 1000px;
 	}
-	#step_mobile12 {
-		margin-bottom: 1000px;
-	}
+
 	#step13 {
 		margin: auto;
 		max-width: calc(100vw - 100px);
@@ -292,12 +288,6 @@
 		top: -400px;
 		width: 400px;
 	}
-	#step_mobile13 {
-		margin: auto;
-		left: auto;
-		top: -400px;
-	}
-
 	.intro-text {
 		text-align: center;
 		position: absolute;
@@ -305,5 +295,13 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		width: 80%; /* Adjust the width as needed */
+	}
+
+	@media only screen and (min-width: 450px) {
+			.title-wrapper {
+				justify-content: center;
+			}
+
+
 	}
 </style>

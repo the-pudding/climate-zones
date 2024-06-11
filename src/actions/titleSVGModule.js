@@ -6,7 +6,8 @@ export const titleSVG = `<svg width="100%" height="100%" version="1.1" id="Layer
 <style type="text/css">
 	.st0{fill:#FFFFFF;}
 	.st1{fill:#FFFFFF;filter:url(#Adobe_OpacityMaskFilter);}
-	.st2{mask:url(#path-1-outside-1_6_450_00000002348677729078281970000002095612853690288048_);fill:#535353;fill-opacity:0.1;}
+	.st2{mask:url(#path-1-outside-1_6_450_00000002348677729078281970000002095612853690288048_);fill: #000000;
+		fill-opacity: .2;}
 	.st3{fill:#FFFFFF;filter:url(#Adobe_OpacityMaskFilter_00000169547543707954274980000017735321283842749833_);}
 	.st4{mask:url(#path-3-outside-2_6_450_00000182502594798179472860000005879717792928344998_);fill:#030403;}
 	.st5{fill:url(#SVGID_1_);}
