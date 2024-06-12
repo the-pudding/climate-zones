@@ -35,6 +35,10 @@
 		// { name: "about", url: "https://pudding.cool/about" },
 		{ name: "Facebook", url: "https://facebook.com/pudding.viz/" },
 		{ name: "Twitter", url: "https://twitter.com/puddingviz/" },
+        { name: "YouTube", url: "https://www.youtube.com/@thepudding" },
+        { name: "TikTok", url: "https://www.tiktok.com/@the_pudding" },
+        { name: "Threads", url: "https://www.threads.net/@the.pudding" },
+
 		{
 			name: "Instagram",
 			url: "https://www.instagram.com/the.pudding"
@@ -59,110 +63,115 @@
 </script>
 
 <footer>
-
-    {#if storyRecirculation}
-        <section class="stories">
-            {#each stories as { hed, url, image }}
-                {@const href = url.startsWith("http")
-                    ? url
-                    : `https://pudding.cool/${url}`}
-                <div class="story">
-                    <a {href}>
-                        <img
-                            src="https://pudding.cool/common/assets/thumbnails/640/{image}.jpg"
-                            alt="thumbnail"
-                        />
-                        <span>{hed}</span>
-                    </a>
-                </div>
-            {/each}
-        </section>
-    {/if}
-
-    <div class="section section-stickers">
-        <div class="row" style="margin-bottom:0;">
-            <div class="sticker-col">
-                <div class="sticker-outline">
-                    <div class="sticker">
-                        <a target="_self" href="https://patreon.com/thepudding"><img src="assets/pudding/stickers/donate.jpg" alt=""></a>
+    <div class="footer-wrapper">
+        {#if storyRecirculation}
+            <section class="stories">
+                {#each stories as { hed, url, image }}
+                    {@const href = url.startsWith("http")
+                        ? url
+                        : `https://pudding.cool/${url}`}
+                    <div class="story">
+                        <a {href}>
+                            <img
+                                src="https://pudding.cool/common/assets/thumbnails/640/{image}.jpg"
+                                alt="thumbnail"
+                            />
+                            <span>{hed}</span>
+                        </a>
                     </div>
-                </div>
-                <!-- <div class="link">
-                    <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
-                </div> -->
-            </div>
-            <div class="sticker-col">
-                <div class="sticker-outline sticker-outline-circle">
-                    <div class="sticker">
-                        <a target="_self" href="https://thepuddingmail.substack.com/"><img src="assets/pudding/stickers/subscribe.png" alt=""></a>
+                {/each}
+            </section>
+        {/if}
+
+        <div class="section section-stickers">
+            <div class="row" style="margin-bottom:0;">
+                <div class="sticker-col">
+                    <div class="sticker-outline">
+                        <div class="sticker">
+                            <a target="_self" href="https://patreon.com/thepudding"><img src="assets/pudding/stickers/donate.jpg" alt=""></a>
+                        </div>
                     </div>
+                    <!-- <div class="link">
+                        <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
+                    </div> -->
                 </div>
-                <!-- <div class="link">
-                    <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
-                    </a>
-                </div> -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="sticker-col">
-                <div class="link">
-                    <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
-                </div>
-            </div>
-
-            <div class="sticker-col">
-                 <div class="link">
-                    <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
-                    </a>
+                <div class="sticker-col">
+                    <div class="sticker-outline sticker-outline-circle">
+                        <div class="sticker">
+                            <a target="_self" href="https://thepuddingmail.substack.com/"><img src="assets/pudding/stickers/subscribe.png" alt=""></a>
+                        </div>
+                    </div>
+                    <!-- <div class="link">
+                        <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
+                        </a>
+                    </div> -->
                 </div>
             </div>
-        </div>
-
-    </div>
-
-    <div class="section section-links">
-
-        <div class="row">
-            <div class="row-label">Follow Us</div>
-            <div class="row-content links">
-                {#each links as link}
+            <div class="row">
+                <div class="sticker-col">
                     <div class="link">
-                        <a href={link.url} target="_self">
-                            {link.name}
+                        <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
+                    </div>
+                </div>
+
+                <div class="sticker-col">
+                    <div class="link">
+                        <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
                         </a>
                     </div>
-			    {/each}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section section-links">
+
+            <div class="row">
+                <div class="row-label">Follow Us</div>
+                <div class="row-content links">
+                    {#each links as link}
+                        <div class="link">
+                            <a href={link.url} target="_self">
+                                {link.name}
+                            </a>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="row-label">About Us</div>
+                <div class="row-content links">
+                    {#each about as link, i}
+                        {@const last = i == about.length - 1 ? true : false}
+                        <div class="link" class:last>
+                            <a href={link.url} target="_self">
+                                {link.name}
+                            </a>
+                        </div>
+                    {/each}
+
+
+                </div>
             </div>
         </div>
 
-
-        <div class="row">
-            <div class="row-label">About Us</div>
-            <div class="row-content links">
-                {#each about as link, i}
-                    {@const last = i == about.length - 1 ? true : false}
-                    <div class="link" class:last>
-                        <a href={link.url} target="_self">
-                            {link.name}
-                        </a>
-                    </div>
-			    {/each}
-
-
+        <div class="section section-last">
+            <div class="logo">
+                <a href="https://pudding.cool" target=_self>{@html logo}</a>
             </div>
+            <p>Made with <span class="heart">{`<3`}</span>by journalist-engineers</p>
+            <a class="privacy" href="https://pudding.cool/privacy/">Privacy Policy</a>
         </div>
-    </div>
-
-    <div class="section section-last">
-        <div class="logo">
-            <a href="https://pudding.cool" target=_self>{@html logo}</a>
-        </div>
-        <p>Made with <span class="heart">{`<3`}</span>by journalist-engineers</p>
-        <a class="privacy" href="https://pudding.cool/privacy/">Privacy Policy</a>
     </div>
 </footer>
 
 <style>
+    .footer-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
     .row {
         display: flex;
         margin-bottom: 30px;
@@ -190,9 +199,14 @@
     }
 
     .sticker-outline {
-        background: radial-gradient(circle, rgba(226, 226, 226, 0.5) 0%, rgba(255,255,255,.51) 100%);
+        background: radial-gradient(circle, rgba(174, 174, 174, 0.6) 0%, rgba(250,250,250,.51) 100%);
         border-radius: 8px;
         box-shadow: 0px 1px 2px rgba(117, 117, 117, 0.10), -2px 3px 3px rgba(117, 117, 117, 0.09), -3px 6px 4px rgba(117, 117, 117, 0.05), -6px 10px 5px rgba(117, 117, 117, 0.01), -10px 16px 5px rgba(117, 117, 117, 0.00);
+        transform: rotate(1deg);
+    }
+
+    .sticker-outline-circle {
+        transform: rotate(-2deg);
     }
 
     .sticker-outline.sticker-outline-circle {
@@ -212,7 +226,7 @@
         position: absolute;
         top: 50%;
         left: 0;
-        background: radial-gradient(circle, rgba(255, 255, 255, .5) 0%, rgba(255,255,255,1) 100%);
+        background: radial-gradient(circle, rgba(208, 208, 208, .5) 0%, rgba(250,250,250,1) 100%);
         box-shadow: 0px 1px 2px rgba(117, 117, 117, 0.10), -2px 3px 3px rgba(117, 117, 117, 0.09), -3px 6px 4px rgba(117, 117, 117, 0.05), -6px 10px 5px rgba(117, 117, 117, 0.01), -10px 16px 5px rgba(117, 117, 117, 0.00);
         transform: translate(0,-50%);
         right: 0;
@@ -343,12 +357,12 @@
 		text-decoration: underline;
         color: black;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 16px;
         letter-spacing: -0.36px;
         -webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
-        line-height: 28px;
+        line-height: 24px;
 	}
 
     .link {
@@ -403,8 +417,8 @@
 		}
 	}
 
-	@media only screen and (min-width: 450px) {
-        footer {
+	@media only screen and (min-width: 550px) {
+        .footer-wrapper {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -417,21 +431,32 @@
             display: flex;
             margin: 0;
             max-width: 400px;
+            width: 40%;
         }
 
         .section-stickers {
-            max-width: 340px;
+            max-width: 450px;
+            width: 40%;
             margin: 0;
             margin-left: 25px;
         }
 
         .section-links .row {
-            min-width: 250px;
+            width: 50%;
+            max-width: 200px;
             display: block;
         }
 
         .section-last {
             width: calc(100% - 50px);
+        }
+
+        .sticker-col {
+            width: calc(50% - 30px);
+        }
+
+        .row-content {
+            width: 100%;
         }
 	}
 </style>

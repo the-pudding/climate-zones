@@ -22,5 +22,5 @@
 
 <!-- <VizScrolly /> -->
 <Scrolly />
-<Footer backgroundColor={"#F2F2F2"} width={$viewport.width} storyRecirculation={false}/>
+<Footer backgroundColor={"#FFF"} width={$viewport.width} storyRecirculation={false}/>
 
