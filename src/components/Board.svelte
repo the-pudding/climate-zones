@@ -366,7 +366,7 @@
 		</div>
 		<div
 			class="board"
-			style="opacity:{value > 7 ? 1 : 0}; z-index:100;top:{(value == 13) &
+			style="opacity:{value > 7 ? 1 : 0}; z-index:10000000;top:{(value == 13) &
 			isMobile
 				? '75px'
 				: ''}"
@@ -471,7 +471,7 @@
 					style="border: none;"
 				>
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupCold"
 							>Temperature of the Coldest Month: Less than or equal to 0°C.<br
 							/>
 							Temperature of the Warmest Month: Less than 22°C and greater than 10°C.
@@ -1290,9 +1290,10 @@
 		position: absolute;
 		top: 100%; /* Position the arrow just below the popup */
 		left: 50%; /* Position the arrow horizontally centered */
-		border: solid transparent;
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: #f9f9f9; /* Match popup background color */
+		border-top-color: lightgray; /* Match popup background color */
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
@@ -1301,10 +1302,13 @@
 		position: absolute;
 		top: 100%; /* Position the arrow just below the popup */
 		left: 50%; /* Position the arrow horizontally centered */
-		border: solid transparent;
+
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: #f9f9f9; /* Match popup background color */
+		border-top-color: lightgrey; /* Match popup background color */
 		z-index: 2;
+
 		transform: translateX(-816%); /* Center horizontally */
 	}
 
