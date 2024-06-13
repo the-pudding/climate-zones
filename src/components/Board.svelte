@@ -385,6 +385,14 @@
 					style="background-color:#E4CCFF; border-color: #C3ADD9;"
 					aria-label="Cold"
 				>
+					<span class="popupColdHeader"
+						><b>Average Temperature of the Hottest Month:</b> Greater than 10°C.
+						<br />
+						<b>Average Temperature of the Coldest Month: </b>Less than or equal
+						to 0°C.
+						<br /><b>Precipitation Pattern:</b> Precipitation varies, but there is
+						at least one season with consistent rainfall .</span
+					>
 					Cold
 				</div>
 				<div
@@ -393,12 +401,13 @@
 				>
 					<h2 class="classification">
 						<span class="popupCold"
-							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
-							/>
-							Temperature of the Warmest Month: Greater than or equal to 22°C.
-							<br />Precipitation Pattern: Dry Winter: The driest month in
-							winter (Pwdry) has significantly low precipitation, defined as
-							Pwdry ≤ Pswet/10.</span
+							><b>Temperature of the Coldest Month: </b> Less than or equal to
+							0°C. <br />
+							<b>Temperature of the Warmest Month:</b> Greater than or equal to
+							22°C.
+							<br /><b>Precipitation Pattern: </b> The driest month in winter (Pwdry)
+							has significantly low precipitation compared to the wettest month,
+							defined as Pwdry ≤ Pswet/10.</span
 						>
 						Dry winter, hot summer
 					</h2>
@@ -433,10 +442,11 @@
 				>
 					<h2 class="classification">
 						<span class="popupCold"
-							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
-							/>
-							Temperature of the Warmest Month: Greater than or equal to 22°C.
-							<br /> Precipitation Pattern: The driest month in summer or winter
+							><b>Temperature of the Coldest Month:</b> Less than or equal to
+							0°C. <br />
+							<b>Temperature of the Warmest Month:</b> Greater than or equal to
+							22°C.
+							<br /><b>Precipitation Pattern:</b> The driest month in summer or winter
 							does not drop below the levels that define a dry season.</span
 						>No dry season, hot summer
 					</h2>
@@ -472,12 +482,13 @@
 				>
 					<h2 class="classification">
 						<span class="popupCold"
-							>Temperature of the Coldest Month: Less than or equal to 0°C.<br
-							/>
-							Temperature of the Warmest Month: Less than 22°C and greater than 10°C.
+							><b>Temperature of the Coldest Month:</b> Less than or equal to
+							0°C.<br />
+							<b>Temperature of the Warmest Month:</b> Less than 22°C and
+							greater than 10°C.
 							<br />
-							Precipitation Pattern: The driest month in summer or winter does not
-							drop below the levels that define a dry season.</span
+							<b>Precipitation Pattern:</b> The driest month in summer or winter
+							does not drop below the levels that define a dry season.</span
 						>No dry season, warm summer
 					</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
@@ -513,6 +524,14 @@
 					style="background-color:#BCE3FF;border-color:#A1C1DA;"
 					aria-label="Temperate"
 				>
+					<span class="popupHeader"
+						><b>Average Temperature of the Hottest Month:</b> Greater than 10°C.
+						<br />
+						<b>Average Temperature of the Coldest Month:</b> Between 0°C and
+						18°C.
+						<br /><b>Precipitation Pattern:</b> Precipitation varies, but there is
+						at least one season with consistent rainfall .</span
+					>
 					Temperate
 				</div>
 				<div
@@ -521,12 +540,13 @@
 				>
 					<h2 class="classification">
 						<span onclick="" class="popup">
-							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Greater than or equal to 22°C.
-							<br /> Precipitation Pattern: The driest month in summer has less than
-							40 mm of precipitation, and is less than one-third of the precipitation
-							in the wettest month in winter.
+							<b>Temperature of the Warmest Month:</b> Greater than or equal to
+							22°C.
+							<br /> <b>Precipitation Pattern:</b> The driest month in summer has
+							less than 40 mm of precipitation, and is less than one-third of the
+							precipitation in the wettest month in winter.
 						</span>
 						Dry summer, hot summer
 					</h2>
@@ -562,13 +582,13 @@
 				>
 					<h2 class="classification">
 						<span class="popup">
-							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Between 10°C and 22°C for at least
-							4 months of the year.
+							<b>Temperature of the Warmest Month:</b> Between 10°C and 22°C for
+							at least 4 months of the year.
 							<br />
-							Precipitation Pattern: The driest month in summer or winter does not
-							drop below the levels that define a dry season.
+							<b>Precipitation Pattern:</b> The driest month in summer or winter
+							does not drop below the levels that define a dry season.
 						</span>
 						No dry season, warm summer
 					</h2>
@@ -603,12 +623,13 @@
 				>
 					<h2 class="classification">
 						<span class="popup"
-							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							><b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<b>Temperature of the Warmest Month:</b> Greater than or equal to
+							22°C.
 							<br />
-							Precipitation Pattern: The driest month in summer or winter does not
-							drop below the levels that define a dry season.</span
+							<b>Precipitation Pattern:</b> The driest month in summer or winter
+							does not drop below the levels that define a dry season.</span
 						>
 						No dry season, hot summer
 					</h2>
@@ -643,13 +664,13 @@
 				>
 					<h2 class="classification">
 						<span class="popup"
-							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							><b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Between 10°C and 22°C for at least
-							4 months of the year.
-							<br /> Precipitation Pattern: The driest month in summer has less
-							than 40 mm of precipitation, and is less than one-third of the
-							precipitation in the wettest month in winter.
+							<b>Temperature of the Warmest Month:</b> Between 10°C and 22°C for
+							at least 4 months of the year.
+							<br /> <b>Precipitation Pattern:</b> The driest month in summer
+							has less than 40 mm of precipitation, and is less than one-third
+							of the precipitation in the wettest month in winter.
 							<br />
 						</span>
 						Dry summer, warm summer
@@ -685,12 +706,14 @@
 				>
 					<h2 class="classification">
 						<span class="popup"
-							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							><b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<b>Temperature of the Warmest Month:</b> Greater than or equal to
+							22°C.
 							<br />
-							The driest month in winter has less than one-tenth of the precipitation
-							of the wettest month in summer.</span
+							<b>Precipitation Pattern:</b>The driest month in winter has less
+							than one-tenth of the precipitation of the wettest month in
+							summer.</span
 						>Dry winter, hot summer
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
@@ -724,13 +747,14 @@
 				>
 					<h2 class="classification">
 						<span class="popup"
-							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							><b>Temperature of the Coldest Month:</b> Between 0°C and 18°C.
 							<br />
-							Temperature of the Warmest Month: Between 10°C and 22°C for at least
-							4 months of the year.
+							<b>Temperature of the Warmest Month:</b> Between 10°C and 22°C for
+							at least 4 months of the year.
 							<br />
-							The driest month in winter has less than one-tenth of the precipitation
-							of the wettest month in summer.</span
+							<b>Precipitation Pattern:</b>The driest month in winter has less
+							than one-tenth of the precipitation of the wettest month in
+							summer.</span
 						>Dry winter, warm summer
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
@@ -765,15 +789,20 @@
 					style="background-color:#AFF4C5; border-color: #96D0A8"
 					aria-label="Tropical"
 				>
+					<span class="popupHeader"
+						><b>Average Temperature of the Coldest Month:</b> Greater than 18°C.
+						<br /><b>Precipitation Pattern:</b> Precipitation varies, but there is
+						at least one season with heavy rainfall .</span
+					>
 					Tropical
 				</div>
 				<div aria-label="Tropical, monsoon" class="Tropical-monsoon grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Greater than or equal to 18°C.
+							><b>Mean Annual Temperature:</b> Greater than or equal to 18°C.
 							<br />
-							Precipitation Pattern: The driest month has less precipitation than
-							the wettest month but more than 60 mm</span
+							<b>Precipitation Pattern:</b> The driest month has less precipitation
+							than the wettest month but more than 60 mm</span
 						>
 						Monsoon
 					</h2>
@@ -809,9 +838,11 @@
 				>
 					<h2 class="classification">
 						<span class="popup">
-							Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
-							Annual Precipitation: More than 100 mm per month, regardless of the
-							season.</span
+							<b>Mean Annual Temperature:</b> Greater than or equal to 18°C.
+							<br />
+							Mean
+							<b>Annual Precipitation:</b> More than 100 mm per month, regardless
+							of the season.</span
 						>
 						Rainforest
 					</h2>
@@ -844,9 +875,11 @@
 				<div aria-label="Tropical, savannah" class="Tropical-savannah grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
-							Annual Precipitation: More than 100 mm per month during the wet season,
-							but less than 60 mm per month during the dry season.</span
+							><b>Mean Annual Temperature:</b> Greater than or equal to 18°C.
+							<br />
+							Mean
+							<b>Annual Precipitation:</b> More than 100 mm per month during the
+							wet season, but less than 60 mm per month during the dry season.</span
 						>Savannah
 					</h2>
 
@@ -883,15 +916,20 @@
 					style="background-color:#FFC7C1; border-color:#DAA9A5;"
 					aria-label="Arid"
 				>
+					<span class="popupHeader"
+						><b>Average Annual Temperature: </b>Can vary within group.
+						<br /><b>Precipitation Pattern:</b> Very limited rainfall throughout
+						year.</span
+					>
 					Arid
 				</div>
 				<div aria-label="Arid, desert, hot" class="Arid-desert-hot grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Greater than or equal to 18°C.
-							Precipitation: The mean annual precipitation is typically less
-							than 100 mm, and often significantly lower. There may be months
-							with virtually no rainfall.</span
+							><b>Mean Annual Temperature:</b> Greater than or equal to 18°C.
+							<br /><b>Precipitation Pattern:</b> The mean annual precipitation is
+							typically less than 100 mm, and often significantly lower. There may
+							be months with virtually no rainfall.</span
 						>
 						Desert, hot
 					</h2>
@@ -923,9 +961,10 @@
 				<div aria-label="Arid, desert, cold" class="Arid-desert-cold grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Can vary but often falls below 18°C.
-							Precipitation: The mean annual precipitation is typically less
-							than 100 mm, and often significantly lower. There may be months
+							><b>Mean Annual Temperature:</b> Can vary but often falls below
+							18°C.
+							<b>Precipitation Pattern:</b> The mean annual precipitation is typically
+							less than 100 mm, and often significantly lower. There may be months
 							with virtually no rainfall.</span
 						>Desert, cold
 					</h2>
@@ -957,10 +996,10 @@
 				<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Generally exceeds 18°C. <br /> Moderate Precipitation:
-							The mean annual precipitation (MAP) is typically higher than in arid
-							desert climates but still relatively low, often ranging from 100 mm
-							to 500 mm per year.</span
+							><b>Mean Annual Temperature:</b> Generally exceeds 18°C. <br />
+							<b>Precipitation Precipitation:</b> The mean annual precipitation (MAP)
+							is typically higher than in arid desert climates but still relatively
+							low, often ranging from 100 mm to 500 mm per year.</span
 						>
 						Steppe, hot
 					</h2>
@@ -991,10 +1030,10 @@
 				<div aria-label="Arid, steppe, cold" class="Arid-steppe-cold grouping">
 					<h2 class="classification">
 						<span class="popup"
-							>Mean Annual Temperature: Generally belows 18°C. <br /> Moderate Precipitation:
-							The mean annual precipitation (MAP) is typically higher than in arid
-							desert climates but still relatively low, often ranging from 100 mm
-							to 500 mm per year.</span
+							><b>Mean Annual Temperature:</b> Generally belows 18°C. <br />
+							<b>Precipitation Pattern:</b> The mean annual precipitation (MAP) is
+							typically higher than in arid desert climates but still relatively
+							low, often ranging from 100 mm to 500 mm per year.</span
 						>Steppe, cold
 					</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
@@ -1277,15 +1316,79 @@
 		text-transform: none;
 		border: 1px solid #ccc;
 		border-radius: 5px;
-
 		top: 50%;
-		transform: translate(-20%, -129%);
+		transform: translate(-30%, -129%);
 		left: 50%;
 		align-items: center;
 		z-index: 1;
 	}
+	.popupColdHeader {
+		width: 400px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: #f9f9f9cb;
+		padding: 10px;
+		font-weight: 300;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 12px;
+		top: 50%;
+		transform: translate(-10%, -120%);
+		left: 50%;
+		align-items: center;
+		z-index: 1;
+	}
+	.popupHeader {
+		width: 400px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: rgba(249, 249, 249, 1);
+		padding: 10px;
+		font-weight: 300;
+		font-size: 12px;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+
+		top: 50%;
+		transform: translate(-50%, -120%);
+		left: 50%;
+		align-items: center;
+		z-index: 1;
+	}
+	.popupColdHeader::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 40%; /* Position the arrow horizontally centered */
+
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
+		border-width: 8px;
+		border-top-color: lightgrey; /* Match popup background color */
+		z-index: 2;
+
+		transform: translateX(-816%); /* Center horizontally */
+	}
 
 	.popup::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 50%; /* Position the arrow horizontally centered */
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
+		border-width: 8px;
+		border-top-color: lightgray; /* Match popup background color */
+		z-index: 2;
+		transform: translateX(-50%); /* Center horizontally */
+	}
+	.popupHeader::after {
 		content: "";
 		position: absolute;
 		top: 100%; /* Position the arrow just below the popup */
@@ -1320,6 +1423,14 @@
 	.classification:hover .popupCold {
 		display: block;
 	}
+
+	.header:hover .popupHeader {
+		display: block;
+	}
+	.header:hover .popupColdHeader {
+		display: block;
+	}
+
 	.grouping {
 		display: flex;
 		flex-wrap: wrap;
