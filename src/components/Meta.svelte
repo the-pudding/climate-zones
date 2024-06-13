@@ -1,8 +1,9 @@
 <script>
-	export let title = "Title TK";
-	export let description = "Description TK";
+	export let title = "Climate Zones";
+	export let description =
+		"How will your city feel in the future, explore what's in store with this data story and interactive tool";
 	export let url = "https://pudding.cool";
-	export let keywords = "";
+	export let keywords = "climate,climate change, future, cities, temperature";
 	export let preloadFont = [];
 </script>
 
