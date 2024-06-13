@@ -3,92 +3,93 @@ export function getColor(DN) {
 	if (DN == 0) {
 		return "transparent";
 	}
-	if (DN == 1) {
+
+	if (/*TROPICAL - RAINFOREST*/ DN == 1) {
 		return "#0000ff";
-	} else if (DN == 2) {
+	} else if (/*TROPICAL - MONSOON*/ DN == 2) {
 		return "#0078ff";
-	} else if (DN == 3) {
+	} else if (/*TROPICAL - SAVANNAH*/ DN == 3) {
 		return "#46aafa";
 	}
-	if (DN == 4) {
+	if (/*ARID - DESERT - HOT */ DN == 4) {
 		return "#ff0000";
 	}
-	if (DN == 5) {
+	if (/*ARID - DESERT - COLD */ DN == 5) {
 		return "#ff9696";
 	}
-	if (DN == 6) {
+	if (/*ARID - STEPPE - HOT */ DN == 6) {
 		return "#f5a500";
 	}
-	if (DN == 7) {
+	if (/*ARID - STEPPE - COLD */ DN == 7) {
 		return "#ffdc64";
 	}
-	if (DN == 8) {
+	if (/*TEMP - DRY SUM - HOT SUM */ DN == 8) {
 		return "#ffff00";
 	}
-	if (DN == 9) {
+	if (/*TEMP - DRY SUM - WARM SUM */ DN == 9) {
 		return "#c8c800";
 	}
-	if (DN == 10) {
+	if (/*TEMP - DRY SUM - COLD SUM */ DN == 10) {
 		return "#969600";
 	}
-	if (DN == 11) {
+	if (/*TEMP - DRY WIN - HOT SUM */ DN == 11) {
 		return "#96ff96";
 	}
-	if (DN == 12) {
+	if (/*TEMP - DRY WIN - WARM SUM */ DN == 12) {
 		return "#64c864";
 	}
-	if (DN == 13) {
+	if (/*TEMP - DRY WIN - COLD SUM */ DN == 13) {
 	}
-	if (DN == 14) {
+	if (/*TEMP - NO DRY - HOT SUM */ DN == 14) {
 		return "#c8ff50";
 	}
-	if (DN == 15) {
+	if (/*TEMP - NO DRY - WARM SUM */ DN == 15) {
 		return "#32c800";
 	} else {
-		if (DN == 16) {
+		if (/*TEMP - NO DRY - COLD SUM */ DN == 16) {
 			return "#96ff96";
 		}
-		if (DN == 17) {
+		if (/*COLD - DRY SUM - HOT SUM */ DN == 17) {
 			return "#ff00ff";
 		}
-		if (DN == 18) {
+		if (/*COLD - DRY SUM - WARM SUM */ DN == 18) {
 			return "#c800c8";
 		}
-		if (DN == 19) {
+		if (/*COLD - DRY SUM - COLD SUM */ DN == 19) {
 			return "#963296";
 		}
-		if (DN == 20) {
+		if (/*COLD - DRY SUM - VERY COLD WINTER */ DN == 20) {
 			return "#963296";
 		}
-		if (DN == 21) {
+		if (/*COLD - WET SUM - HOT SUM */ DN == 21) {
 			return "#aaafff";
 		}
-		if (DN == 22) {
+		if (/*COLD - WET SUM - WARM SUM */ DN == 22) {
 			return "#5a78dc";
 		}
-		if (DN == 23) {
+		if (/*COLD - WET SUM - COLD SUM */ DN == 23) {
 			return "#4b50b4";
 		}
-		if (DN == 24) {
+		if (/*COLD - WET SUM - VERY COLD WINTER */ DN == 24) {
 			return "#320087";
 		}
-		if (DN == 25) {
+		if (/*COLD - NO DRY - HOT SUMMER*/ DN == 25) {
 			return "#00ffff";
 		}
-		if (DN == 26) {
+		if (/*COLD - NO DRY - WARM SUMMER*/ DN == 26) {
 			return "#37c8ff";
 		}
 
-		if (DN == 27) {
+		if (/*COLD - NO DRY - COLD SUM*/ DN == 27) {
 			return "#007d7d";
 		}
-		if (DN == 28) {
+		if (/*COLD - NO DRY - VERY COLD WINTER*/ DN == 28) {
 			return "#00465f";
 		}
-		if (DN == 29) {
+		if (/*POLAR TUNDRA*/ DN == 29) {
 			return "#ececec";
 		}
-		if (DN == 30) {
+		if (/*POLAR FROST*/ DN == 30) {
 			return "#f6f6f6";
 		}
 
