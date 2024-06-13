@@ -617,78 +617,76 @@
 	});
 
 	$: if (value === 0 && loaded) {
-		map.on("style.load", () => {
-			map.setZoom(zoomLevel);
-			map.setCenter([lng, lat]);
-			document.getElementById("year1").style.opacity = 0;
-			document.getElementById("year2").style.opacity = 0;
+		map.setZoom(zoomLevel);
+		map.setCenter([lng, lat]);
+		document.getElementById("year1").style.opacity = 0;
+		document.getElementById("year2").style.opacity = 0;
 
-			setTimeout(() => {
-				map.setPaintProperty("video-layer", "raster-opacity", 0);
-
-				map.setPaintProperty("main-layer", "fill-opacity", 0);
-				function fade() {
-					if (value >= 1) {
-						return;
-					}
-					var filter = ["<=", "DN", 7];
-
-					// Set filter on layer
-					map.setFilter("present-layer1", filter);
-
-					map.setPaintProperty("present-layer1", "fill-opacity", 1);
-					// After 2 seconds, fade out
-					setTimeout(() => {
-						map.setPaintProperty("present-layer1", "fill-opacity", 0);
-						// After fade out, call fade function again after a delay
-						setTimeout(fade, 2000);
-					}, 2000);
-					document.getElementById("year1").style.opacity = 0;
-					document.getElementById("year2").style.opacity = 0;
+		setTimeout(() => {
+			map.setPaintProperty("video-layer", "raster-opacity", 0);
+			console.log("hio");
+			map.setPaintProperty("main-layer", "fill-opacity", 0);
+			function fade() {
+				if (value >= 1) {
+					return;
 				}
-				function fade1() {
-					if (value != 0) {
-						return;
-					}
-					var filter = ["all", [">", "DN", 7], ["<=", "DN", 16]];
+				var filter = ["<=", "DN", 7];
 
-					// Set filter on layer
-					map.setFilter("present-layer2", filter);
+				// Set filter on layer
+				map.setFilter("present-layer1", filter);
 
-					map.setPaintProperty("present-layer2", "fill-opacity", 1);
-					// After 2 seconds, fade out
-					setTimeout(() => {
-						map.setPaintProperty("present-layer2", "fill-opacity", 0);
-						// After fade out, call fade function again after a delay
-						setTimeout(fade1, 2000);
-					}, 2000);
-				}
-				function fade2() {
-					if (value >= 1) {
-						return;
-					}
-					var filter = ["all", [">", "DN", 16]];
-
-					// Set filter on layer
-					map.setFilter("present-layer3", filter);
-
-					map.setPaintProperty("present-layer3", "fill-opacity", 1);
-					// After 2 seconds, fade out
-					setTimeout(() => {
-						map.setPaintProperty("present-layer3", "fill-opacity", 0);
-						// After fade out, call fade function again after a delay
-						setTimeout(fade2, 2000);
-					}, 2000);
-				}
-				fade();
+				map.setPaintProperty("present-layer1", "fill-opacity", 1);
+				// After 2 seconds, fade out
 				setTimeout(() => {
-					fade1();
-				}, 1000);
-				setTimeout(() => {
-					fade2();
+					map.setPaintProperty("present-layer1", "fill-opacity", 0);
+					// After fade out, call fade function again after a delay
+					setTimeout(fade, 2000);
 				}, 2000);
+				document.getElementById("year1").style.opacity = 0;
+				document.getElementById("year2").style.opacity = 0;
+			}
+			function fade1() {
+				if (value != 0) {
+					return;
+				}
+				var filter = ["all", [">", "DN", 7], ["<=", "DN", 16]];
+
+				// Set filter on layer
+				map.setFilter("present-layer2", filter);
+
+				map.setPaintProperty("present-layer2", "fill-opacity", 1);
+				// After 2 seconds, fade out
+				setTimeout(() => {
+					map.setPaintProperty("present-layer2", "fill-opacity", 0);
+					// After fade out, call fade function again after a delay
+					setTimeout(fade1, 2000);
+				}, 2000);
+			}
+			function fade2() {
+				if (value >= 1) {
+					return;
+				}
+				var filter = ["all", [">", "DN", 16]];
+
+				// Set filter on layer
+				map.setFilter("present-layer3", filter);
+
+				map.setPaintProperty("present-layer3", "fill-opacity", 1);
+				// After 2 seconds, fade out
+				setTimeout(() => {
+					map.setPaintProperty("present-layer3", "fill-opacity", 0);
+					// After fade out, call fade function again after a delay
+					setTimeout(fade2, 2000);
+				}, 2000);
+			}
+			fade();
+			setTimeout(() => {
+				fade1();
 			}, 1000);
-		});
+			setTimeout(() => {
+				fade2();
+			}, 2000);
+		}, 1000);
 	}
 
 	$: if (value === 1) {
@@ -1015,7 +1013,7 @@
 			document.getElementById("year1").style.opacity = 1;
 			setTimeout(() => {
 				map.setPaintProperty("main-layer", "fill-opacity", 0);
-				document.getElementById("year1").style.opacity = .3;
+				document.getElementById("year1").style.opacity = 0.3;
 				setTimeout(fade1, 2000);
 			}, 2000);
 		}
@@ -1024,7 +1022,7 @@
 				return;
 			}
 			map.setPaintProperty("future-layer", "fill-opacity", 0);
-			document.getElementById("year2").style.opacity = .3;
+			document.getElementById("year2").style.opacity = 0.3;
 			setTimeout(() => {
 				map.setPaintProperty("future-layer", "fill-opacity", 1);
 				document.getElementById("year2").style.opacity = 1;
@@ -1053,7 +1051,7 @@
 			document.getElementById("year1").style.opacity = 1;
 			setTimeout(() => {
 				map.setPaintProperty("main-layer", "fill-opacity", 0);
-				document.getElementById("year1").style.opacity = .3;
+				document.getElementById("year1").style.opacity = 0.3;
 				setTimeout(fade1, 2000);
 			}, 2000);
 		}
@@ -1063,7 +1061,7 @@
 			}
 
 			map.setPaintProperty("future-layer", "fill-opacity", 0);
-			document.getElementById("year2").style.opacity = .3;
+			document.getElementById("year2").style.opacity = 0.3;
 			setTimeout(() => {
 				map.setPaintProperty("future-layer", "fill-opacity", 1);
 				document.getElementById("year2").style.opacity = 1;
@@ -1084,7 +1082,6 @@
 		<div id="year1">2023</div>
 		<div id="year2">2070</div>
 	</div>
-	
 
 	<div class="map" bind:this={mapContainer} />
 </div>
@@ -1113,9 +1110,6 @@
 		margin: 0 auto;
 		height: var(--viewport-height);
 	}
-
-
-
 
 	#year1,
 	#year2 {

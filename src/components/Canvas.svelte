@@ -2,7 +2,7 @@
 	import { line, style, svg } from "d3";
 	import { onMount } from "svelte";
 	import Line from "./layercake/Line.svelte";
-
+	export let value;
 	export let linesToDraw;
 	export let isMobile;
 	let canvasEl;
@@ -17,11 +17,23 @@
 {#if mounted}
 	<svg
 		width="100%"
-		style=""
+		style="transform:{value == 13 && isMobile ? 'translate(0, -90px)' : ''}"
 	>
 		{#each linesToDraw as line}
-			<line class="fill" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
-			<line class="stroke" x1={line[1][0]} x2={line[0][0]} y1={line[1][1]} y2={line[0][1]} />
+			<line
+				class="fill"
+				x1={line[1][0]}
+				x2={line[0][0]}
+				y1={line[1][1]}
+				y2={line[0][1]}
+			/>
+			<line
+				class="stroke"
+				x1={line[1][0]}
+				x2={line[0][0]}
+				y1={line[1][1]}
+				y2={line[0][1]}
+			/>
 		{/each}
 	</svg>
 {/if}
@@ -33,7 +45,7 @@
 		height: var(--viewport-height);
 		z-index: 100000;
 		pointer-events: none;
-		transform: translate(0,-100px);
+		transform: translate(0, -150px);
 	}
 	line {
 		stroke: black;
@@ -44,14 +56,13 @@
 	}
 	.fill {
 		stroke-width: 5px;
-		opacity: .2;
+		opacity: 0.2;
 		stroke: grey;
 	}
 
 	@media only screen and (max-width: 600px) {
 		svg {
-			transform: translate(0,-20px);
+			transform: translate(0, -20px);
 		}
 	}
-			
 </style>

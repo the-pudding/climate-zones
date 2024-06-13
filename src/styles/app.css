@@ -6,7 +6,8 @@
 /* colors defined in variables.css */
 :root {
 	/* font */
-	--sans: "Atlas Grotesk", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+	--sans: "Atlas Grotesk", -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+		sans-serif;
 	--serif: "Tiempos Text Web", Iowan Old Style, Times New Roman, Times, serif;
 	--mono: Menlo, Consolas, Monaco, monospace;
 
@@ -50,10 +51,15 @@
 
 .classMap {
 	font-family: var(--sans);
-    font-size: 16px;
-    padding: 0 4px;
+	font-size: 16px;
+	padding: 0 4px;
 	line-height: 1.1;
 	white-space: nowrap;
+}
+@media only screen and (max-width: 600px) {
+	.classMap {
+		font-size: 13px;
+	}
 }
 
 /* dark theme */
@@ -118,12 +124,12 @@ h6 {
 }
 
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}

@@ -11,6 +11,7 @@
 	import viewport from "$stores/viewport.js";
 
 	let value;
+	$: console.log(value);
 
 	let isMobile;
 	let mounted = false;
@@ -54,7 +55,7 @@
 		<!-- {#if isMobile}
 			<BoardMobile {value} {isMobile} />
 		{:else} -->
-			<Board {value} {isMobile} />
+		<Board {value} {isMobile} />
 		<!-- {/if} -->
 	</div>
 	<Scrolly bind:value>
@@ -67,7 +68,11 @@
 				class:isMobile
 			>
 				{#if val == 0}
-					<a class="sticker-logo" style="border:none;" target="_blank" href="https://pudding.cool"
+					<a
+						class="sticker-logo"
+						style="border:none;"
+						target="_blank"
+						href="https://pudding.cool"
 						><img
 							class="sticker-shadows sticker-mask cloud-logo"
 							src="assets/pudding/stickers/cloud.jpg"
@@ -79,11 +84,18 @@
 							{@html Title}
 						</div>
 						<div class="bottom">
-							<p class="byline">By <a href="https://pudding.cool/author/derek-taylor/" target=_blank>Derek Taylor</a></p>
-							<TapeText text={"HOW WILL YOUR CITY FEEL IN THE FUTURE?"} {isMobile}/>
+							<p class="byline">
+								By <a
+									href="https://pudding.cool/author/derek-taylor/"
+									target="_blank">Derek Taylor</a
+								>
+							</p>
+							<TapeText
+								text={"HOW WILL YOUR CITY FEEL IN THE FUTURE?"}
+								{isMobile}
+							/>
 						</div>
 					</div>
-					
 				{:else}
 					<p class="text">{@html text[val]}</p>
 				{/if}
@@ -93,7 +105,6 @@
 </section>
 
 <style>
-
 	.sticky {
 		z-index: 0;
 		position: sticky;
@@ -102,11 +113,10 @@
 
 	.sticker-logo {
 		position: absolute;
-		
 	}
 	.title-svg {
 		max-width: 1200px;
-		width:100%;
+		width: 100%;
 		margin: 0 auto;
 		padding-top: 100px;
 	}
@@ -126,7 +136,7 @@
 		background-color: white;
 		display: block;
 		display: inline-block;
-    	padding: 5px 13px;
+		padding: 5px 13px;
 		z-index: 10000;
 	}
 	.sticker-mask {
@@ -190,7 +200,7 @@
 		font-size: 12px;
 		margin-left: 20px;
 		filter: blur(1px);
-		opacity: .5;
+		opacity: 0.5;
 		transition: all 0.5s;
 	}
 
@@ -198,6 +208,7 @@
 		width: calc(100% - 10px);
 		margin-left: auto;
 		margin-right: auto;
+		font-size: 12px;
 	}
 	.step-mobile {
 		margin: 0 auto;
@@ -234,7 +245,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-
 	}
 
 	#step1 {
@@ -297,11 +307,16 @@
 	}
 
 	@media only screen and (min-width: 450px) {
-			.title-wrapper {
-				justify-content: center;
-			}
-			.title-svg {
-				width: calc(100% - 100px);
-			}
+		.title-wrapper {
+			justify-content: center;
+		}
+		.title-svg {
+			width: calc(100% - 100px);
+		}
+	}
+	@media only screen and (max-width: 600px) {
+		.step p {
+			font-size: 13px;
+		}
 	}
 </style>

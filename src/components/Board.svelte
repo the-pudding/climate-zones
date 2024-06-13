@@ -6,6 +6,7 @@
 	import { browser } from "$app/environment";
 	import { data } from "./data.svelte";
 	import Canvas from "$components/Canvas.svelte";
+	import ClassPopupText from "$components/ClassPopupText.svelte";
 	import "@fortawesome/fontawesome-free/css/all.min.css";
 	import { interval, stratify, group, groups } from "d3";
 	export let value;
@@ -27,8 +28,7 @@
 	let todos = [];
 	let todosMain = [];
 
-
-	$: console.log(data)
+	$: console.log(data);
 
 	function disableClick() {
 		setTimeout(() => {
@@ -328,8 +328,26 @@
 		}, 2000);
 	}
 	$: if (value === 13 && mounted) {
-		document.getElementById("step13").style.opacity = 1;
-		document.getElementById("step13").style.zIndex = 10000;
+		if (isMobile) {
+			document.getElementById("step_mobile13").style.opacity = 1;
+			document.getElementById("step_mobile13").style.zIndex = 10000;
+			document
+				.getElementsByClassName("explore-button")[0]
+				.addEventListener("click", () => {
+					document.getElementById("step_mobile13").style.opacity = 0;
+					document.getElementById("step_mobile13").style.zIndex = -1;
+				});
+		} else {
+			document.getElementById("step13").style.opacity = 1;
+			document.getElementById("step13").style.zIndex = 10000;
+			document
+				.getElementsByClassName("explore-button")[0]
+				.addEventListener("click", () => {
+					document.getElementById("step13").style.opacity = 0;
+					document.getElementById("step13").style.zIndex = -1;
+				});
+		}
+
 		todos = [];
 		itemsToMove = [];
 		resetData(data);
@@ -340,673 +358,695 @@
 </script>
 
 {#if mounted}
-	<div class="board" style="opacity:{value > 7 ? 1 : 0}; z-index:100;">
-		{#if linesToDraw}
-			<Canvas {linesToDraw} {isMobile} />
-		{/if}
-		<div class="Cold column" style="
+	<div style="position: absolute;width:100vw;height:100vh;">
+		<div class="classPopupText">
+			{#if value == 13}
+				<ClassPopupText {itemsToMove} />
+			{/if}
+		</div>
+		<div
+			class="board"
+			style="opacity:{value > 7 ? 1 : 0}; z-index:100;top:{(value == 13) &
+			isMobile
+				? '90px'
+				: ''}"
+		>
+			{#if linesToDraw}
+				<Canvas {linesToDraw} {isMobile} {value} />
+			{/if}
+			<div
+				class="Cold column"
+				style="
 		background-color:#FCF8FF; border-color: #E5CCFF;
-		">
-			<div
-				class="header"
-				style="background-color:#E4CCFF; border-color: #C3ADD9;"
-				aria-label="Cold"
+		"
 			>
-				Cold
-			</div>
-			<div
-				aria-label="Cold, dry winter, hot summer"
-				class="Cold-dry-winter-hot-summer grouping"
-			>
-				<h2 class="classification">
-					<span class="popupCold"
-						>Temperature of the Coldest Month: Less than or equal to 0°C. <br
-						/>
-						Temperature of the Warmest Month: Greater than or equal to 22°C.
-						<br />Precipitation Pattern: Dry Winter: The driest month in
-						winter (Pwdry) has significantly low precipitation, defined as
-						Pwdry ≤ Pswet/10.</span
-					>
-					Dry winter, hot summer
-				</h2>
-
-				{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-					<label
-						aria-label="Cold, dry winter, hot summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						out:send={{ key: todo.id }}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+				<div
+					class="header"
+					style="background-color:#E4CCFF; border-color: #C3ADD9;"
+					aria-label="Cold"
+				>
+					Cold
+				</div>
+				<div
+					aria-label="Cold, dry winter, hot summer"
+					class="Cold-dry-winter-hot-summer grouping"
+				>
+					<h2 class="classification">
+						<span class="popupCold"
+							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
+							/>
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />Precipitation Pattern: Dry Winter: The driest month in
+							winter (Pwdry) has significantly low precipitation, defined as
+							Pwdry ≤ Pswet/10.</span
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				class="Cold-no-dry-season-hot-summer grouping"
-				aria-label="Cold, no dry season, hot summer"
-			>
-				<h2 class="classification">
-					<span class="popupCold"
-						>Temperature of the Coldest Month: Less than or equal to 0°C. <br
-						/>
-						Temperature of the Warmest Month: Greater than or equal to 22°C.
-						<br /> Precipitation Pattern: The driest month in summer or winter
-						does not drop below the levels that define a dry season.</span
-					>No dry season, hot summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+						Dry winter, hot summer
+					</h2>
 
-					<label
-						aria-label="Cold, no dry season, hot summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						out:send={{ key: todo.id }}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+						<label
+							aria-label="Cold, dry winter, hot summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							out:send={{ key: todo.id }}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				class="Cold-no-dry-season-warm-summer grouping"
-				aria-label="Cold, no dry season, warm summer"
-				style="border: none;"
-			>
-				<h2 class="classification">
-					<span class="popup"
-						>Temperature of the Coldest Month: Less than or equal to 0°C.<br
-						/>
-						Temperature of the Warmest Month: Less than 22°C and greater than 10°C.
-						<br />
-						Precipitation Pattern: The driest month in summer or winter does not
-						drop below the levels that define a dry season.</span
-					>No dry season, warm summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					class="Cold-no-dry-season-hot-summer grouping"
+					aria-label="Cold, no dry season, hot summer"
+				>
+					<h2 class="classification">
+						<span class="popupCold"
+							>Temperature of the Coldest Month: Less than or equal to 0°C. <br
+							/>
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br /> Precipitation Pattern: The driest month in summer or winter
+							does not drop below the levels that define a dry season.</span
+						>No dry season, hot summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
-					<label
-						aria-label="Cold, no dry season, warm summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						out:send={{ key: todo.id }}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						<label
+							aria-label="Cold, no dry season, hot summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							out:send={{ key: todo.id }}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-		</div>
-		
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					class="Cold-no-dry-season-warm-summer grouping"
+					aria-label="Cold, no dry season, warm summer"
+					style="border: none;"
+				>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Less than or equal to 0°C.<br
+							/>
+							Temperature of the Warmest Month: Less than 22°C and greater than 10°C.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.</span
+						>No dry season, warm summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
-		<div class="Temperate column">
-			<div
-				class="header"
-				style="background-color:#BCE3FF;border-color:#A1C1DA;"
-				aria-label="Temperate"
-			>
-				Temperate
-			</div>
-			<div
-				aria-label="Temperate, dry summer, hot summer"
-				class="Temperate-dry-summer-hot-summer grouping"
-			>
-				<h2 class="classification">
-					<span onclick="" class="popup">
-						Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Greater than or equal to 22°C.
-						<br /> Precipitation Pattern: The driest month in summer has less than
-						40 mm of precipitation, and is less than one-third of the precipitation
-						in the wettest month in winter.
-					</span>
-					Dry summer, hot summer
-				</h2>
-
-				{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-
-					<label
-						aria-label="Temperate, dry summer, hot summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						animate:flip={{ easing: customEasing1 }}
-						data={todo.name}
-						bind:this={bindFinder[classToBind][todo.name]}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						<label
+							aria-label="Cold, no dry season, warm summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							out:send={{ key: todo.id }}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
 			</div>
-			<div
-				aria-label="Temperate, no dry season, warm summer"
-				class="Temperate-no-dry-season-warm-summer grouping"
-			>
-				<h2 class="classification">
-					<span class="popup">
-						Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Between 10°C and 22°C for at least
-						4 months of the year.
-						<br />
-						Precipitation Pattern: The driest month in summer or winter does not
-						drop below the levels that define a dry season.
-					</span>
-					No dry season, warm summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
 
-					<label
-						aria-label="Temperate, no dry season, warm summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						data={todo.name}
-						bind:this={bindFinder[classToBind][todo.name]}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+			<div class="Temperate column">
+				<div
+					class="header"
+					style="background-color:#BCE3FF;border-color:#A1C1DA;"
+					aria-label="Temperate"
+				>
+					Temperate
+				</div>
+				<div
+					aria-label="Temperate, dry summer, hot summer"
+					class="Temperate-dry-summer-hot-summer grouping"
+				>
+					<h2 class="classification">
+						<span onclick="" class="popup">
+							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br /> Precipitation Pattern: The driest month in summer has less than
+							40 mm of precipitation, and is less than one-third of the precipitation
+							in the wettest month in winter.
+						</span>
+						Dry summer, hot summer
+					</h2>
+
+					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Temperate, dry summer, hot summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							animate:flip={{ easing: customEasing1 }}
+							data={todo.name}
+							bind:this={bindFinder[classToBind][todo.name]}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				aria-label="Temperate, no dry season, hot summer"
-				class="Temperate-no-dry-season-hot-summer grouping"
-			>
-				<h2 class="classification">
-					<span class="popup"
-						>Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Greater than or equal to 22°C.
-						<br />
-						Precipitation Pattern: The driest month in summer or winter does not
-						drop below the levels that define a dry season.</span
-					>
-					No dry season, hot summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Temperate, no dry season, warm summer"
+					class="Temperate-no-dry-season-warm-summer grouping"
+				>
+					<h2 class="classification">
+						<span class="popup">
+							Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.
+						</span>
+						No dry season, warm summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
-					<label
-						aria-label="Temperate, no dry season, hot summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						<label
+							aria-label="Temperate, no dry season, warm summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							data={todo.name}
+							bind:this={bindFinder[classToBind][todo.name]}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				aria-label="Temperate, dry summer, warm summer"
-				class="Temperate-dry-summer-warm-summer grouping"
-			>
-				<h2 class="classification">
-					<span class="popup"
-						>Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Between 10°C and 22°C for at least
-						4 months of the year.
-						<br /> Precipitation Pattern: The driest month in summer has less
-						than 40 mm of precipitation, and is less than one-third of the
-						precipitation in the wettest month in winter.
-						<br />
-					</span>
-					Dry summer, warm summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-
-					<label
-						aria-label="Temperate, dry summer, warm summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Temperate, no dry season, hot summer"
+					class="Temperate-no-dry-season-hot-summer grouping"
+				>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />
+							Precipitation Pattern: The driest month in summer or winter does not
+							drop below the levels that define a dry season.</span
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				aria-label="Temperate, dry winter, hot summer"
-				class="Temperate-dry-winter-hot-summer grouping"
-			>
-				<h2 class="classification">
-					<span class="popup"
-						>Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Greater than or equal to 22°C.
-						<br />
-						The driest month in winter has less than one-tenth of the precipitation
-						of the wettest month in summer.</span
-					>Dry winter, hot summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-					<label
-						aria-label="Temperate, dry winter, hot summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						No dry season, hot summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Temperate, no dry season, hot summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div
-				aria-label="Temperate, dry winter, warm summer"
-				class="Temperate-dry-winter-warm-summer grouping"
-				style="border-bottom:none;"
-			>
-				<h2 class="classification">
-					<span class="popup"
-						>Temperature of the Coldest Month: Between 0°C and 18°C.
-						<br />
-						Temperature of the Warmest Month: Between 10°C and 22°C for at least
-						4 months of the year.
-						<br />
-						The driest month in winter has less than one-tenth of the precipitation
-						of the wettest month in summer.</span
-					>Dry winter, warm summer
-				</h2>
-				{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-					<label
-						aria-label="Temperate, dry winter, warm summer"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Temperate, dry summer, warm summer"
+					class="Temperate-dry-summer-warm-summer grouping"
+				>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br /> Precipitation Pattern: The driest month in summer has less
+							than 40 mm of precipitation, and is less than one-third of the
+							precipitation in the wettest month in winter.
+							<br />
+						</span>
+						Dry summer, warm summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Temperate, dry summer, warm summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-		</div>
-
-		<div class="Tropical column">
-			<div
-				class="header"
-				style="background-color:#AFF4C5; border-color: #96D0A8"
-				aria-label="Tropical"
-			>
-				Tropical
-			</div>
-			<div aria-label="Tropical, monsoon" class="Tropical-monsoon grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Greater than or equal to 18°C.
-						<br />
-						Precipitation Pattern: The driest month has less precipitation than
-						the wettest month but more than 60 mm</span
-					>
-					Monsoon
-				</h2>
-
-				{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-
-					<label
-						aria-label="Tropical, monsoon"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Temperate, dry winter, hot summer"
+					class="Temperate-dry-winter-hot-summer grouping"
+				>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Greater than or equal to 22°C.
+							<br />
+							The driest month in winter has less than one-tenth of the precipitation
+							of the wettest month in summer.</span
+						>Dry winter, hot summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+						<label
+							aria-label="Temperate, dry winter, hot summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div aria-label="Tropical, rainforest" class="Tropical-rainforest grouping">
-				<h2 class="classification">
-					<span class="popup">
-						Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean Annual
-						Precipitation: More than 100 mm per month, regardless of the season.</span
-					>
-					Rainforest
-				</h2>
-
-				{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-
-					<label
-						aria-label="Tropical, rainforest"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Temperate, dry winter, warm summer"
+					class="Temperate-dry-winter-warm-summer grouping"
+					style="border-bottom:none;"
+				>
+					<h2 class="classification">
+						<span class="popup"
+							>Temperature of the Coldest Month: Between 0°C and 18°C.
+							<br />
+							Temperature of the Warmest Month: Between 10°C and 22°C for at least
+							4 months of the year.
+							<br />
+							The driest month in winter has less than one-tenth of the precipitation
+							of the wettest month in summer.</span
+						>Dry winter, warm summer
+					</h2>
+					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+						<label
+							aria-label="Temperate, dry winter, warm summer"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
 			</div>
-			<div aria-label="Tropical, savannah" class="Tropical-savannah grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
-						Annual Precipitation: More than 100 mm per month during the wet season,
-						but less than 60 mm per month during the dry season.</span
-					>Savannah
-				</h2>
 
-				{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-
-					<label
-						aria-label="Tropical, savannah"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+			<div class="Tropical column">
+				<div
+					class="header"
+					style="background-color:#AFF4C5; border-color: #96D0A8"
+					aria-label="Tropical"
+				>
+					Tropical
+				</div>
+				<div aria-label="Tropical, monsoon" class="Tropical-monsoon grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Greater than or equal to 18°C.
+							<br />
+							Precipitation Pattern: The driest month has less precipitation than
+							the wettest month but more than 60 mm</span
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-		</div>
+						Monsoon
+					</h2>
 
-		<div class="Arid column">
-			<div
-				class="header"
-				style="background-color:#FFC7C1; border-color:#DAA9A5;"
-				aria-label="Arid"
-			>
-				Arid
-			</div>
-			<div aria-label="Arid, desert, hot" class="Arid-desert-hot grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Greater than or equal to 18°C.
-						Precipitation: The mean annual precipitation is typically less than
-						100 mm, and often significantly lower. There may be months with
-						virtually no rainfall.</span
-					>
-					Desert, hot
-				</h2>
-				{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+					{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
-					<label
-						aria-label="Arid, desert, hot"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						<label
+							aria-label="Tropical, monsoon"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div aria-label="Arid, desert, cold" class="Arid-desert-cold grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Can vary but often falls below 18°C.
-						Precipitation: The mean annual precipitation is typically less than
-						100 mm, and often significantly lower. There may be months with
-						virtually no rainfall.</span
-					>Desert, cold
-				</h2>
-				{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div
+					aria-label="Tropical, rainforest"
+					class="Tropical-rainforest grouping"
+				>
+					<h2 class="classification">
+						<span class="popup">
+							Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
+							Annual Precipitation: More than 100 mm per month, regardless of the
+							season.</span
+						>
+						Rainforest
+					</h2>
 
-					<label
-						aria-label="Arid, desert, cold"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						data={todo.name}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
-						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Generally exceeds 18°C. <br /> Moderate Precipitation:
-						The mean annual precipitation (MAP) is typically higher than in arid
-						desert climates but still relatively low, often ranging from 100 mm to
-						500 mm per year.</span
-					>
-					Steppe, hot
-				</h2>
-				{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
-					<label
-						aria-label="Arid, steppe, hot"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						data={todo.name}
-						bind:this={bindFinder[classToBind][todo.name]}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
-						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
-			</div>
-			<div aria-label="Arid, steppe, cold" class="Arid-steppe-cold grouping">
-				<h2 class="classification">
-					<span class="popup"
-						>Mean Annual Temperature: Generally belows 18°C. <br /> Moderate Precipitation:
-						The mean annual precipitation (MAP) is typically higher than in arid
-						desert climates but still relatively low, often ranging from 100 mm to
-						500 mm per year.</span
-					>Steppe, cold
-				</h2>
-				{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
-					{@const bindMe =
-						itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
-					{@const classToBind = todo.class ? todo.class : "noClass"}
+					{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
 
-					<label
-						aria-label="Arid, steppe, cold"
-						class={todo.class}
-						in:receive={{ key: todo.id }}
-						out:send={{ key: todo.id }}
-						bind:this={bindFinder[classToBind][todo.name]}
-						animate:flip={{ easing: customEasing1 }}
-					>
-						<button
-							on:click={() => {
-								itemsToMove = [todo.name];
-								orderByTempAndGroupByClim(data, [todo.name]);
-							}}
+						<label
+							aria-label="Tropical, rainforest"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
 						>
-							{todo.name}
-						</button>
-					</label>
-				{/each}
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div aria-label="Tropical, savannah" class="Tropical-savannah grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Greater than or equal to 18°C. <br /> Mean
+							Annual Precipitation: More than 100 mm per month during the wet season,
+							but less than 60 mm per month during the dry season.</span
+						>Savannah
+					</h2>
+
+					{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Tropical, savannah"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
+						>
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+			</div>
+
+			<div class="Arid column">
+				<div
+					class="header"
+					style="background-color:#FFC7C1; border-color:#DAA9A5;"
+					aria-label="Arid"
+				>
+					Arid
+				</div>
+				<div aria-label="Arid, desert, hot" class="Arid-desert-hot grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Greater than or equal to 18°C.
+							Precipitation: The mean annual precipitation is typically less
+							than 100 mm, and often significantly lower. There may be months
+							with virtually no rainfall.</span
+						>
+						Desert, hot
+					</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Arid, desert, hot"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
+						>
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div aria-label="Arid, desert, cold" class="Arid-desert-cold grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Can vary but often falls below 18°C.
+							Precipitation: The mean annual precipitation is typically less
+							than 100 mm, and often significantly lower. There may be months
+							with virtually no rainfall.</span
+						>Desert, cold
+					</h2>
+					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Arid, desert, cold"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							data={todo.name}
+							animate:flip={{ easing: customEasing1 }}
+						>
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Generally exceeds 18°C. <br /> Moderate Precipitation:
+							The mean annual precipitation (MAP) is typically higher than in arid
+							desert climates but still relatively low, often ranging from 100 mm
+							to 500 mm per year.</span
+						>
+						Steppe, hot
+					</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+						<label
+							aria-label="Arid, steppe, hot"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							data={todo.name}
+							bind:this={bindFinder[classToBind][todo.name]}
+							animate:flip={{ easing: customEasing1 }}
+						>
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
+				<div aria-label="Arid, steppe, cold" class="Arid-steppe-cold grouping">
+					<h2 class="classification">
+						<span class="popup"
+							>Mean Annual Temperature: Generally belows 18°C. <br /> Moderate Precipitation:
+							The mean annual precipitation (MAP) is typically higher than in arid
+							desert climates but still relatively low, often ranging from 100 mm
+							to 500 mm per year.</span
+						>Steppe, cold
+					</h2>
+					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
+						{@const bindMe =
+							itemsToMove.indexOf(todo.name) > -1 ? "bind" : "noBind"}
+						{@const classToBind = todo.class ? todo.class : "noClass"}
+
+						<label
+							aria-label="Arid, steppe, cold"
+							class={todo.class}
+							in:receive={{ key: todo.id }}
+							out:send={{ key: todo.id }}
+							bind:this={bindFinder[classToBind][todo.name]}
+							animate:flip={{ easing: customEasing1 }}
+						>
+							<button
+								on:click={() => {
+									itemsToMove = [todo.name];
+									orderByTempAndGroupByClim(data, [todo.name]);
+								}}
+							>
+								{todo.name}
+							</button>
+						</label>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
 {/if}
 
 <style>
+	.classPopupText {
+		top: 0px;
+	}
 	.header {
 		font-family: var(--sans);
 		color: black;
-		font-weight:700;
-		border-radius:2px;
-		padding:.5rem;
-		text-align:center;
+		font-weight: 700;
+		border-radius: 2px;
+		padding: 0.5rem;
+		text-align: center;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
-		border-radius:5px;
-		position:absolute;
+		border-radius: 5px;
+		position: absolute;
 		left: 0;
 		text-align: left;
 		display: inline-block;
-		top:-10px;
-		transform: translate(0,-100%);
+		top: -10px;
+		transform: translate(0, -100%);
 		border: 1px solid;
 		padding: 0 5px;
 		margin: 0;
@@ -1025,7 +1065,7 @@
 	}
 	.board {
 		position: absolute;
-		top: 100px;
+		top: 150px;
 		transform: translate(0%, 0%);
 		opacity: 0;
 		transition: opacity 1s ease;
@@ -1055,11 +1095,11 @@
 	}
 	.Temperate {
 		width: 35%;
-		background-color: #F5FBFF;
-		border-color: #BDE3FF;
+		background-color: #f5fbff;
+		border-color: #bde3ff;
 	}
 	.Temperate .grouping {
-		border-color: #BDE3FF;
+		border-color: #bde3ff;
 	}
 	.Cold {
 		width: 18%;
@@ -1067,22 +1107,22 @@
 	}
 	.Arid {
 		width: 18%;
-		background-color: #FFF7F6;
-		border-color: #FFC7C2;
+		background-color: #fff7f6;
+		border-color: #ffc7c2;
 	}
 
 	.Arid .grouping {
-		border-color: #FFC7C2;
+		border-color: #ffc7c2;
 	}
 
 	.Tropical {
 		width: 18%;
-		background-color: #F3FDF6;
-		border-color: #AFF4C6;
+		background-color: #f3fdf6;
+		border-color: #aff4c6;
 	}
 
 	.Tropical .grouping {
-		border-color: #AFF4C6;
+		border-color: #aff4c6;
 	}
 
 	label {
@@ -1100,32 +1140,32 @@
 	}
 
 	.Temperate-dry-summer-warm-summer label {
-		background-color: #BFDBF0;
+		background-color: #bfdbf0;
 	}
 	.Temperate-dry-summer-hot-summer label {
-		background-color: #BCF7FF;
+		background-color: #bcf7ff;
 	}
 	.Temperate-dry-winter-hot-summer label {
-		background-color: #BCC7FF;
+		background-color: #bcc7ff;
 	}
 	.Temperate-dry-winter-warm-summer label {
-		background-color: #79C7FF;
+		background-color: #79c7ff;
 	}
 	.Temperate-no-dry-season-warm-summer label {
-		background-color: #BCDFFF;
+		background-color: #bcdfff;
 	}
 	.Temperate-no-dry-season-hot-summer label {
-		background-color: #97CDF4;
+		background-color: #97cdf4;
 	}
 
 	.Cold-dry-winter-hot-summer label {
-		background-color: #F8CBFF;
+		background-color: #f8cbff;
 	}
 	.Cold-no-dry-season-hot-summer label {
-		background-color: #CBD6FF;
+		background-color: #cbd6ff;
 	}
 	.Cold-no-dry-season-warm-summer label {
-		background-color: #E2CBFF;
+		background-color: #e2cbff;
 	}
 	@supports (-moz-appearance: none) {
 		.Cold-no-dry-season-warm-summer,
@@ -1142,26 +1182,26 @@
 		}
 	}
 	.Arid-desert-hot label {
-		background-color: #FFB098;
+		background-color: #ffb098;
 	}
 	.Arid-desert-cold label {
-		background-color: #FFE870;
+		background-color: #ffe870;
 	}
 	.Arid-steppe-hot label {
-		background-color: #FFD5A4;
+		background-color: #ffd5a4;
 	}
 	.Arid-steppe-cold label {
-		background-color: #FFD0C1;
+		background-color: #ffd0c1;
 	}
 	.Tropical-monsoon label {
-		background-color: #AFF4C5;
+		background-color: #aff4c5;
 	}
 	.Tropical-rainforest label {
-		background-color: #EAF4AF;
+		background-color: #eaf4af;
 	}
 
 	.Tropical-savannah label {
-		background-color: #DAF4AF;
+		background-color: #daf4af;
 	}
 
 	button {
@@ -1194,7 +1234,6 @@
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
 		margin-right: 5px;
-
 	}
 	.break {
 		column-fill: balance;
@@ -1213,7 +1252,7 @@
 		display: none;
 		position: absolute;
 		text-align: left;
-		background-color: rgba(249,249,249,1);
+		background-color: rgba(249, 249, 249, 1);
 		padding: 10px;
 		font-weight: 300;
 		text-transform: none;
@@ -1281,12 +1320,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		border-bottom: 1px solid red;
-    	padding-bottom: 5px;
+		padding-bottom: 5px;
 		padding-top: 5px;
 		align-items: baseline;
 	}
 	.Cold .grouping {
-		border-color: #E5CCFF;
+		border-color: #e5ccff;
 	}
 
 	.move {
@@ -1295,7 +1334,7 @@
 	}
 
 	.ghost {
-		opacity: .2;
+		opacity: 0.2;
 	}
 
 	@media only screen and (max-width: 600px) {
@@ -1304,7 +1343,10 @@
 			top: 20px;
 		}
 
-		.Cold, .Arid, .Temperate, .Tropical {
+		.Cold,
+		.Arid,
+		.Temperate,
+		.Tropical {
 			width: calc(100% - 10px);
 			margin: 0;
 			margin-bottom: 5px;
@@ -1313,7 +1355,6 @@
 		button {
 			font-size: 12px;
 			font-weight: 700;
-			
 		}
 
 		.classification {
@@ -1322,7 +1363,7 @@
 		}
 
 		.header {
-			transform: translate(0,-5px);
+			transform: translate(0, -5px);
 			font-size: 14px;
 			right: 0;
 			left: auto;
@@ -1345,12 +1386,5 @@
 				margin-bottom: 20px;
 			}
 		}
-
-
-
 	}
-
-
-
-
 </style>
