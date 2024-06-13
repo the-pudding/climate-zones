@@ -368,7 +368,7 @@
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0}; z-index:100;top:{(value == 13) &
 			isMobile
-				? '90px'
+				? '75px'
 				: ''}"
 		>
 			{#if linesToDraw}
