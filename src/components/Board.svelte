@@ -344,6 +344,8 @@
 				.addEventListener("click", () => {
 					document.getElementById("step_mobile13").style.opacity = 0;
 					document.getElementById("step_mobile13").style.zIndex = -1;
+					document.getElementById("step_mobile12").style.opacity = 0;
+					document.getElementById("step_mobile12").style.zIndex = -1;
 				});
 		} else {
 			document.getElementById("step13").style.opacity = 1;
@@ -375,7 +377,7 @@
 		<div
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};top:{(value == 13) & isMobile
-				? '75px'
+				? '100px'
 				: ''}"
 		>
 			{#if linesToDraw}
@@ -1484,8 +1486,8 @@
 			text-align: left;
 		}
 		.popupCold {
-			width: 350px;
-			left: 100px;
+			width: 100vw;
+			left: 110px;
 			top: 20px;
 			text-align: left;
 		}

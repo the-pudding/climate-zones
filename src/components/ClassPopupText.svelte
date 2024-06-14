@@ -31,12 +31,12 @@
 </script>
 
 {#if chosenCityData.length > 0}
+	<div>
+		<button on:click={changeTemp(chosenCityData)} class="changeTemp"
+			>{buttonLabel}</button
+		>
+	</div>
 	<div class="chosenCity">
-		<div>
-			<button on:click={changeTemp(chosenCityData)} class="changeTemp"
-				>{buttonLabel}</button
-			>
-		</div>
 		<b>{chosenCityData[0].name}'s</b> average temperature
 		<b>
 			<span
@@ -111,9 +111,9 @@
 		position: absolute;
 		margin: 10px;
 		left: -3px;
-		top: 28px;
+		top: 65px;
 		font-size: 10px;
-		z-index: 100;
+		z-index: 0;
 	}
 
 	.Temperate,
@@ -164,14 +164,23 @@
 		left: 50%;
 		top: 5%;
 		width: 100%;
+		z-index: -1;
 		text-align: center;
 		transform: translate(-50%);
 	}
 	@media only screen and (max-width: 600px) {
+		.changeTemp {
+			position: absolute;
+			margin: 10px;
+			left: -3px;
+			top: 50px;
+			font-size: 10px;
+			z-index: 0;
+		}
 		.chosenCity {
 			position: absolute;
 			/* left: 50%; */
-			z-index: 100000;
+			z-index: -1;
 			top: 1%;
 			font-size: 12px;
 			opacity: 0.8;
