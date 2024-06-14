@@ -342,8 +342,6 @@
 			document
 				.getElementsByClassName("explore-button")[0]
 				.addEventListener("click", () => {
-					document.getElementById("step_mobile12").style.opacity = 0;
-					document.getElementById("step_mobile12").style.zIndex = -1;
 					document.getElementById("step_mobile13").style.opacity = 0;
 					document.getElementById("step_mobile13").style.zIndex = -1;
 				});
@@ -353,8 +351,6 @@
 			document
 				.getElementsByClassName("explore-button")[0]
 				.addEventListener("click", () => {
-					document.getElementById("step_12").style.opacity = 0;
-					document.getElementById("step_12").style.zIndex = -1;
 					document.getElementById("step13").style.opacity = 0;
 					document.getElementById("step13").style.zIndex = -1;
 				});
@@ -420,7 +416,7 @@
 							has significantly low precipitation compared to the wettest month,
 							defined as Pwdry ≤ Pswet/10.</span
 						>
-						Dry winter, hot summer
+						<u>Dry winter, hot summer</u>
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Cold, dry winter, hot summer") as todo, i (todo.id)}
@@ -459,7 +455,7 @@
 							22°C.
 							<br /><b>Precipitation Pattern:</b> The driest month in summer or winter
 							does not drop below the levels that define a dry season.</span
-						>No dry season, hot summer
+						><u>No dry season, hot summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -500,7 +496,7 @@
 							<br />
 							<b>Precipitation Pattern:</b> The driest month in summer or winter
 							does not drop below the levels that define a dry season.</span
-						>No dry season, warm summer
+						><u>No dry season, warm summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Cold, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -559,7 +555,7 @@
 							less than 40 mm of precipitation, and is less than one-third of the
 							precipitation in the wettest month in winter.
 						</span>
-						Dry summer, hot summer
+						<u>Dry summer, hot summer</u>
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, hot summer") as todo, i (todo.id)}
@@ -601,7 +597,7 @@
 							<b>Precipitation Pattern:</b> The driest month in summer or winter
 							does not drop below the levels that define a dry season.
 						</span>
-						No dry season, warm summer
+						<u>No dry season, warm summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -642,7 +638,7 @@
 							<b>Precipitation Pattern:</b> The driest month in summer or winter
 							does not drop below the levels that define a dry season.</span
 						>
-						No dry season, hot summer
+						<u>No dry season, hot summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, no dry season, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -684,7 +680,7 @@
 							of the precipitation in the wettest month in winter.
 							<br />
 						</span>
-						Dry summer, warm summer
+						<u>Dry summer, warm summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry summer, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -725,7 +721,7 @@
 							<b>Precipitation Pattern:</b>The driest month in winter has less
 							than one-tenth of the precipitation of the wettest month in
 							summer.</span
-						>Dry winter, hot summer
+						><u>Dry winter, hot summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, hot summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -766,7 +762,7 @@
 							<b>Precipitation Pattern:</b>The driest month in winter has less
 							than one-tenth of the precipitation of the wettest month in
 							summer.</span
-						>Dry winter, warm summer
+						><u>Dry winter, warm summer</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Temperate, dry winter, warm summer") as todo, i (todo.id)}
 						{@const bindMe =
@@ -815,7 +811,7 @@
 							<b>Precipitation Pattern:</b> The driest month has less precipitation
 							than the wettest month but more than 60 mm</span
 						>
-						Monsoon
+						<u>Monsoon</u>
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Tropical, monsoon") as todo, i (todo.id)}
@@ -855,7 +851,7 @@
 							<b>Annual Precipitation:</b> More than 100 mm per month, regardless
 							of the season.</span
 						>
-						Rainforest
+						<u>Rainforest</u>
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Tropical, rainforest") as todo, i (todo.id)}
@@ -891,7 +887,7 @@
 							Mean
 							<b>Annual Precipitation:</b> More than 100 mm per month during the
 							wet season, but less than 60 mm per month during the dry season.</span
-						>Savannah
+						><u>Savannah</u>
 					</h2>
 
 					{#each todos.filter((t) => t.clim == "Tropical, savannah") as todo, i (todo.id)}
@@ -942,7 +938,7 @@
 							typically less than 100 mm, and often significantly lower. There may
 							be months with virtually no rainfall.</span
 						>
-						Desert, hot
+						<u>Desert, hot</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, hot") as todo, i (todo.id)}
 						{@const bindMe =
@@ -977,7 +973,7 @@
 							<b>Precipitation Pattern:</b> The mean annual precipitation is typically
 							less than 100 mm, and often significantly lower. There may be months
 							with virtually no rainfall.</span
-						>Desert, cold
+						><u>Desert, cold</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Arid, desert, cold") as todo, i (todo.id)}
 						{@const bindMe =
@@ -1012,7 +1008,7 @@
 							is typically higher than in arid desert climates but still relatively
 							low, often ranging from 100 mm to 500 mm per year.</span
 						>
-						Steppe, hot
+						<u>Steppe, hot</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, hot") as todo, i (todo.id)}
 						{@const bindMe =
@@ -1045,7 +1041,7 @@
 							<b>Precipitation Pattern:</b> The mean annual precipitation (MAP) is
 							typically higher than in arid desert climates but still relatively
 							low, often ranging from 100 mm to 500 mm per year.</span
-						>Steppe, cold
+						><u>Steppe, cold</u>
 					</h2>
 					{#each todos.filter((t) => t.clim == "Arid, steppe, cold") as todo, i (todo.id)}
 						{@const bindMe =
@@ -1113,6 +1109,7 @@
 		/* break-after: avoid; */
 		/* break-inside: avoid; */
 	}
+
 	.board {
 		position: absolute;
 		top: 150px;

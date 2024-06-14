@@ -1,28 +1,42 @@
 <script>
+	import { html, timeMonday } from "d3";
 	export let itemsToMove;
 	import { data } from "./data.svelte";
+	import { temp_2023, temp_2070 } from "$stores/store.js";
+
 	let chosenCityData;
+	let buttonLabel = "°C";
 
 	// Filter data to find the chosen city
 	$: chosenCityData = data.filter((el) => {
 		return String(el.name) === String(itemsToMove[0]);
 	});
 
-	// Reactive statement to log the name of the first element in chosenCityData when it changes
-	$: {
-		if (chosenCityData.length > 0) {
-			console.log(chosenCityData[0].name);
+	function changeTemp(data) {
+		if (buttonLabel == "°C") {
+			buttonLabel = "°F";
+			$temp_2023 = String(Math.round(data[0].temp_2023 * 10) / 10 + "°C");
+			$temp_2070 = String(Math.round(data[0].temp_2070 * 10) / 10 + "°C");
 		} else {
-			console.log("No matching city found");
+			buttonLabel = "°C";
+			$temp_2023 = String(
+				Math.round(((data[0].temp_2023 * 9) / 5 + 32) * 10) / 10 + "°F"
+			);
+			$temp_2070 = String(
+				Math.round(((chosenCityData[0].temp_2070 * 9) / 5 + 32) * 10) / 10 +
+					"°F"
+			);
 		}
-	}
-	function celsiusToFahrenheit(celsius) {
-		return Math.round((celsius * 9) / 5 + 32);
 	}
 </script>
 
 {#if chosenCityData.length > 0}
 	<div class="chosenCity">
+		<div>
+			<button on:click={changeTemp(chosenCityData)} class="changeTemp"
+				>{buttonLabel}</button
+			>
+		</div>
 		<b>{chosenCityData[0].name}'s</b> average temperature
 		<b>
 			<span
@@ -36,8 +50,25 @@
 			</span></b
 		>
 
-		from <b>{celsiusToFahrenheit(chosenCityData[0].temp_2023)}&deg;F</b> to
-		<b>{celsiusToFahrenheit(chosenCityData[0].temp_2070)}</b>&deg;F and
+		from
+		<b
+			>{#if $temp_2023 == 0}
+				{Math.round(((chosenCityData[0].temp_2023 * 9) / 5 + 32) * 10) /
+					10}&deg;F
+			{:else}
+				{$temp_2023}
+			{/if}
+		</b>
+		to
+		<b
+			>{#if $temp_2070 == 0}
+				{Math.round(((chosenCityData[0].temp_2070 * 9) / 5 + 32) * 10) /
+					10}&deg;F
+			{:else}
+				{$temp_2070}
+			{/if}</b
+		>
+		and
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}
 			remains in <span class={chosenCityData[0].type_2023.split(",")[0]}>
@@ -75,6 +106,14 @@
 <style>
 	* {
 		font-family: Atlas Grotesk;
+	}
+	.changeTemp {
+		position: absolute;
+		margin: 10px;
+		left: -3px;
+		top: 28px;
+		font-size: 10px;
+		z-index: 100;
 	}
 
 	.Temperate,

@@ -623,9 +623,14 @@
 		document.getElementById("year2").style.opacity = 0;
 
 		setTimeout(() => {
+			console.log(map.getStyle().layers);
 			map.setPaintProperty("video-layer", "raster-opacity", 0);
 			console.log("hio");
 			map.setPaintProperty("main-layer", "fill-opacity", 0);
+			map.setPaintProperty("present-layer2", "fill-opacity", 0);
+			map.setPaintProperty("present-layer1", "fill-opacity", 0);
+			map.setPaintProperty("present-layer3", "fill-opacity", 0);
+			map.setPaintProperty("future-layer", "fill-opacity", 0);
 			function fade() {
 				if (value >= 1) {
 					return;
