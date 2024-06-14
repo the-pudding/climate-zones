@@ -316,7 +316,7 @@
 	}
 	@media only screen and (max-width: 600px) {
 		.step p {
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 </style>

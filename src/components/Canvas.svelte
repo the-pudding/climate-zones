@@ -43,7 +43,7 @@
 		position: absolute;
 		width: 100vw;
 		height: var(--viewport-height);
-		z-index: 100000;
+		z-index: 1;
 		pointer-events: none;
 		transform: translate(0, -150px);
 	}
@@ -62,6 +62,7 @@
 
 	@media only screen and (max-width: 600px) {
 		svg {
+			z-index: 1;
 			transform: translate(0, -20px);
 		}
 	}

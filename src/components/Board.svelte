@@ -280,6 +280,14 @@
 		}, 2000);
 	}
 	$: if (value == 12 && mounted) {
+		if (isMobile) {
+			document.getElementById("step_mobile12").style.opacity = 1;
+			document.getElementById("step_mobile12").style.zIndex = 1;
+		} else {
+			document.getElementById("step12").style.opacity = 1;
+			document.getElementById("step12").style.zIndex = 1;
+		}
+
 		todos = [];
 		itemsToMove = [];
 		resetData(data);
@@ -334,6 +342,8 @@
 			document
 				.getElementsByClassName("explore-button")[0]
 				.addEventListener("click", () => {
+					document.getElementById("step_mobile12").style.opacity = 0;
+					document.getElementById("step_mobile12").style.zIndex = -1;
 					document.getElementById("step_mobile13").style.opacity = 0;
 					document.getElementById("step_mobile13").style.zIndex = -1;
 				});
@@ -343,6 +353,8 @@
 			document
 				.getElementsByClassName("explore-button")[0]
 				.addEventListener("click", () => {
+					document.getElementById("step_12").style.opacity = 0;
+					document.getElementById("step_12").style.zIndex = -1;
 					document.getElementById("step13").style.opacity = 0;
 					document.getElementById("step13").style.zIndex = -1;
 				});
@@ -366,8 +378,7 @@
 		</div>
 		<div
 			class="board"
-			style="opacity:{value > 7 ? 1 : 0}; z-index:10000000;top:{(value == 13) &
-			isMobile
+			style="opacity:{value > 7 ? 1 : 0};top:{(value == 13) & isMobile
 				? '75px'
 				: ''}"
 		>
@@ -385,14 +396,14 @@
 					style="background-color:#E4CCFF; border-color: #C3ADD9;"
 					aria-label="Cold"
 				>
-					<span class="popupColdHeader"
-						><b>Average Temperature of the Hottest Month:</b> Greater than 10°C.
+					<div style="z-index: 10;" class="popupColdHeader">
+						<b>Average Temperature of the Hottest Month:</b> Greater than 10°C.
 						<br />
 						<b>Average Temperature of the Coldest Month: </b>Less than or equal
 						to 0°C.
 						<br /><b>Precipitation Pattern:</b> Precipitation varies, but there is
-						at least one season with consistent rainfall .</span
-					>
+						at least one season with consistent rainfall .
+					</div>
 					Cold
 				</div>
 				<div
@@ -1196,7 +1207,9 @@
 	.Temperate-no-dry-season-hot-summer label {
 		background-color: #97cdf4;
 	}
-
+	.Cold-dry-winter-hot-summer {
+		position: relative;
+	}
 	.Cold-dry-winter-hot-summer label {
 		background-color: #f8cbff;
 	}
@@ -1267,6 +1280,7 @@
 		line-height: 1;
 		position: relative;
 		margin: 0;
+
 		text-transform: uppercase;
 		font-family: var(--sans);
 		-webkit-font-smoothing: antialiased;
@@ -1310,7 +1324,7 @@
 		display: none;
 		position: absolute;
 		text-align: left;
-		background-color: #f9f9f9cb;
+		background-color: #f9f9f9;
 		padding: 10px;
 		font-weight: 300;
 		text-transform: none;
@@ -1328,13 +1342,14 @@
 		display: none;
 		position: absolute;
 		text-align: left;
-		background-color: #f9f9f9cb;
+		background-color: rgba(249, 249, 249, 1);
 		padding: 10px;
 		font-weight: 300;
+		font-size: 12px;
 		text-transform: none;
 		border: 1px solid #ccc;
 		border-radius: 5px;
-		font-size: 12px;
+
 		top: 50%;
 		transform: translate(-10%, -120%);
 		left: 50%;
@@ -1359,7 +1374,7 @@
 		transform: translate(-50%, -120%);
 		left: 50%;
 		align-items: center;
-		z-index: 1;
+		z-index: 100;
 	}
 	.popupColdHeader::after {
 		content: "";
@@ -1384,7 +1399,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: lightgray; /* Match popup background color */
+		border-top-color: darkgray; /* Match popup background color */
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
@@ -1396,7 +1411,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: lightgray; /* Match popup background color */
+		border-top-color: darkgray; /* Match popup background color */
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
@@ -1409,7 +1424,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: lightgrey; /* Match popup background color */
+		border-top-color: darkgray; /* Match popup background color */
 		z-index: 2;
 
 		transform: translateX(-816%); /* Center horizontally */
@@ -1427,6 +1442,7 @@
 	.header:hover .popupHeader {
 		display: block;
 	}
+
 	.header:hover .popupColdHeader {
 		display: block;
 	}
@@ -1445,7 +1461,7 @@
 
 	.move {
 		box-shadow: 0 0 0 2px black;
-		z-index: 100000000;
+		z-index: 0;
 	}
 
 	.ghost {
@@ -1453,6 +1469,52 @@
 	}
 
 	@media only screen and (max-width: 600px) {
+		.popupHeader {
+			width: 350px;
+			left: -120px;
+		}
+
+		.Arid-steppe-hot .popup {
+			width: 350px;
+			left: 0px;
+			text-align: left;
+		}
+
+		.popup {
+			width: 350px;
+			left: 200px;
+			top: 20px;
+			text-align: left;
+		}
+		.popupCold {
+			width: 350px;
+			left: 100px;
+			top: 20px;
+			text-align: left;
+		}
+		.popupColdHeader {
+			width: 100vw;
+			left: -320px;
+			top: 30px;
+			z-index: 1000;
+		}
+		.popupHeader::after {
+			transform: translateX(120px);
+		}
+		.popupColdHeader::after {
+			transform: translateX(290px);
+		}
+		.popup::after {
+			transform: translateX(-170px);
+		}
+		.popupCold::after {
+			transform: translateX(-170px);
+		}
+
+		.Arid-steppe-hot .popup::after {
+			transform: translateX(-0px);
+		}
+
 		.board {
 			flex-wrap: wrap;
 			top: 20px;

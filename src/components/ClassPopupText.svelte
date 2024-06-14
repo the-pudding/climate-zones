@@ -16,6 +16,9 @@
 			console.log("No matching city found");
 		}
 	}
+	function celsiusToFahrenheit(celsius) {
+		return Math.round((celsius * 9) / 5 + 32);
+	}
 </script>
 
 {#if chosenCityData.length > 0}
@@ -33,8 +36,8 @@
 			</span></b
 		>
 
-		from <b>{chosenCityData[0].temp_2023}&deg;C</b> to
-		<b>{chosenCityData[0].temp_2070}</b>&deg;C and
+		from <b>{celsiusToFahrenheit(chosenCityData[0].temp_2023)}&deg;F</b> to
+		<b>{celsiusToFahrenheit(chosenCityData[0].temp_2070)}</b>&deg;F and
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}
 			remains in <span class={chosenCityData[0].type_2023.split(",")[0]}>
