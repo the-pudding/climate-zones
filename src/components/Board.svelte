@@ -377,7 +377,7 @@
 		<div
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};top:{(value == 13) & isMobile
-				? '100px'
+				? '150px'
 				: ''}"
 		>
 			{#if linesToDraw}
@@ -1492,8 +1492,8 @@
 			text-align: left;
 		}
 		.popupColdHeader {
-			width: 100vw;
-			left: -320px;
+			width: 80vw;
+			left: -252px;
 			top: 30px;
 			z-index: 1000;
 		}

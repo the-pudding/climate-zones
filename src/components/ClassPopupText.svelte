@@ -173,7 +173,7 @@
 			position: absolute;
 			margin: 10px;
 			left: -3px;
-			top: 50px;
+			top: 100px;
 			font-size: 10px;
 			z-index: 0;
 		}
@@ -182,7 +182,7 @@
 			/* left: 50%; */
 			z-index: -1;
 			top: 1%;
-			font-size: 12px;
+			font-size: 14px;
 			opacity: 0.8;
 			text-align: center;
 			-webkit-transform: translate(-50%);

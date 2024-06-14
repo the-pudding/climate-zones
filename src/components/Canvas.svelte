@@ -17,7 +17,7 @@
 {#if mounted}
 	<svg
 		width="100%"
-		style="transform:{value == 13 && isMobile ? 'translate(0, -100px)' : ''}"
+		style="transform:{value == 13 && isMobile ? 'translate(0, -150px)' : ''}"
 	>
 		{#each linesToDraw as line}
 			<line
