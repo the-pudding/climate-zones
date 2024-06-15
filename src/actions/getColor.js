@@ -24,13 +24,13 @@ export function getColor(DN) {
 	} //ARID - STEPPE - COLD
 	if (DN == 7) {
 		return "#ffd0c1";
-	} //TEMP - DRY SUM - HOT SUM
+	} //TEMP - DRY SUM - HOT SUM 
 	if (DN == 8) {
 		return "#bcf7ff";
-	} //TEMP - DRY SUM - WARM SUM
+	} //TEMP - DRY SUM - WARM SUM !
 	if (DN == 9) {
 		return "#bfdbf0";
-	} //TEMP - DRY SUM - COLD SUM
+	} //TEMP - DRY SUM - COLD SUM !
 	if (DN == 10) {
 		return "#969600";
 	} //TEMP - DRY WIN - HOT SUM
@@ -41,13 +41,15 @@ export function getColor(DN) {
 		return "#79c7ff";
 	} //TEMP - DRY WIN - COLD SUM
 	if (DN == 13) {
-	} //TEMP - NO DRY - HOT SUM
+	} //TEMP - NO DRY - HOT SUM 
 	if (DN == 14) {
-		return "#97cdf4";
-	} //TEMP - NO DRY - WARM SUM
+		return "#3690d1"; //
+	}
+	
+	//TEMP - NO DRY - WARM SUM !
 	if (DN == 15) {
 		return "#bcdfff";
-	} //TEMP - NO DRY - COLD SUM
+	} //TEMP - NO DRY - COLD SUM !
 	else {
 		if (DN == 16) {
 			return "#96ff96";
@@ -64,10 +66,14 @@ export function getColor(DN) {
 		} //COLD - DRY SUM - VERY COLD WINTER
 		if (DN == 20) {
 			return "#ba55d3";
-		} //COLD - DRY WIN - HOT SUM
+		}
+		
+		//COLD - DRY WIN - HOT SUM !
 		if (DN == 21) {
 			return "#f8cbff";
-		} //COLD - DRY WIN- WARM SUM
+		}
+		
+		//COLD - DRY WIN- WARM SUM
 		if (DN == 22) {
 			return "#d8bfd8";
 		} //COLD - DRY WIN - COLD SUM
@@ -76,17 +82,25 @@ export function getColor(DN) {
 		} //COLD - DRY WIN- VERY COLD WINTER
 		if (DN == 24) {
 			return "#ee82ee";
-		} //COLD - NO DRY - HOT SUMMER
+		}
+		
+		//COLD - NO DRY - HOT SUMMER !
 		if (DN == 25) {
 			return "#cbd6ff";
-		} //COLD - NO DRY - WARM SUMMER
-		if (DN == 26) {
-			return "#37c8ff";
 		}
+		
+		//COLD - NO DRY - WARM SUMMER !
+		if (DN == 26) {
+			return "#e2cbff";
+		}
+
 		//COLD - NO DRY - COLD SUM
 		if (DN == 27) {
 			return "#c71585";
-		} //COLD - NO DRY - VERY COLD WINTER
+		}
+		
+		
+		//COLD - NO DRY - VERY COLD WINTER
 		if (DN == 28) {
 			return "#ff69b4";
 		} //POLAR TUNDRA

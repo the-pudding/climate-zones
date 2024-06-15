@@ -4,19 +4,19 @@ export function getColorSimp(DN) {
 	}
 	/*TROPICAL*/
 	if (DN > 0 && DN <= 3) {
-		return "#aff4c5"; // rgb(175, 244, 197)
+		return "#28dc62"; // rgb(175, 244, 197) //tropical
 	}
 	/*ARID*/
 	if (DN > 3 && DN <= 7) {
-		return "#ffc7c1"; // rgb(255, 199, 193)
+		return "#ff6150"; // rgb(255, 199, 193) //arid
 	}
 	/*TEMPERATE*/
 	if (DN > 7 && DN <= 16) {
-		return "#bce3ff"; // rgb(188, 227, 255)
+		return "#75bcf0"; // rgb(188, 227, 255) //temperate
 	}
 	/*COLD*/
 	if (DN > 16 && DN <= 28) {
-		return "#e4ccff"; // rgb(228, 204, 255)
+		return "#b57ff1"; // rgb(228, 204, 255) //cold 
 	}
 	/*POLAR*/
 	if (DN > 28) {
