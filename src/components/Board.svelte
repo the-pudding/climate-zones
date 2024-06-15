@@ -1460,7 +1460,7 @@
 
 	.move {
 		box-shadow: 0 0 0 2px black;
-		z-index: 0;
+		z-index: 1;
 	}
 
 	.ghost {
