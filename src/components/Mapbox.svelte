@@ -16,6 +16,9 @@
 	zoom = 1.3;
 	let zoomLevel;
 	export let value;
+
+	$: console.log(value)
+
 	onMount(() => {
 		window.addEventListener("resize", () => {
 			if (value == 0 || value == 1 || value == 2 || value == 5) {
@@ -722,6 +725,39 @@
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 1);
 		map.setPaintProperty("cities-labels", "text-opacity", 1);
 
+		map.setFilter("cities-layer", [
+			"in",
+			"name",
+			"Lisbon",
+			"Casablanca",
+			"Tunis",
+			"Rome",
+			"Milan",
+			"Paris",
+			"London",
+			"Amsterdam",
+			"Milan",
+			"Athens",
+			"Rome"
+		]);
+		map.setFilter("cities-labels", [
+			"in",
+			"name",
+			"Lisbon",
+			"Casablanca",
+			"Tunis",
+			"Rome",
+			"Milan",
+			"Paris",
+			"London",
+			"Amsterdam",
+			"Milan",
+			"Athens",
+			"Rome"
+		]);
+
+
+
 		map.flyTo({
 			center: [2.3522, 42.8566],
 			zoom: 4,
@@ -800,7 +836,7 @@
 			"case",
 			["all", [">", ["get", "DN"], 7], ["<=", ["get", "DN"], 16]],
 			1,
-			0.2
+			0 //set non temperate to 0
 		]);
 	}
 	$: if (value === 4) {
@@ -813,8 +849,38 @@
 			duration: 2000,
 			essential: true // this animation is considered essential with respect to prefers-reduced-motion
 		});
-		map.setFilter("cities-layer", null);
-		map.setFilter("cities-labels", null);
+
+		map.setFilter("cities-layer", [
+			"in",
+			"name",
+			"Lisbon",
+			"Casablanca",
+			"Tunis",
+			"Rome",
+			"Milan",
+			"Paris",
+			"London",
+			"Amsterdam",
+			"Milan",
+			"Athens",
+			"Rome"
+		]);
+		map.setFilter("cities-labels", [
+			"in",
+			"name",
+			"Lisbon",
+			"Casablanca",
+			"Tunis",
+			"Rome",
+			"Milan",
+			"Paris",
+			"London",
+			"Amsterdam",
+			"Milan",
+			"Athens",
+			"Rome"
+		]);
+
 		map.setPaintProperty("cities-layer", "circle-opacity", 1);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 1);
 		map.setPaintProperty("cities-labels", "text-opacity", 1);
@@ -886,10 +952,12 @@
 			"transparent" // Default color if none of the conditions are met
 		]);
 		map.setPaintProperty("main-layer", "fill-opacity", [
-			"case",
-			["all", [">", ["get", "DN"], 7], ["<=", ["get", "DN"], 16]],
+
+			"match",
+            ["get", "DN"],
+            [8,9,10,11,12,13,14,15], // Array of possible values
 			1,
-			0.2
+			0//set non temperate to zero
 		]);
 	}
 	$: if (value === 5) {
@@ -1039,13 +1107,16 @@
 	}
 	$: if (value === 7) {
 		map.setFilter("cities-layer", null);
-		map.setPaintProperty("cities-labels", "text-opacity", 0);
+		map.setFilter("cities-labels", null);
+		map.setPaintProperty("cities-labels", "text-opacity", 1);
 		map.setPaintProperty("cities-layer", "circle-opacity", 1);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 1);
+
 		document.getElementsByClassName("intro-map")[0].style.opacity = 1;
 
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 		map.setPaintProperty("future-layer", "fill-opacity", 1);
+
 
 		function fade1() {
 			if (value != 7) {
