@@ -168,6 +168,7 @@
 		max-width: 200px;
 		margin-left: -20px;
 		margin-top: 10px;
+		min-width: 120px;
 	}
 
 	#scrolly {
@@ -316,7 +317,7 @@
 	}
 	@media only screen and (max-width: 600px) {
 		.step p {
-			font-size: 15px;
+			font-size: 16px;
 		}
 	}
 </style>

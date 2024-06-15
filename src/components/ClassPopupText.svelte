@@ -5,7 +5,7 @@
 	import { temp_2023, temp_2070 } from "$stores/store.js";
 
 	let chosenCityData;
-	let buttonLabel = "°C";
+	let buttonLabel = "<strong>°C</strong> / °F";
 
 	// Filter data to find the chosen city
 	$: chosenCityData = data.filter((el) => {
@@ -13,12 +13,12 @@
 	});
 
 	function changeTemp(data) {
-		if (buttonLabel == "°C") {
-			buttonLabel = "°F";
+		if (buttonLabel == "<strong>°F</strong> / °C") {
+			buttonLabel = "<strong>°C</strong> / °F";
 			$temp_2023 = String(Math.round(data[0].temp_2023 * 10) / 10 + "°C");
 			$temp_2070 = String(Math.round(data[0].temp_2070 * 10) / 10 + "°C");
 		} else {
-			buttonLabel = "°C";
+			buttonLabel = "<strong>°F</strong> / °C";
 			$temp_2023 = String(
 				Math.round(((data[0].temp_2023 * 9) / 5 + 32) * 10) / 10 + "°F"
 			);
@@ -31,12 +31,10 @@
 </script>
 
 {#if chosenCityData.length > 0}
-	<div>
-		<button on:click={changeTemp(chosenCityData)} class="changeTemp"
-			>{buttonLabel}</button
-		>
-	</div>
-	<div class="chosenCity">
+	
+	<p class="chosenCity">
+		<button on:click={changeTemp(chosenCityData)} class="changeTemp">{@html buttonLabel}</button>
+
 		<b>{chosenCityData[0].name}'s</b> average temperature
 		<b>
 			<span
@@ -80,49 +78,48 @@
 				{chosenCityData[0].type_2023.split(",")[0]}
 			</span>
 		{/if}
-		<span class="classification">
-			{chosenCityData[0].type_2023
-				.split(chosenCityData[0].type_2023.split(",")[0])[1]
-				.substring(2)}</span
-		>
+		{chosenCityData[0].type_2023
+			.split(chosenCityData[0].type_2023.split(",")[0])[1]
+			.substring(2)}
+		
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}{:else}
 			to{" "}
 			<span class={chosenCityData[0].type_2070.split(",")[0]}>
 				{chosenCityData[0].type_2070.split(",")[0]}
-			</span>
-		{/if}
+			</span>{/if}
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}{:else}
-			<span class="classification">
-				{chosenCityData[0].type_2070
+		{chosenCityData[0].type_2070
 					.split(chosenCityData[0].type_2070.split(",")[0])[1]
 					.substring(2)}
-			</span>
-		{/if}
-	</div>
+		{/if}</p>
 {/if}
 
 <style>
 	* {
 		font-family: Atlas Grotesk;
 	}
+
+	b {
+		font-weight: 500;
+	}
 	.changeTemp {
-		position: absolute;
+		position: relative;
 		margin: 10px;
-		left: -3px;
-		top: 65px;
 		font-size: 10px;
 		z-index: 0;
+		margin: 0;
+		padding: 5px 10px;
 	}
 
 	.Temperate,
 	.Cold,
 	.Tropical,
 	.Arid {
-		font-size: 16px;
+		font-size: 14px;
 		border-radius: 5px;
-		font-weight: 700;
+		font-weight: 500;
 
 		padding: 0 5px;
 	}
@@ -145,47 +142,37 @@
 	}
 	.classification {
 		cursor: pointer;
-		font-size: 12px;
+		font-size: 16px;
 		display: inline-block;
-		font-weight: 500;
+		font-weight: 400;
 		text-align: left;
 		line-height: 1;
+		letter-spacing: 0;
 		position: relative;
 		margin: 0;
-		text-transform: uppercase;
 		font-family: var(--sans);
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-rendering: optimizeLegibility;
 		margin-right: 5px;
 	}
 	.chosenCity {
 		position: absolute;
 		left: 50%;
-		top: 5%;
+		bottom: 10px;
 		width: 100%;
-		z-index: -1;
+		z-index: 100;
 		text-align: center;
 		transform: translate(-50%);
+		width: calc(100% - 50px);
+		max-width: 800px;
+		
 	}
 	@media only screen and (max-width: 600px) {
 		.changeTemp {
-			position: absolute;
-			margin: 10px;
-			left: -3px;
-			top: 100px;
-			font-size: 10px;
 			z-index: 0;
 		}
 		.chosenCity {
-			position: absolute;
 			/* left: 50%; */
-			z-index: -1;
-			top: 1%;
 			font-size: 14px;
-			opacity: 0.8;
 			text-align: center;
-			-webkit-transform: translate(-50%);
 		}
 		.Temperate,
 		.Cold,

@@ -697,7 +697,7 @@
 		}, 1000);
 	}
 
-	$: if (value === 1) {
+	$: if (value === 1 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0.45);
 		console.log("cancel");
 
@@ -706,7 +706,7 @@
 		map.setPaintProperty("present-layer3", "fill-opacity", 0);
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 	}
-	$: if (value === 2) {
+	$: if (value === 2 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 0);
@@ -720,7 +720,7 @@
 			essential: true // this animation is considered essential with respect to prefers-reduced-motion
 		});
 	}
-	$: if (value === 3) {
+	$: if (value === 3 && loaded) {
 		map.setPaintProperty("cities-layer", "circle-opacity", 1);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 1);
 		map.setPaintProperty("cities-labels", "text-opacity", 1);
@@ -839,7 +839,7 @@
 			0 //set non temperate to 0
 		]);
 	}
-	$: if (value === 4) {
+	$: if (value === 4 && loaded) {
 		document.getElementById("year1").style.opacity = 0;
 		document.getElementById("year2").style.opacity = 0;
 
@@ -960,7 +960,7 @@
 			0//set non temperate to zero
 		]);
 	}
-	$: if (value === 5) {
+	$: if (value === 5 && loaded) {
 		map.setFilter("cities-layer", [
 			"in",
 			"name",
@@ -1070,7 +1070,7 @@
 		]);
 		map.setPaintProperty("future-layer", "fill-opacity", 0);
 	}
-	$: if (value === 6) {
+	$: if (value === 6 && loaded) {
 		map.setPaintProperty("cities-layer", "circle-opacity", 0);
 		map.setPaintProperty("cities-labels", "text-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 0);
@@ -1105,7 +1105,7 @@
 		fade1();
 		fade2();
 	}
-	$: if (value === 7) {
+	$: if (value === 7 && loaded) {
 		map.setFilter("cities-layer", null);
 		map.setFilter("cities-labels", null);
 		map.setPaintProperty("cities-labels", "text-opacity", 1);
@@ -1148,7 +1148,7 @@
 		fade2();
 	}
 
-	$: if (value === 8) {
+	$: if (value === 8 && loaded) {
 		document.getElementsByClassName("intro-map")[0].style.opacity = 0;
 	}
 </script>

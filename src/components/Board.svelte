@@ -369,15 +369,13 @@
 
 {#if mounted}
 	<div style="position: absolute;width:100vw;height:100vh;">
-		<div class="classPopupText">
-			{#if value == 13}
-				<ClassPopupText {itemsToMove} />
-			{/if}
-		</div>
+		{#if value == 13}
+			<ClassPopupText {itemsToMove} />
+		{/if}
 		<div
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};top:{(value == 13) & isMobile
-				? '150px'
+				? '20px'
 				: ''}"
 		>
 			{#if linesToDraw}
@@ -1075,9 +1073,6 @@
 {/if}
 
 <style>
-	.classPopupText {
-		top: 0px;
-	}
 	.header {
 		font-family: var(--sans);
 		color: black;
@@ -1287,6 +1282,7 @@
 		text-rendering: optimizeLegibility;
 		margin-right: 5px;
 	}
+
 	.break {
 		column-fill: balance;
 		break-after: always;
@@ -1467,6 +1463,23 @@
 		opacity: 0.2;
 	}
 
+	u {
+		text-decoration: none;
+		border: none;
+	}
+
+	u:after {
+		content: '?';
+		font-size: 10px;
+		background-color: #d7d7d7;
+		color: black;
+		padding: 1px;
+		margin-left: 3px;
+		transform: translate(0,-3px);
+
+	}
+
+
 	@media only screen and (max-width: 600px) {
 		.popupHeader {
 			width: 350px;
@@ -1556,6 +1569,8 @@
 			padding: 0;
 			padding-left: 2px;
 		}
+
+
 
 		@media only screen and (min-height: 600px) {
 			.column {

@@ -18,5 +18,5 @@
 	setContext("data", data.data);
 </script>
 
-<Meta {title} {description} {url} {preloadFont} {keywords} />
+<Meta />
 <Index />
