@@ -376,10 +376,10 @@
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};
 				top:{isMobile ? '20px' : ''}"
-			>
-				{#if linesToDraw}
-					<Canvas {linesToDraw} {isMobile} {value} />
-				{/if}
+		>
+			{#if linesToDraw}
+				<Canvas {linesToDraw} {isMobile} {value} />
+			{/if}
 			<div
 				class="Cold column"
 				style="
@@ -921,7 +921,7 @@
 					style="background-color:#FFC7C1; border-color:#DAA9A5;"
 					aria-label="Arid"
 				>
-					<span class="popupHeader"
+					<span class="popupAridHeader"
 						><b>Average Annual Temperature: </b>Can vary within group.
 						<br /><b>Precipitation Pattern:</b> Very limited rainfall throughout
 						year.</span
@@ -930,7 +930,7 @@
 				</div>
 				<div aria-label="Arid, desert, hot" class="Arid-desert-hot grouping">
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupArid"
 							><b>Mean Annual Temperature:</b> Greater than or equal to 18°C.
 							<br /><b>Precipitation Pattern:</b> The mean annual precipitation is
 							typically less than 100 mm, and often significantly lower. There may
@@ -965,7 +965,7 @@
 				</div>
 				<div aria-label="Arid, desert, cold" class="Arid-desert-cold grouping">
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupArid"
 							><b>Mean Annual Temperature:</b> Can vary but often falls below
 							18°C.
 							<b>Precipitation Pattern:</b> The mean annual precipitation is typically
@@ -1000,7 +1000,7 @@
 				</div>
 				<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot grouping">
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupArid"
 							><b>Mean Annual Temperature:</b> Generally exceeds 18°C. <br />
 							<b>Precipitation Precipitation:</b> The mean annual precipitation (MAP)
 							is typically higher than in arid desert climates but still relatively
@@ -1034,7 +1034,7 @@
 				</div>
 				<div aria-label="Arid, steppe, cold" class="Arid-steppe-cold grouping">
 					<h2 class="classification">
-						<span class="popup"
+						<span class="popupArid"
 							><b>Mean Annual Temperature:</b> Generally belows 18°C. <br />
 							<b>Precipitation Pattern:</b> The mean annual precipitation (MAP) is
 							typically higher than in arid desert climates but still relatively
@@ -1107,7 +1107,7 @@
 
 	.board {
 		position: absolute;
-		top: 50px;
+		top: 150px;
 		transform: translate(0%, 0%);
 		opacity: 0;
 		transition: opacity 1s ease;
@@ -1329,6 +1329,24 @@
 		align-items: center;
 		z-index: 1;
 	}
+	.popupArid {
+		width: 400px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: #f9f9f9;
+		padding: 10px;
+		font-weight: 300;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		top: 50%;
+		transform: translate(-73%, -129%);
+		left: 50%;
+		align-items: center;
+		z-index: 1;
+	}
 	.popupColdHeader {
 		width: 400px;
 		word-spacing: normal;
@@ -1345,6 +1363,26 @@
 
 		top: 50%;
 		transform: translate(-10%, -120%);
+		left: 50%;
+		align-items: center;
+		z-index: 1;
+	}
+	.popupAridHeader {
+		width: 400px;
+		word-spacing: normal;
+		display: none;
+		position: absolute;
+		text-align: left;
+		background-color: rgba(249, 249, 249, 1);
+		padding: 10px;
+		font-weight: 300;
+		font-size: 12px;
+		text-transform: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+
+		top: 50%;
+		transform: translate(-79%, -137%);
 		left: 50%;
 		align-items: center;
 		z-index: 1;
@@ -1382,6 +1420,20 @@
 		z-index: 2;
 
 		transform: translateX(-816%); /* Center horizontally */
+	}
+	.popupAridHeader::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 40%; /* Position the arrow horizontally centered */
+
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
+		border-width: 8px;
+		border-top-color: lightgrey; /* Match popup background color */
+		z-index: 2;
+
+		transform: translateX(900%); /* Center horizontally */
 	}
 
 	.popup::after {
@@ -1422,6 +1474,20 @@
 
 		transform: translateX(-816%); /* Center horizontally */
 	}
+	.popupArid::after {
+		content: "";
+		position: absolute;
+		top: 100%; /* Position the arrow just below the popup */
+		left: 50%; /* Position the arrow horizontally centered */
+
+		border-style: solid; /* Set border style */
+		border-color: transparent transparent transparent transparent; /* Match popup background color */
+		border-width: 8px;
+		border-top-color: darkgray; /* Match popup background color */
+		z-index: 2;
+
+		transform: translateX(500%); /* Center horizontally */
+	}
 
 	/* Styling for the arrow */
 
@@ -1432,11 +1498,17 @@
 		display: block;
 	}
 
+	.classification:hover .popupArid {
+		display: block;
+	}
 	.header:hover .popupHeader {
 		display: block;
 	}
 
 	.header:hover .popupColdHeader {
+		display: block;
+	}
+	.header:hover .popupAridHeader {
 		display: block;
 	}
 

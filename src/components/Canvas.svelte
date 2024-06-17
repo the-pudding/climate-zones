@@ -45,7 +45,7 @@
 		height: var(--viewport-height);
 		z-index: 1;
 		pointer-events: none;
-		transform: translate(0, -50px);
+		transform: translate(0, -150px);
 	}
 	line {
 		stroke: black;
