@@ -17,7 +17,7 @@
 	let zoomLevel;
 	export let value;
 
-	$: console.log(value)
+	$: console.log(value);
 
 	onMount(() => {
 		window.addEventListener("resize", () => {
@@ -756,8 +756,6 @@
 			"Rome"
 		]);
 
-
-
 		map.flyTo({
 			center: [2.3522, 42.8566],
 			zoom: 4,
@@ -952,12 +950,11 @@
 			"transparent" // Default color if none of the conditions are met
 		]);
 		map.setPaintProperty("main-layer", "fill-opacity", [
-
 			"match",
-            ["get", "DN"],
-            [8,9,10,11,12,13,14,15], // Array of possible values
+			["get", "DN"],
+			[8, 9, 10, 11, 12, 13, 14, 15], // Array of possible values
 			1,
-			0//set non temperate to zero
+			0 //set non temperate to zero
 		]);
 	}
 	$: if (value === 5 && loaded) {
@@ -1116,7 +1113,6 @@
 
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 		map.setPaintProperty("future-layer", "fill-opacity", 1);
-
 
 		function fade1() {
 			if (value != 7) {

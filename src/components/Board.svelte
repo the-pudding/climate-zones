@@ -413,8 +413,7 @@
 							<b>Temperature of the Warmest Month:</b> Greater than or equal to
 							22°C.
 							<br /><b>Precipitation Pattern: </b> The driest month in winter (Pwdry)
-							has significantly low precipitation compared to the wettest month,
-							defined as Pwdry ≤ Pswet/10.</span
+							has significantly low precipitation compared to the wettest month.</span
 						>
 						<u>Dry winter, hot summer</u>
 					</h2>
@@ -1469,16 +1468,14 @@
 	}
 
 	u:after {
-		content: '?';
+		content: "?";
 		font-size: 10px;
 		background-color: #d7d7d7;
 		color: black;
 		padding: 1px;
 		margin-left: 3px;
-		transform: translate(0,-3px);
-
+		transform: translate(0, -3px);
 	}
-
 
 	@media only screen and (max-width: 600px) {
 		.popupHeader {
@@ -1500,8 +1497,9 @@
 		}
 		.popupCold {
 			width: 100vw;
-			left: 110px;
+			left: -10px;
 			top: 20px;
+			transform: translateY(0px);
 			text-align: left;
 		}
 		.popupColdHeader {
@@ -1520,7 +1518,7 @@
 			transform: translateX(-170px);
 		}
 		.popupCold::after {
-			transform: translateX(-170px);
+			transform: translate(-170px, -96px) rotate(-180deg);
 		}
 
 		.Arid-steppe-hot .popup::after {
@@ -1569,8 +1567,6 @@
 			padding: 0;
 			padding-left: 2px;
 		}
-
-
 
 		@media only screen and (min-height: 600px) {
 			.column {

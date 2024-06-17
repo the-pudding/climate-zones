@@ -98,6 +98,7 @@
 					</div>
 				{:else}
 					<p class="text">{@html text[val]}</p>
+					<div class="spacer"></div>
 				{/if}
 			</div>
 		{/each}
@@ -191,13 +192,12 @@
 	}
 
 	.step {
-		height: var(--viewport-height);
 		width: 400px;
 		position: relative;
 		border-radius: 10px;
 		color: rgb(0, 0, 0);
 		text-align: center;
-		z-index: 10000;
+		z-index: 1000;
 		font-size: 12px;
 		margin-left: 20px;
 		filter: blur(1px);
