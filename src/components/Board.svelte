@@ -374,13 +374,12 @@
 		{/if}
 		<div
 			class="board"
-			style="opacity:{value > 7 ? 1 : 0};top:{(value == 13) & isMobile
-				? '20px'
-				: ''}"
-		>
-			{#if linesToDraw}
-				<Canvas {linesToDraw} {isMobile} {value} />
-			{/if}
+			style="opacity:{value > 7 ? 1 : 0};
+				top:{isMobile ? '20px' : ''}"
+			>
+				{#if linesToDraw}
+					<Canvas {linesToDraw} {isMobile} {value} />
+				{/if}
 			<div
 				class="Cold column"
 				style="
@@ -1108,7 +1107,7 @@
 
 	.board {
 		position: absolute;
-		top: 150px;
+		top: 50px;
 		transform: translate(0%, 0%);
 		opacity: 0;
 		transition: opacity 1s ease;
@@ -1570,6 +1569,12 @@
 
 		@media only screen and (min-height: 600px) {
 			.column {
+				margin-bottom: 20px;
+			}
+		}
+
+		@media only screen and (min-height: 800px) and (min-width: 850px) {
+			.board {
 				margin-bottom: 20px;
 			}
 		}

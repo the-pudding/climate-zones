@@ -98,7 +98,7 @@
 					</div>
 				{:else}
 					<p class="text">{@html text[val]}</p>
-					<div class="spacer"></div>
+					<!-- <div class="spacer"></div> -->
 				{/if}
 			</div>
 		{/each}
@@ -114,6 +114,7 @@
 
 	.sticker-logo {
 		position: absolute;
+		pointer-events: all;
 	}
 	.title-svg {
 		max-width: 1200px;
@@ -203,6 +204,8 @@
 		filter: blur(1px);
 		opacity: 0.5;
 		transition: all 0.5s;
+		height: calc(var(--viewport-height) + 200px);
+		pointer-events: none;
 	}
 
 	.step.isMobile {
@@ -225,6 +228,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
+		pointer-events: all;
 	}
 
 	#step0,
@@ -246,6 +250,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
+		pointer-events: all;
 	}
 
 	#step1 {

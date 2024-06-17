@@ -110,14 +110,13 @@
             <div class="row">
                 <div class="sticker-col">
                     <div class="link">
-                        <a target="_self" href="https://patreon.com/thepudding">Support us as a Patron<span class="link-arrow">{@html arrow}</span></a>
+                        <a target="_self" href="https://patreon.com/thepudding">Support us as a <span class="arrow-no-wrap">Patron<span class="link-arrow">{@html arrow}</span></span></a>
                     </div>
                 </div>
 
                 <div class="sticker-col">
                     <div class="link">
-                        <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the newsletter<span class="link-arrow">{@html arrow}</span>
-                        </a>
+                        <a target="_self" href="https://thepuddingmail.substack.com/">Subscribe to the <span class="arrow-no-wrap">newsletter<span class="link-arrow">{@html arrow}</span></span></a>
                     </div>
                 </div>
             </div>
@@ -242,6 +241,10 @@
         display: block;
         z-index: 100;
         position: relative;
+    }
+
+    .arrow-no-wrap {
+        white-space: nowrap;
     }
 
     .sticker {
