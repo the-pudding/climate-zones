@@ -387,8 +387,8 @@
 		"
 			>
 				<div
-					class="header"
-					style="background-color:#E4CCFF; border-color: #C3ADD9;"
+					class="header headerCold"
+					style="background-color:#E4CCFF; border-color: #C3ADD9;postion;absolute;"
 					aria-label="Cold"
 				>
 					<div style="z-index: 10;" class="popupColdHeader">
@@ -1000,7 +1000,7 @@
 				</div>
 				<div aria-label="Arid, steppe, hot" class="Arid-steppe-hot grouping">
 					<h2 class="classification">
-						<span class="popupArid"
+						<span class="popupArid popupAridSteppeHot"
 							><b>Mean Annual Temperature:</b> Generally exceeds 18°C. <br />
 							<b>Precipitation Precipitation:</b> The mean annual precipitation (MAP)
 							is typically higher than in arid desert climates but still relatively
@@ -1325,7 +1325,7 @@
 		border-radius: 5px;
 		top: 50%;
 		transform: translate(-30%, -129%);
-		left: 50%;
+		left: 70%;
 		align-items: center;
 		z-index: 1;
 	}
@@ -1416,7 +1416,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: lightgrey; /* Match popup background color */
+		border-top-color: grey; /* Match popup background color */
 		z-index: 2;
 
 		transform: translateX(-816%); /* Center horizontally */
@@ -1430,7 +1430,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: lightgrey; /* Match popup background color */
+		border-top-color: grey; /* Match popup background color */
 		z-index: 2;
 
 		transform: translateX(900%); /* Center horizontally */
@@ -1444,7 +1444,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: darkgray; /* Match popup background color */
+		border-top-color: grey; /* Match popup background color */
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
@@ -1456,7 +1456,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: darkgray; /* Match popup background color */
+		border-top-color: gray; /* Match popup background color */
 		z-index: 2;
 		transform: translateX(-50%); /* Center horizontally */
 	}
@@ -1469,7 +1469,7 @@
 		border-style: solid; /* Set border style */
 		border-color: transparent transparent transparent transparent; /* Match popup background color */
 		border-width: 8px;
-		border-top-color: darkgray; /* Match popup background color */
+		border-top-color: gray; /* Match popup background color */
 		z-index: 2;
 
 		transform: translateX(-816%); /* Center horizontally */
@@ -1553,10 +1553,20 @@
 			width: 350px;
 			left: -120px;
 		}
+		.headerCold {
+			z-index: 2;
+		}
 
-		.Arid-steppe-hot .popup {
+		.popupArid {
 			width: 350px;
-			left: 0px;
+			left: 250px;
+			top: 20px;
+			text-align: left;
+		}
+		.popupAridSteppeHot {
+			width: 350px;
+			left: 80px;
+			top: 20px;
 			text-align: left;
 		}
 
@@ -1576,14 +1586,14 @@
 		.popupColdHeader {
 			width: 80vw;
 			left: -252px;
-			top: 30px;
+			top: 170px;
 			z-index: 1000;
 		}
 		.popupHeader::after {
 			transform: translateX(120px);
 		}
 		.popupColdHeader::after {
-			transform: translateX(290px);
+			transform: translate(170px, -140px) rotate(-180deg);
 		}
 		.popup::after {
 			transform: translateX(-170px);
@@ -1592,8 +1602,14 @@
 			transform: translate(-170px, -96px) rotate(-180deg);
 		}
 
-		.Arid-steppe-hot .popup::after {
-			transform: translateX(-0px);
+		.popupArid::after {
+			transform: translateX(-150px);
+		}
+		.popupAridSteppeHot::after {
+			transform: translateX(20px);
+		}
+		.Cold .column header {
+			z-index: 2;
 		}
 
 		.board {
