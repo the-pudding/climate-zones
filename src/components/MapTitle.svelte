@@ -1,12 +1,12 @@
 <script>
 	import Mapbox from "$components/Mapbox.svelte";
 	import Map from "./layercake/todo/Map.canvas.svelte";
-
+	export let isMobile;
 	export let value;
 </script>
 
 <div class="intro-map">
-	<Mapbox {value} />
+	<Mapbox {isMobile} {value} />
 </div>
 
 <style>

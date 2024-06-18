@@ -16,6 +16,8 @@
 	zoom = 1.3;
 	let zoomLevel;
 	export let value;
+	export let isMobile;
+	console.log(isMobile);
 
 	$: console.log(value);
 
@@ -764,13 +766,21 @@
 			"Athens",
 			"Rome"
 		]);
-
-		map.flyTo({
-			center: [2.3522, 42.8566],
-			zoom: 4,
-			duration: 2000,
-			essential: true // this animation is considered essential with respect to prefers-reduced-motion
-		});
+		if (isMobile) {
+			map.flyTo({
+				center: [6.3522, 42.8566],
+				zoom: 3,
+				duration: 2000,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+		} else {
+			map.flyTo({
+				center: [2.3522, 42.8566],
+				zoom: 4,
+				duration: 2000,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+		}
 		map.setPaintProperty("main-layer", "fill-color", [
 			"case",
 			["==", ["get", "DN"], 0],
@@ -857,12 +867,21 @@
 		document.getElementById("year1").style.opacity = 0;
 		document.getElementById("year2").style.opacity = 0;
 
-		map.flyTo({
-			center: [2.3522, 42.8566],
-			zoom: 4,
-			duration: 2000,
-			essential: true // this animation is considered essential with respect to prefers-reduced-motion
-		});
+		if (isMobile) {
+			map.flyTo({
+				center: [6.3522, 42.8566],
+				zoom: 3,
+				duration: 2000,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+		} else {
+			map.flyTo({
+				center: [2.3522, 42.8566],
+				zoom: 4,
+				duration: 2000,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+		}
 
 		map.setFilter("cities-layer", [
 			"in",

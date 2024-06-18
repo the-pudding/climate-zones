@@ -51,7 +51,7 @@
 
 <section id="scrolly">
 	<div class="sticky">
-		<MapTitle {value} />
+		<MapTitle {isMobile} {value} />
 		<!-- {#if isMobile}
 			<BoardMobile {value} {isMobile} />
 		{:else} -->
