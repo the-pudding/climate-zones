@@ -721,6 +721,13 @@
 		});
 	}
 	$: if (value === 3 && loaded) {
+		map.setPaintProperty("video-layer", "raster-opacity", 0);
+		console.log("hio");
+		map.setPaintProperty("main-layer", "fill-opacity", 0);
+		map.setPaintProperty("present-layer2", "fill-opacity", 0);
+		map.setPaintProperty("present-layer1", "fill-opacity", 0);
+		map.setPaintProperty("present-layer3", "fill-opacity", 0);
+		map.setPaintProperty("future-layer", "fill-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-opacity", 1);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 1);
 		map.setPaintProperty("cities-labels", "text-opacity", 1);
@@ -731,6 +738,7 @@
 			"Lisbon",
 			"Casablanca",
 			"Tunis",
+			"Istanbul",
 			"Rome",
 			"Milan",
 			"Paris",
@@ -749,6 +757,7 @@
 			"Rome",
 			"Milan",
 			"Paris",
+			"Istanbul",
 			"London",
 			"Amsterdam",
 			"Milan",
@@ -838,6 +847,13 @@
 		]);
 	}
 	$: if (value === 4 && loaded) {
+		map.setPaintProperty("video-layer", "raster-opacity", 0);
+		console.log("hio");
+		map.setPaintProperty("main-layer", "fill-opacity", 0);
+		map.setPaintProperty("present-layer2", "fill-opacity", 0);
+		map.setPaintProperty("present-layer1", "fill-opacity", 0);
+		map.setPaintProperty("present-layer3", "fill-opacity", 0);
+		map.setPaintProperty("future-layer", "fill-opacity", 0);
 		document.getElementById("year1").style.opacity = 0;
 		document.getElementById("year2").style.opacity = 0;
 
@@ -857,6 +873,7 @@
 			"Rome",
 			"Milan",
 			"Paris",
+			"Istanbul",
 			"London",
 			"Amsterdam",
 			"Milan",
@@ -872,6 +889,7 @@
 			"Rome",
 			"Milan",
 			"Paris",
+			"Istanbul",
 			"London",
 			"Amsterdam",
 			"Milan",
@@ -958,6 +976,13 @@
 		]);
 	}
 	$: if (value === 5 && loaded) {
+		map.setPaintProperty("video-layer", "raster-opacity", 0);
+		console.log("hio");
+		map.setPaintProperty("main-layer", "fill-opacity", 0);
+		map.setPaintProperty("present-layer2", "fill-opacity", 0);
+		map.setPaintProperty("present-layer1", "fill-opacity", 0);
+		map.setPaintProperty("present-layer3", "fill-opacity", 0);
+		map.setPaintProperty("future-layer", "fill-opacity", 0);
 		map.setFilter("cities-layer", [
 			"in",
 			"name",
@@ -1144,7 +1169,7 @@
 		fade2();
 	}
 
-	$: if (value === 8 && loaded) {
+	$: if (value >= 8 && loaded) {
 		document.getElementsByClassName("intro-map")[0].style.opacity = 0;
 	}
 </script>
