@@ -182,6 +182,11 @@
 		});
 
 		todos = newData;
+		if (value == 13) {
+			document.getElementsByClassName("chosenCity")[0].style.backgroundColor =
+				"rgba(255, 255, 255, 0);";
+			document.getElementsByClassName("chosenCity")[0].style.zIndex = 1;
+		}
 	}
 
 	resetData(data);

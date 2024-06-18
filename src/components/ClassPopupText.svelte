@@ -28,13 +28,19 @@
 			);
 		}
 	}
+	function closeButton() {
+		document.getElementsByClassName("chosenCity")[0].style.backgroundColor =
+			"rgba(255, 255, 255, 0);";
+		document.getElementsByClassName("chosenCity")[0].style.zIndex = -1;
+	}
 </script>
 
 {#if chosenCityData.length > 0}
-	
 	<p class="chosenCity">
-		<button on:click={changeTemp(chosenCityData)} class="changeTemp">{@html buttonLabel}</button>
-
+		<button on:click={changeTemp(chosenCityData)} class="changeTemp"
+			>{@html buttonLabel}</button
+		>
+		<button on:click={closeButton} class="closeButton">X</button>
 		<b>{chosenCityData[0].name}'s</b> average temperature
 		<b>
 			<span
@@ -81,7 +87,6 @@
 		{chosenCityData[0].type_2023
 			.split(chosenCityData[0].type_2023.split(",")[0])[1]
 			.substring(2)}
-		
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}{:else}
 			to{" "}
@@ -90,13 +95,23 @@
 			</span>{/if}
 
 		{#if chosenCityData[0].type_2023 === chosenCityData[0].type_2070}{:else}
-		{chosenCityData[0].type_2070
-					.split(chosenCityData[0].type_2070.split(",")[0])[1]
-					.substring(2)}
-		{/if}</p>
+			{chosenCityData[0].type_2070
+				.split(chosenCityData[0].type_2070.split(",")[0])[1]
+				.substring(2)}
+		{/if}
+	</p>
 {/if}
 
 <style>
+	.closeButton {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		font-size: 7px;
+		margin: 2px;
+		padding: 2px;
+		display: none;
+	}
 	* {
 		font-family: Atlas Grotesk;
 	}
@@ -163,7 +178,6 @@
 		transform: translate(-50%);
 		width: calc(100% - 50px);
 		max-width: 800px;
-		
 	}
 	@media only screen and (max-width: 600px) {
 		.changeTemp {
@@ -182,6 +196,18 @@
 			border-radius: 5px;
 			font-weight: 700;
 			padding: 0 5px;
+		}
+	}
+	@media only screen and (max-height: 800px) {
+		.chosenCity {
+			background-color: rgba(255, 255, 255, 0.9);
+			font-size: 14px;
+			padding: 10px;
+			bottom: 510px;
+			text-align: center;
+		}
+		.closeButton {
+			display: block;
 		}
 	}
 </style>
