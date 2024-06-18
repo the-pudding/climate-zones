@@ -198,7 +198,7 @@
 			padding: 0 5px;
 		}
 	}
-	@media only screen and (max-height: 800px) and (max-width: 600px) {
+	@media only screen and (max-height: 700px) and (max-width: 600px) {
 		.chosenCity {
 			background-color: rgba(255, 255, 255, 0.9);
 			font-size: 14px;
