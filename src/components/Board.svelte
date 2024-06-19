@@ -374,9 +374,7 @@
 
 {#if mounted}
 	<div style="position: absolute;width:100vw;height:100vh;">
-		{#if value == 13}
-			<ClassPopupText {itemsToMove} />
-		{/if}
+		
 		<div
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};
@@ -1071,6 +1069,9 @@
 					{/each}
 				</div>
 			</div>
+			{#if value == 13}
+				<ClassPopupText {itemsToMove} />
+			{/if}
 		</div>
 	</div>
 {/if}
@@ -1622,6 +1623,10 @@
 			top: 20px;
 		}
 
+		.Arid-steppe-cold {
+			border: none;
+		}
+
 		.Cold,
 		.Arid,
 		.Temperate,
@@ -1671,5 +1676,19 @@
 				margin-bottom: 20px;
 			}
 		}
+
+		@media only screen and (max-height: 645px) and (max-width: 400px) {
+			.column {
+				margin-bottom: 15px;
+			}
+			.Arid {
+				margin-bottom: 5px;
+			}
+			label {
+				margin-right: 2px;
+			}
+		}
+
+		
 	}
 </style>

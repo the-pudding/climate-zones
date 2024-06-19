@@ -170,12 +170,14 @@
 	}
 	.chosenCity {
 		position: absolute;
-		left: 50%;
-		bottom: 10px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		bottom: -20px;
 		width: 100%;
 		z-index: 100;
 		text-align: center;
-		transform: translate(-50%);
+		transform: translate(0,100%);
 		width: calc(100% - 50px);
 		max-width: 800px;
 	}
@@ -205,9 +207,41 @@
 			padding: 10px;
 			bottom: 80%;
 			text-align: center;
+			position: relative;
+			bottom: auto;
+			transform: none;
+			left: auto;
 		}
+
+		@media only screen and (max-height: 645px) and (max-width: 400px) {
+			.chosenCity {
+				margin: 0;
+				width: 100%;
+				padding: 0;
+				font-size: 11px;
+				line-height: 1.2;
+				letter-spacing: -.2px;
+				background-color: none;
+			}
+
+			.Temperate,
+			.Cold,
+			.Tropical,
+			.Arid {
+				font-size: 11px;
+				border-radius: 5px;
+				font-weight: 400;
+				padding: 0 2px;
+			}
+
+			.changeTemp {
+				padding: 2px 2px;
+			}
+		}
+
 		.closeButton {
 			display: block;
+			display: none;
 		}
 	}
 </style>
