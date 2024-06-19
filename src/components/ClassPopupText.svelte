@@ -203,7 +203,7 @@
 			background-color: rgba(255, 255, 255, 0.9);
 			font-size: 14px;
 			padding: 10px;
-			bottom: 510px;
+			bottom: 80%;
 			text-align: center;
 		}
 		.closeButton {
