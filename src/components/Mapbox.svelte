@@ -1195,7 +1195,7 @@
 
 <div class="map-wrap">
 	<div class="years">
-		<div id="year1">2023</div>
+		<div id="year1">Present Day</div>
 		<div id="year2">2070</div>
 	</div>
 
