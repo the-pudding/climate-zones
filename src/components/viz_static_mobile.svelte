@@ -74,9 +74,7 @@
 				if (browser) {
 					var labels = document.getElementsByTagName("label");
 					for (var i = 0; i < labels.length; i++) {
-						console.log(labels[i].innerText);
 						if (labels[i].innerText == item.name) {
-							console.log(item.name);
 							labels[i].style.border = `6px solid ${item.color}`;
 							labels[i].style.fontSize = `1em`;
 							labels[i].style.fontWeight = "900";

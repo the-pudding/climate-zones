@@ -28,8 +28,6 @@
 	let todos = [];
 	let todosMain = [];
 
-	$: console.log(data);
-
 	function disableClick() {
 		setTimeout(() => {
 			const buttons = document.getElementsByTagName("button");

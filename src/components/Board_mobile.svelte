@@ -44,7 +44,6 @@
 	}
 
 	function getDuration() {
-		console.log("duration", itemsToMove);
 		if (itemsToMove.length == 0) {
 			return 0;
 		}
