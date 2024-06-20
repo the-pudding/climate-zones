@@ -13,7 +13,7 @@
 		"Here we see our 70 global cities listed in their current climate classification. As we scroll down, we can transport any city into its future classification.",
 		"<h4>Hollywood Becomes Bollywood:</h4><br>In 2070, Los Angeles’s temperature will increase 3 degrees celsius. The city moves from a Temperate to Arid classification and its climate will resemble how New Delhi feels today.",
 		"<h4>The Scandinavian Riviera:</h4><br>In the near future, people might be bragging about their luxurious beach side resort in Copenhagen. Much of Scandinavia and Northern Europe change from Cold to Temperate climates.",
-		"<h4>The Growth of Arid and Tropics:</h4><br>The now Temperate cities, with hot or wet summers, become swallowed by the Tropical and Arid classifications. Nearly 90 million people move from Temperate zones into harsher environments.",
+		"<h4>The Growth of Arid and Tropics:</h4><br>The now Temperate cities, with hot or wet summers, become swallowed by the Tropical and Arid classifications. Nearly 90 million people who live in Temperate zones shift into harsher environments.",
 		"<h4>The Disappearance of a Classification:</h4><br>Moscow will be a lonely place in 2070, as the only remaining of our cities to exist in the Cold classification. How will the planet react as we lose our diverse climates?",
 		`<h4>What stories can you discover about our future?</h4><br>Use this tool to click on any city to reveal its future climate zone. Find out to which current city its climate will be most similar.<br><br>Within each climate subcategory, cities are ordered from highest average annual temperature top to bottom, left to right.<br><br><button class="explore-button">Explore</button>`
 	];
