@@ -1235,6 +1235,11 @@
 	#year1 {
 		margin-right: 20px;
 	}
-	#year2 {
+
+	@media only screen and (max-width: 600px) {
+		#year1, #year2 {
+			font-size: 18px;
+		}
 	}
+
 </style>
