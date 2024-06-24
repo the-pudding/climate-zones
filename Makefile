@@ -12,6 +12,6 @@ aws-sync:
 	aws s3 sync build s3://pudding.cool/2024/06/climate-zones --delete --cache-control 'max-age=31536000'
 
 aws-cache:
-	aws cloudfront create-invalidation --distribution-id E13X38CRR4E04D --paths '/year/month/name*'	
+	aws cloudfront create-invalidation --distribution-id E13X38CRR4E04D --paths '/2024/06/climate-zones*'	
 
 pudding: aws-sync aws-cache

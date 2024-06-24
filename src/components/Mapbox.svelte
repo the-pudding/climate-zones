@@ -17,9 +17,6 @@
 	let zoomLevel;
 	export let value;
 	export let isMobile;
-	console.log(isMobile);
-
-	$: console.log(value);
 
 	onMount(() => {
 		window.addEventListener("resize", () => {
@@ -628,9 +625,7 @@
 		document.getElementById("year2").style.opacity = 0;
 
 		setTimeout(() => {
-			console.log(map.getStyle().layers);
 			map.setPaintProperty("video-layer", "raster-opacity", 0);
-			console.log("hio");
 			map.setPaintProperty("main-layer", "fill-opacity", 0);
 			map.setPaintProperty("present-layer2", "fill-opacity", 0);
 			map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -701,7 +696,6 @@
 
 	$: if (value === 1 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0.45);
-		console.log("cancel");
 
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
 		map.setPaintProperty("present-layer2", "fill-opacity", 0);
@@ -713,7 +707,6 @@
 		map.setPaintProperty("cities-layer", "circle-opacity", 0);
 		map.setPaintProperty("cities-layer", "circle-stroke-opacity", 0);
 		map.setPaintProperty("cities-labels", "text-opacity", 0);
-		console.log("cancel");
 
 		map.setPaintProperty("main-layer", "fill-opacity", 1);
 		map.flyTo({
@@ -724,7 +717,6 @@
 	}
 	$: if (value === 3 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0);
-		console.log("hio");
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 		map.setPaintProperty("present-layer2", "fill-opacity", 0);
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -858,7 +850,6 @@
 	}
 	$: if (value === 4 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0);
-		console.log("hio");
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 		map.setPaintProperty("present-layer2", "fill-opacity", 0);
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -996,7 +987,6 @@
 	}
 	$: if (value === 5 && loaded) {
 		map.setPaintProperty("video-layer", "raster-opacity", 0);
-		console.log("hio");
 		map.setPaintProperty("main-layer", "fill-opacity", 0);
 		map.setPaintProperty("present-layer2", "fill-opacity", 0);
 		map.setPaintProperty("present-layer1", "fill-opacity", 0);
@@ -1245,6 +1235,11 @@
 	#year1 {
 		margin-right: 20px;
 	}
-	#year2 {
+
+	@media only screen and (max-width: 600px) {
+		#year1, #year2 {
+			font-size: 18px;
+		}
 	}
+
 </style>

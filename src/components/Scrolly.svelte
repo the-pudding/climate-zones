@@ -11,7 +11,6 @@
 	import viewport from "$stores/viewport.js";
 
 	let value;
-	$: console.log(value);
 
 	let isMobile;
 	let mounted = false;
