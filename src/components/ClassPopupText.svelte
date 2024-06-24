@@ -5,7 +5,7 @@
 	import { temp_2023, temp_2070 } from "$stores/store.js";
 
 	let chosenCityData;
-	let buttonLabel = "<strong>°C</strong> / °F";
+	let buttonLabel = "<strong>°F</strong> / °C";
 
 	// Filter data to find the chosen city
 	$: chosenCityData = data.filter((el) => {
@@ -56,20 +56,20 @@
 
 		from
 		<b
-			>{#if $temp_2023 == 0}
+			>{#if buttonLabel == "<strong>°F</strong> / °C"}
 				{Math.round(((chosenCityData[0].temp_2023 * 9) / 5 + 32) * 10) /
 					10}&deg;F
 			{:else}
-				{$temp_2023}
+				{Math.round((chosenCityData[0].temp_2023 * 10) / 10)}&deg;C
 			{/if}
 		</b>
 		to
 		<b
-			>{#if $temp_2070 == 0}
+			>{#if buttonLabel == "<strong>°F</strong> / °C"}
 				{Math.round(((chosenCityData[0].temp_2070 * 9) / 5 + 32) * 10) /
 					10}&deg;F
 			{:else}
-				{$temp_2070}
+				{Math.round((chosenCityData[0].temp_2070 * 10) / 10)}&deg;C
 			{/if}</b
 		>
 		and
@@ -177,7 +177,7 @@
 		width: 100%;
 		z-index: 100;
 		text-align: center;
-		transform: translate(0,100%);
+		transform: translate(0, 100%);
 		width: calc(100% - 50px);
 		max-width: 800px;
 	}
@@ -220,7 +220,7 @@
 				padding: 0;
 				font-size: 11px;
 				line-height: 1.2;
-				letter-spacing: -.2px;
+				letter-spacing: -0.2px;
 				background-color: none;
 			}
 
@@ -245,3 +245,4 @@
 		}
 	}
 </style>
+
