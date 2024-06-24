@@ -160,7 +160,7 @@
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			accessToken:
-				"pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2xqc2g3N2o5MHAyMDNjdGhzM2V2cmR3NiJ9.3x1ManoY4deDkAGBuUMnSw",
+				"pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2x4dGY4Zzc5MThmMDJrcHhhYnFrOGU2cSJ9.PMuXZiieoVCoJTTVbFYoHw",
 			style: "mapbox://styles/dock4242/clvqhl9fj01oa01qrcse27w6z",
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
