@@ -372,7 +372,6 @@
 
 {#if mounted}
 	<div style="position: absolute;width:100vw;height:100vh;">
-		
 		<div
 			class="board"
 			style="opacity:{value > 7 ? 1 : 0};
@@ -1686,7 +1685,5 @@
 				margin-right: 2px;
 			}
 		}
-
-		
 	}
 </style>
